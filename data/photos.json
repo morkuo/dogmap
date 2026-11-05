@@ -149,6 +149,12 @@
     "license": "CC BY-SA 2.0",
     "page": "https://commons.wikimedia.org/wiki/File:A_Havanese_judging.jpg"
   },
+  "huntaway": {
+    "file": "images/huntaway.jpg",
+    "artist": "Cgoodwin",
+    "license": "CC BY 3.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Huntaway.JPG"
+  },
   "husky": {
     "file": "images/husky.jpg",
     "artist": "xJaM",
@@ -178,6 +184,12 @@
     "artist": "Kangalshepherddog",
     "license": "CC BY-SA 4.0",
     "page": "https://commons.wikimedia.org/wiki/File:Kangal_front_on.jpg"
+  },
+  "kelpie": {
+    "file": "images/kelpie.jpg",
+    "artist": "Pertti Kärppä",
+    "license": "Public domain",
+    "page": "https://commons.wikimedia.org/wiki/File:Hilu_the_Australian_Kelpie_dog.jpg"
   },
   "komondor": {
     "file": "images/komondor.jpg",
