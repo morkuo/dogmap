@@ -20,6 +20,7 @@
   --accent-soft: #e3e9ff;
   --amber: #c96f12;
   --amber-soft: #fbecd9;
+  --amber-ink: #9a4f06; /* amber for text: 5:1+ on light backgrounds */
   --note-bg: #f4f1e2;
   --shadow: 0 10px 30px rgba(20, 40, 50, .18), 0 2px 6px rgba(20, 40, 50, .08);
   --font-display: "LXGW WenKai TC", "Klee One", "Kaiti TC", "BiauKai", serif;
@@ -32,7 +33,7 @@
     color-scheme: dark;
     --sea: #0f1a1e; --land: #1d2b30; --land-hi: #3d5a44; --border: #3a4d52;
     --ink: #e6eeee; --ink-soft: #9fb1b4; --paper: #152126; --rule: #2b3b40;
-    --accent: #8fa8ff; --accent-soft: #23305c; --amber: #f2a54f; --amber-soft: #3d2c17;
+    --accent: #8fa8ff; --accent-soft: #23305c; --amber: #f2a54f; --amber-soft: #3d2c17; --amber-ink: #f2a54f;
     --note-bg: #232a22; --shadow: 0 10px 30px rgba(0,0,0,.5), 0 2px 6px rgba(0,0,0,.3);
   }
 }
@@ -40,7 +41,7 @@
   color-scheme: dark;
   --sea: #0f1a1e; --land: #1d2b30; --land-hi: #3d5a44; --border: #3a4d52;
   --ink: #e6eeee; --ink-soft: #9fb1b4; --paper: #152126; --rule: #2b3b40;
-  --accent: #8fa8ff; --accent-soft: #23305c; --amber: #f2a54f; --amber-soft: #3d2c17;
+  --accent: #8fa8ff; --accent-soft: #23305c; --amber: #f2a54f; --amber-soft: #3d2c17; --amber-ink: #f2a54f;
   --note-bg: #232a22; --shadow: 0 10px 30px rgba(0,0,0,.5), 0 2px 6px rgba(0,0,0,.3);
 }
 
@@ -81,6 +82,10 @@ button:focus-visible, input:focus-visible, .pin:focus-visible, a:focus-visible {
 .legend .kindbtn[aria-pressed="true"] i { box-shadow: 0 0 0 1.5px var(--paper); }
 .pin .ring { fill: none; stroke: var(--ink); stroke-width: 1.5; vector-effect: non-scaling-stroke; opacity: 0; }
 .pin.sel .ring { opacity: 1; }
+/* Keyboard focus on map dots and stars (SVG does not show the default outline reliably). */
+.pin:focus, .fam:focus { outline: none; }
+.pin:focus-visible .ring { opacity: 1; stroke: var(--accent); stroke-width: 3; }
+.fam:focus-visible path { stroke: var(--accent); stroke-width: 3; }
 .pin .hit { fill: transparent; }
 .pin text { font-family: var(--font-display); fill: var(--ink); paint-order: stroke; stroke: var(--land); stroke-linejoin: round; pointer-events: none; }
 .pin[hidden] { display: none; }
@@ -171,7 +176,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
 .eyebrow { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-size: 12px; letter-spacing: .08em; color: var(--ink-soft); }
 .tag { font-size: 12px; letter-spacing: .04em; padding: 0 9px; border-radius: 999px; }
 .tag.common { background: var(--accent-soft); color: var(--accent); }
-.tag.local { background: var(--amber-soft); color: var(--amber); }
+.tag.local { background: var(--amber-soft); color: var(--amber-ink); }
 .names { display: flex; flex-direction: column; gap: 2px; }
 .names h2 { font-family: var(--font-display); font-weight: 700; font-size: 28px; line-height: 1.25; margin: 0; text-wrap: balance; }
 .names .row { display: grid; grid-template-columns: 26px 1fr; gap: 6px; align-items: baseline; }
@@ -252,7 +257,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
 .myth { background: var(--accent-soft); border-radius: 8px; padding: 8px 12px; font-size: 14px; line-height: 1.7; }
 .myth b { color: var(--accent); margin-right: 4px; }
 .etym { background: var(--amber-soft); border-radius: 8px; padding: 8px 12px; font-size: 14px; line-height: 1.7; }
-.etym b { color: var(--amber); margin-right: 4px; }
+.etym b { color: var(--amber-ink); margin-right: 4px; }
 .wtag { font-size: 12px; padding: 0 9px; border-radius: 999px; border: 1px solid var(--rule); color: var(--ink-soft); letter-spacing: .04em; }
 .share { align-self: flex-start; font-size: 13px; border: 1px solid var(--rule); background: var(--paper); padding: 3px 12px; border-radius: 8px; cursor: pointer; color: var(--ink-soft); }
 
@@ -318,7 +323,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
 .triplist .n { font-family: var(--font-mono); font-size: 12px; color: var(--paper); background: var(--amber); border-radius: 999px; width: 20px; height: 20px; display: inline-grid; place-items: center; }
 .famcard .yr { font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
 .chip.fam-chip::before { content: "★"; margin-right: 4px; color: var(--amber); }
-.chip.seen::after { content: "✓"; margin-left: 5px; color: var(--amber); font-family: var(--font-body); font-size: 12px; }
+.chip.seen::after { content: "✓"; margin-left: 5px; color: var(--amber-ink); font-family: var(--font-body); font-size: 12px; }
 .drawer h3 .badge { font-family: var(--font-body); font-size: 11.5px; font-weight: 700; color: var(--paper); background: var(--amber); padding: 0 8px; border-radius: 999px; letter-spacing: .04em; }
 .resetseen { border: 0; background: none; color: var(--accent); font-size: 12.5px; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
 .toast {
@@ -348,7 +353,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
 .tl .ticks { position: relative; height: 14px; font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft); margin: -4px 8px 0; }
 .tl .ticks span { position: absolute; top: 0; transform: translateX(-50%); }
 .tl .tlevent { margin: 0; font-size: 14.5px; line-height: 1.65; min-height: 2.6em; }
-.tl .tlevent button { font: inherit; font-family: var(--font-display); font-weight: 700; border: 0; background: none; color: var(--amber); padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.tl .tlevent button { font: inherit; font-family: var(--font-display); font-weight: 700; border: 0; background: none; color: var(--amber-ink); padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .tl .tlnote { margin: 0; font-size: 12px; color: var(--ink-soft); }
 @media (max-width: 640px) {
   .tl { left: 0; right: 0; transform: none; width: auto; max-width: none; bottom: 0; border-radius: 16px 16px 0 0; border-bottom: 0; padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 14px); }
@@ -368,7 +373,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
 .qopts button { font-family: var(--font-display); font-size: 16px; border: 1px solid var(--rule); background: var(--paper); border-radius: 10px; padding: 8px 10px; cursor: pointer; }
 .qopts button:hover:not(:disabled) { border-color: var(--ink-soft); }
 .qopts button.right { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
-.qopts button.wrong { background: var(--amber-soft); border-color: var(--amber); color: var(--amber); text-decoration: line-through; }
+.qopts button.wrong { background: var(--amber-soft); border-color: var(--amber-ink); color: var(--amber-ink); text-decoration: line-through; }
 .qopts button:disabled { cursor: default; }
 @media (max-width: 640px) { .qphoto { height: 150px; } .qmodes { grid-template-columns: 1fr; } }
 /* Touch screens: every control gets a finger-sized target (about 44px). */
@@ -862,6 +867,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     select(list[i].id);
   }
   document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && !drawer.hidden) { toggleDrawer(false); listbtn.focus(); return; }
     if (e.target.tagName === "INPUT") return;
     if (e.key === "Escape") closePop();
     if (selected && e.key === "ArrowRight") step(1);
