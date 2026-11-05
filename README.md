@@ -12,6 +12,7 @@
 | --- | --- |
 | `data/breeds/<id>.json` | 一個犬種一個檔案 |
 | `data/famous/<id>.json` | 一隻歷史名犬一個檔案 |
+| `data/relations.json` | 相關犬種：每一組寫一次，附上「為什麼相關」 |
 | `data/regions.json` | 地區清單 |
 | `data/works.json` | 「原本的工作」分類 |
 | `data/photos.json` | 照片的作者、授權與原始頁面（由 `tools/fetch-photos.py` 產生） |
@@ -40,10 +41,11 @@
    | `myth` | | 「名字的誤會」：名字和真正產地不一樣時才寫 |
    | `etym` | | 「名字的由來」，有爭議的寫「一說」 |
    | `note` | | 「說法不一」：來源之間有分歧的地方 |
-   | `related` | | 相關犬種的 id，地圖上會畫連線 |
    | `milestone` | | 年表事件：`{"year": 1868, "text": "…", "label": "1860 年代"}`（`label` 可省略） |
    | `ancient` | | 古老犬種的說明（和 `milestone` 擇一） |
-   | `trip` | | 旅程路線：`[{"lat": …, "lon": …, "text": "…"}, …]`，至少兩站 |
+   | `trip` | | 旅程路線：`[{"lat": …, "lon": …, "place": "荷蘭", "text": "…"}, …]`，依時間排序、至少兩站；`place` 是地圖上顯示的地名 |
+
+   要把兩個犬種連起來，在 `data/relations.json` 加一筆 `{"a": "…", "b": "…", "why": "為什麼相關"}`，兩邊的卡片都會顯示。
 
 3. 抓照片（會從該犬種英文 Wikipedia 條目的首圖下載，並記下作者與授權）：
 

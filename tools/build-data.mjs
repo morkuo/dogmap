@@ -48,7 +48,7 @@ const breedFiles = loadDir("breeds");
 const breedIds = new Set(breedFiles.map(b => b.data.id));
 const orders = new Map();
 const allowedBreedKeys = new Set(["id", "zh", "ja", "en", "region", "country", "place", "lat", "lon", "tags", "work",
-  "myth", "etym", "job", "story", "note", "related", "milestone", "ancient", "trip", "sources", "order"]);
+  "myth", "etym", "job", "story", "note", "milestone", "ancient", "trip", "sources", "order"]);
 for (const { file, base, data: b } of breedFiles) {
   for (const k of Object.keys(b)) if (!allowedBreedKeys.has(k)) err(file, `不認得的欄位「${k}」（打錯字了嗎？）`);
   if (b.id !== base) err(file, `id「${b.id}」要和檔名「${base}」一樣`);
@@ -62,10 +62,6 @@ for (const { file, base, data: b } of breedFiles) {
     err(file, "tags 要是 [\"common\"]、[\"local\"] 或兩者都有");
   if (!Array.isArray(b.work) || !b.work.length) err(file, "work 至少要有一項");
   else b.work.forEach(w => { if (!workIds.has(w)) err(file, `work「${w}」不存在，可用：${[...workIds].join("、")}`); });
-  (b.related || []).forEach(r => {
-    if (r === b.id) err(file, "related 不能放自己");
-    else if (!breedIds.has(r)) err(file, `related 裡的「${r}」找不到這個犬種`);
-  });
   if (b.milestone !== undefined) {
     const m = b.milestone;
     if (!Number.isInteger(m.year) || m.year < 1000 || m.year > thisYear) err(file, `milestone.year 要是 1000 到 ${thisYear} 之間的整數`);
@@ -75,7 +71,11 @@ for (const { file, base, data: b } of breedFiles) {
   if (b.milestone && b.ancient) err(file, "milestone 和 ancient 只能擇一");
   if (b.trip !== undefined) {
     if (!Array.isArray(b.trip) || b.trip.length < 2) err(file, "trip 至少要有兩站");
-    else b.trip.forEach((t, i) => { checkLatLon(`${file} trip[${i}]`, t); if (!isStr(t.text)) err(file, `trip[${i}] 缺少 text`); });
+    else b.trip.forEach((t, i) => {
+      checkLatLon(`${file} trip[${i}]`, t);
+      if (!isStr(t.place)) err(file, `trip[${i}] 缺少 place（地圖上顯示的地名）`);
+      if (!isStr(t.text)) err(file, `trip[${i}] 缺少 text`);
+    });
   }
   if (!isNum(b.order)) err(file, "缺少 order（在列表裡的順序）");
   else if (orders.has(b.order)) err(file, `order ${b.order} 和 ${orders.get(b.order)} 重複`);
@@ -85,6 +85,25 @@ for (const { file, base, data: b } of breedFiles) {
   if (!ph) err(file, "data/photos.json 裡沒有這隻狗的照片資料（可執行 tools/fetch-photos.py）");
   else if (!fs.existsSync(path.join(root, ph.file))) err(file, `找不到照片檔 ${ph.file}`);
 }
+
+// ── Relations: each pair once, with the reason they are related ──
+const relations = readJSON(D("relations.json"));
+const relOf = new Map();
+const seenPairs = new Set();
+relations.forEach((r, i) => {
+  const where = `data/relations.json 第 ${i + 1} 筆`;
+  if (!breedIds.has(r.a)) err(where, `a「${r.a}」找不到這個犬種`);
+  if (!breedIds.has(r.b)) err(where, `b「${r.b}」找不到這個犬種`);
+  if (r.a === r.b) err(where, "a 和 b 不能是同一個犬種");
+  if (!isStr(r.why)) err(where, "缺少 why（為什麼相關）");
+  const key = [r.a, r.b].sort().join("|");
+  if (seenPairs.has(key)) err(where, `${r.a} 和 ${r.b} 重複了`);
+  seenPairs.add(key);
+  for (const [x, y] of [[r.a, r.b], [r.b, r.a]]) {
+    if (!relOf.has(x)) relOf.set(x, []);
+    relOf.get(x).push({ id: y, why: r.why });
+  }
+});
 
 // ── Famous dogs ──
 const famousFiles = loadDir("famous");
@@ -105,13 +124,17 @@ if (errors.length) {
 const breeds = breedFiles.map(b => b.data).sort((a, b) => a.order - b.order);
 const famous = famousFiles.map(f => f.data).sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 const strip = (o, keys) => Object.fromEntries(Object.entries(o).filter(([k]) => !keys.includes(k)));
-const DOGS = breeds.map(b => strip(b, ["milestone", "ancient", "trip", "order"]));
+const DOGS = breeds.map(b => {
+  const o = strip(b, ["milestone", "ancient", "trip", "order"]);
+  if (relOf.has(b.id)) o.related = relOf.get(b.id);
+  return o;
+});
 const FAMOUS = famous.map(f => strip(f, ["order"]));
 const MILESTONES = Object.fromEntries(breeds.filter(b => b.milestone).map(b => [b.id, b.milestone]));
 const ANCIENT = Object.fromEntries(breeds.filter(b => b.ancient).map(b => [b.id, b.ancient]));
-const TRIPS = Object.fromEntries(breeds.filter(b => b.trip).map(b => [b.id, b.trip.map(t => [t.lat, t.lon, t.text])]));
+const TRIPS = Object.fromEntries(breeds.filter(b => b.trip).map(b => [b.id, b.trip.map(t => [t.lat, t.lon, t.text, t.place])]));
 const js = `// 這個檔案是 tools/build-data.mjs 從 data/ 自動產生的，請不要直接修改。\n` +
   Object.entries({ REGIONS: regions, WORKS: works, DOGS, FAMOUS, MILESTONES, ANCIENT, TRIPS, PHOTOS: photos })
     .map(([k, v]) => `window.${k} = ${JSON.stringify(v)};`).join("\n") + "\n";
 fs.writeFileSync(path.join(root, "data.js"), js);
-console.log(`data.js 已更新：${DOGS.length} 種狗、${FAMOUS.length} 隻名犬、${Object.keys(MILESTONES).length} 個年表事件、${Object.keys(TRIPS).length} 條旅程`);
+console.log(`data.js 已更新：${DOGS.length} 種狗、${FAMOUS.length} 隻名犬、${relations.length} 組相關犬種、${Object.keys(MILESTONES).length} 個年表事件、${Object.keys(TRIPS).length} 條旅程`);

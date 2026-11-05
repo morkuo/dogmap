@@ -302,7 +302,15 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
 .trip path.leg { fill: none; stroke: var(--amber); stroke-width: 2.5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .trip circle { fill: var(--amber); stroke: var(--paper); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
 .trip circle.on { fill: var(--ink); }
-.trip text { font-family: var(--font-mono); font-weight: 500; fill: var(--paper); pointer-events: none; }
+.trip text.num { font-family: var(--font-mono); font-weight: 500; fill: #1c1205; pointer-events: none; }
+.trip text.where { font-family: var(--font-display); font-weight: 700; fill: var(--ink); paint-order: stroke; stroke: var(--land); stroke-linejoin: round; pointer-events: none; }
+.trip path.arrow { fill: var(--amber); stroke: none; }
+.trip g.on circle { fill: var(--ink); }
+.trip g.on text.num { fill: var(--paper); }
+.rellist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.rellist li { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; align-items: baseline; font-size: 13.5px; line-height: 1.6; }
+.rellist .chip { justify-self: start; }
+.tripintro { margin: 0 0 6px; font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
 .triplist { margin: 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; font-size: 14px; line-height: 1.6; }
 .triplist li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: baseline; border-radius: 6px; padding: 2px 4px; cursor: default; }
 .triplist li:hover { background: var(--amber-soft); }
@@ -567,8 +575,13 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     pins.select("text").attr("font-size", 13 / k).attr("stroke-width", 3 / k);
     fams.select("path").attr("transform", f => `scale(${(f.id === selFam ? 1.35 : 1) / s})`);
     fams.select("circle.hit").attr("r", 12 / k);
-    tripG.selectAll("circle").attr("r", 8 / s);
-    tripG.selectAll("text").attr("font-size", 10 / s).attr("dy", 3.5 / s);
+    tripG.selectAll("circle").attr("r", 9 / s);
+    tripG.selectAll("text.num").attr("font-size", 11 / s).attr("dy", 3.8 / s);
+    tripG.selectAll("text.where").attr("font-size", 13 / k).attr("dy", 4.5 / k).attr("stroke-width", 3 / k);
+    layoutStops();
+    tripG.selectAll("path.arrow").attr("transform", function () {
+      return `translate(${this.dataset.x},${this.dataset.y}) rotate(${this.dataset.a}) scale(${1.6 / s})`;
+    });
     placeLabels();
   }
   // Show a name only where it fits: try above the dot, then below; skip it if it would overlap another label.
@@ -685,8 +698,8 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   function renderPop(d) {
     const tags = d.tags.map(t => `<span class="tag ${t}">${t === "common" ? "世界常見" : "在地特色"}</span>`).join("") +
       (d.work || []).map(w => `<span class="wtag">${esc(workName[w] || w)}</span>`).join("");
-    const related = (d.related || []).filter(id => byId[id]).map(id =>
-      `<button type="button" class="chip" data-go="${id}">${esc(byId[id].zh)}</button>`).join("");
+    const related = (d.related || []).filter(r => byId[r.id]).map(r =>
+      `<li><button type="button" class="chip" data-go="${r.id}">${esc(byId[r.id].zh)}</button><span>${esc(r.why)}</span></li>`).join("");
     const ph = PHOTOS[d.id];
     const photo = ph ? `<figure class="photo" style="--bg:url('${esc(ph.file)}')">
         <img src="${esc(ph.file)}" alt="${esc(d.zh)}的照片">
@@ -709,11 +722,11 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
         </dl>
         <p class="story">${esc(d.story)}</p>
         ${d.note ? `<div class="note"><b>說法不一</b>${esc(d.note)}</div>` : ""}
-        ${TRIPS[d.id] ? `<div><p class="sub">牠的旅程（地圖上的橘色路線）</p><ol class="triplist">${TRIPS[d.id].map(([, , t], i) =>
-          `<li data-stop="${i}"><span class="n">${i + 1}</span><span>${esc(t)}</span></li>`).join("")}</ol></div>` : ""}
+        ${TRIPS[d.id] ? `<div><p class="sub">牠的旅程</p><p class="tripintro">這個犬種從原產地傳到其他地方的經過，依時間排序；地圖上的橘色箭頭就是這條路線。</p><ol class="triplist">${TRIPS[d.id].map(([, , t, where], i) =>
+          `<li data-stop="${i}"><span class="n">${i + 1}</span><span><b>${esc(where)}</b>｜${esc(t)}</span></li>`).join("")}</ol></div>` : ""}
         ${famOf(d.id).length ? `<div><p class="sub">這個犬種的名犬</p><div class="chips">${famOf(d.id).map(f =>
           `<button type="button" class="chip fam-chip" data-fam="${f.id}">${esc(f.name)}</button>`).join("")}</div></div>` : ""}
-        ${related ? `<div><p class="sub">相關的狗</p><div class="chips">${related}</div></div>` : ""}
+        ${related ? `<div><p class="sub">相關的狗（地圖上的藍色虛線）</p><ul class="rellist">${related}</ul></div>` : ""}
         <div><p class="sub">資料來源</p><ul class="sources">${d.sources.map(([t, u]) =>
           `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("")}</ul></div>
         <button type="button" class="share" data-share="${d.id}">複製這隻狗的連結</button>
@@ -746,7 +759,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     const top = Math.max(minTop, Math.min(y - 70, H - ph - 12));
     // Pick the side that fits and hides the fewest related dogs (so their connecting lines stay visible).
     // Keep related dogs, journey stops and the linked breed visible beside the card.
-    const relIds = selFam ? (d.breed ? [d.breed] : []) : (d.related || []);
+    const relIds = selFam ? (d.breed ? [d.breed] : []) : (d.related || []).map(r => r.id);
     const relPts = relIds.filter(id => byId[id] && visible(byId[id])).map(id => T.apply(projection([byId[id].lon, byId[id].lat])))
       .concat(((!selFam && TRIPS[d.id]) || []).map(([la, lo]) => T.apply(projection([lo, la]))));
     const covers = l => relPts.filter(([rx, ry]) => rx >= l - 8 && rx <= l + pw + 8 && ry >= top - 8 && ry <= top + ph + 8).length;
@@ -815,7 +828,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   pop.addEventListener("pointerup", endDrag);
   pop.addEventListener("pointercancel", endDrag);
   const hiRel = (id, on) => relG.selectAll("path").classed("on", r => on && r === id);
-  pop.addEventListener("mouseover", e => { const li = e.target.closest("[data-stop]"); tripG.selectAll("circle").classed("on", (x, i) => !!li && i === +li.dataset.stop); });
+  pop.addEventListener("mouseover", e => { const li = e.target.closest("[data-stop]"); tripG.selectAll("g.stop").classed("on", (x, i) => !!li && i === +li.dataset.stop); });
   pop.addEventListener("mouseover", e => { const t = e.target.closest("[data-go]"); if (t) hiRel(t.dataset.go, true); });
   pop.addEventListener("mouseout", e => { const t = e.target.closest("[data-go]"); if (t) hiRel(t.dataset.go, false); });
   pop.addEventListener("click", e => {
@@ -904,9 +917,31 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     fams.filter(x => x.id === fid).raise();
     cSel.classed("hi", false);
     tripG.selectAll("*").remove();
-    drawRelations(f.breed && byId[f.breed] ? { lon: f.lon, lat: f.lat, related: [f.breed] } : null);
+    drawRelations(f.breed && byId[f.breed] ? { lon: f.lon, lat: f.lat, related: [{ id: f.breed }] } : null);
     sizePins(); renderDrawer(); openPop(f, renderFamous);
     setHash("f-" + fid);
+  }
+  // Keep journey stops readable when they sit close together on screen:
+  // nudge a marker that would cover an earlier one, and put each place name on the right, the left, or hide it.
+  function layoutStops() {
+    const k = T.k, s = Math.sqrt(k), placed = [], boxes = [];
+    tripG.selectAll("g.stop").each(function (_, i) {
+      const g0 = d3.select(this);
+      const [lat, lon] = TRIPS[selected][i];
+      let [x, y] = T.apply(projection([lon, lat]));
+      let dy = 0;
+      while (placed.some(([px, py]) => Math.hypot(px - x, py - (y + dy)) < 20)) dy -= 20;
+      placed.push([x, y + dy]);
+      g0.attr("transform", `translate(${projection([lon, lat])}) translate(0,${dy / k})`);
+      const label = g0.select("text.where"), w = label.text().length * 13 + 6;
+      const right = { x0: x + 12, x1: x + 12 + w, y0: y + dy - 9, y1: y + dy + 9 };
+      const left = { x0: x - 12 - w, x1: x - 12, y0: y + dy - 9, y1: y + dy + 9 };
+      const hit = b => boxes.some(o => b.x0 < o.x1 && b.x1 > o.x0 && b.y0 < o.y1 && b.y1 > o.y0)
+        || placed.some(([px, py]) => px > b.x0 - 9 && px < b.x1 + 9 && py > b.y0 - 9 && py < b.y1 + 9 && !(px === x && py === y + dy));
+      if (!hit(right)) { boxes.push(right); label.attr("display", null).attr("text-anchor", "start").attr("x", 13 / s); }
+      else if (!hit(left)) { boxes.push(left); label.attr("display", null).attr("text-anchor", "end").attr("x", -13 / s); }
+      else label.attr("display", "none");
+    });
   }
   // Numbered journey route for breeds that travelled.
   function drawTrip(d) {
@@ -923,16 +958,26 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
           .on("end", function () { d3.select(this).attr("stroke-dasharray", null); });
       }
     }
-    stops.forEach(([la, lo], i) => {
-      const gg = tripG.append("g").attr("transform", `translate(${projection([lo, la])})`);
-      gg.append("circle");
-      gg.append("text").attr("text-anchor", "middle").text(i + 1);
+    // Arrowhead at the middle of each leg so the direction of travel is clear.
+    tripG.selectAll("path.leg").each(function () {
+      const L = this.getTotalLength(); if (L < 30) return;
+      const m = this.getPointAtLength(L / 2), n = this.getPointAtLength(Math.min(L, L / 2 + 1));
+      const ang = Math.atan2(n.y - m.y, n.x - m.x) * 180 / Math.PI;
+      tripG.append("path").attr("class", "arrow").attr("d", "M5,0L-4,-4.5L-4,4.5Z")
+        .attr("data-x", m.x).attr("data-y", m.y).attr("data-a", ang);
     });
+    stops.forEach(([la, lo, , where], i) => {
+      const gg = tripG.append("g").attr("class", "stop").attr("transform", `translate(${projection([lo, la])})`);
+      gg.append("circle");
+      gg.append("text").attr("class", "num").attr("text-anchor", "middle").text(i + 1);
+      gg.append("text").attr("class", "where").attr("text-anchor", "start").text(where);
+    });
+    tripG.raise();
     sizePins();
   }
   // Dashed great-circle lines from the open dog to its related dogs.
   function drawRelations(d) {
-    const rel = d ? (d.related || []).filter(id => byId[id] && visible(byId[id])) : [];
+    const rel = d ? (d.related || []).map(r => r.id).filter(id => byId[id] && visible(byId[id])) : [];
     pins.classed("relpin", x => rel.includes(x.id));
     relG.selectAll("path").data(rel, id => id).join("path")
       .attr("class", "rel").attr("data-rel", id => id)
