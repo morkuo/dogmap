@@ -2,6 +2,10 @@
 // 只收有來源的年份（來源見各犬種卡片）；年份不精確的用 label 寫成「1920 年代」等。
 // 沒列在這裡的犬種，在年表模式中顯示為灰點（年份未定）。
 window.MILESTONES = {
+  komondor:     { year: 1544, text: "匈牙利古籍第一次提到可蒙犬" },
+  wolfhound:    { year: 1863, text: "George Graham 開始復育幾乎消失的愛爾蘭獵狼犬" },
+  greatdane:    { year: 1880, label: "1878–1880 年", text: "德國育犬者在柏林把大丹犬統一命名為 Deutsche Dogge" },
+  kaiken:       { year: 1934, text: "甲斐犬被指定為日本的天然紀念物" },
   lundehund:    { year: 1591, text: "挪威韋略島的海鸚狗第一次出現在文字紀錄裡" },
   pug:          { year: 1688, text: "巴哥犬跟著威廉三世從荷蘭來到英國" },
   dachshund:    { year: 1700, label: "1700 年代初", text: "德國書籍第一次可查證地記載「獾狗」" },

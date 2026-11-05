@@ -178,6 +178,20 @@ window.DOGS = [
     ]
   },
 
+  {
+    id: "fila",
+    zh: "巴西菲勒犬", ja: "フィラ・ブラジレイロ", en: "Fila Brasileiro",
+    region: "la", country: ["076"], place: "巴西東南部的大農場",
+    lat: -20.0, lon: -44.0, tags: ["local"], work: ["guard", "herd", "hunt"],
+    job: "看守農場、趕牛，也狩獵美洲豹等大型動物",
+    story: "巴西菲勒犬是在殖民時期巴西的大農場和牧場上培育出來的大型犬，負責看守、趕牛，也會追獵美洲豹等大型動物。牠的歷史也有黑暗的一面：18 世紀巴西還有奴隸制度時，牠曾被用來追捕逃跑的奴隸。牠對陌生人非常警戒，英國等地把牠列為禁養的危險犬種。",
+    note: "牠的祖先是哪些歐洲犬種，各資料說法不一。",
+    sources: [
+      ["Wikipedia", "https://en.wikipedia.org/wiki/Fila_Brasileiro"],
+      ["FCI 品種標準", "https://kusa.co.za/images/WORKING%20GROUP%202024/Fila%20Brasieiro%20-%20FCI%20[01-2019].pdf"]
+    ]
+  },
+
   // ───────── 歐洲 ─────────
   {
     id: "golden",
@@ -378,6 +392,51 @@ window.DOGS = [
     ]
   },
 
+  {
+    id: "greatdane",
+    zh: "大丹犬", ja: "グレート・デーン", en: "Great Dane",
+    region: "eu", country: ["276"], place: "德國",
+    lat: 52.52, lon: 13.40, tags: ["common"], work: ["hunt"],
+    myth: "英文叫 Great Dane（大丹麥狗），其實是德國犬種，跟丹麥沒有已知的關係。",
+    etym: "英文名來自法文 Grand Danois（大丹麥狗）；德國人叫牠 Deutsche Dogge，意思是「德國獒犬」。",
+    job: "獵野豬：咬住獵物，等獵人趕到",
+    story: "大丹犬在德國至少有 400 年歷史，最早是貴族打獵用的狗，負責撲上去咬住野豬，撐到獵人趕來。英文名字裡的 Dane 是「丹麥人」，但這只是從法文名稱 Grand Danois 沿用下來的，牠和丹麥並沒有已知的關係。19 世紀後半，德國育犬者在柏林把各種大型獵犬統一成同一個品種，取名 Deutsche Dogge。",
+    note: "德國統一命名的年份，有的資料寫 1878 年，有的寫 1880 年；常見的「1876 年成為德國國犬」則找不到可靠出處。",
+    sources: [
+      ["大英百科全書", "https://www.britannica.com/animal/Great-Dane"],
+      ["AKC：大丹犬的 7 件事", "https://www.akc.org/expert-advice/lifestyle/7-facts-about-the-great-dane/"],
+      ["Wikipedia", "https://en.wikipedia.org/wiki/Great_Dane"]
+    ]
+  },
+  {
+    id: "wolfhound",
+    zh: "愛爾蘭獵狼犬", ja: "アイリッシュ・ウルフハウンド", en: "Irish Wolfhound",
+    region: "eu", country: ["372"], place: "愛爾蘭",
+    lat: 53.3, lon: -7.9, tags: ["local"], work: ["hunt"],
+    job: "獵狼",
+    story: "愛爾蘭獵狼犬是體型最高的犬種之一，以前專門用來獵狼。後來愛爾蘭的狼被獵光了，牠也跟著失去工作，數量少到 19 世紀初常被認為已經滅絕。1863 年起，英國軍官 George Graham 把剩下的少數獵狼犬和蘇格蘭獵鹿犬、俄羅斯獵狼犬、大丹犬等混種，重新把這個品種復育起來，並在 1885 年成立了愛爾蘭獵狼犬俱樂部。",
+    related: ["greatdane"],
+    sources: [
+      ["AKC：愛爾蘭獵狼犬的歷史", "https://www.akc.org/expert-advice/dog-breeds/irish-wolfhound-history/"],
+      ["Wikipedia", "https://en.wikipedia.org/wiki/Irish_Wolfhound"]
+    ]
+  },
+  {
+    id: "komondor",
+    zh: "可蒙犬", ja: "コモンドール", en: "Komondor",
+    region: "eu", country: ["348"], place: "匈牙利大平原",
+    lat: 47.0, lon: 19.8, tags: ["local"], work: ["guard"],
+    etym: "一說來自 Koman-dor，意思是「庫曼人的狗」。",
+    job: "保護羊群不被狼攻擊",
+    story: "可蒙犬一身白色的長毛會自己糾結成一條一條的繩狀，看起來像一支大拖把。牠是匈牙利的護畜犬，和中亞來的遊牧民族庫曼人有關：庫曼人在 13 世紀遷入匈牙利，考古學家也在庫曼人的墓地裡發現過這種狗的遺骸。匈牙利文獻裡最早提到可蒙犬，是 1544 年的一本古籍。",
+    note: "可蒙犬的祖先是否更早來自其他地區，目前沒有定論。",
+    related: ["alabai", "kangal"],
+    sources: [
+      ["AKC：可蒙犬的歷史", "https://www.akc.org/expert-advice/dog-breeds/komondor-history/"],
+      ["Wikipedia", "https://en.wikipedia.org/wiki/Komondor"]
+    ]
+  },
+
   // ───────── 非洲 ─────────
   {
     id: "basenji",
@@ -484,7 +543,7 @@ window.DOGS = [
     job: "保護羊群不被狼攻擊",
     story: "中亞牧羊犬在土庫曼叫做 Alabai，是體型巨大的護畜犬，負責在草原上保護羊群不被狼攻擊。牠在土庫曼的地位非常特別：2020 年，首都阿什哈巴德立起一座鍍金的 Alabai 雕像，底座四周還有播放真狗影片的螢幕；土庫曼政府也把每年四月的最後一個星期日訂為 Alabai 的節日，跟國寶阿哈爾捷金馬同一天慶祝。",
     note: "鍍金雕像的高度，各家媒體報導從 6 公尺到 15 公尺都有。",
-    related: ["kangal", "tibetanmastiff"],
+    related: ["kangal", "tibetanmastiff", "komondor"],
     sources: [
       ["CNN：土庫曼為狗設國定節日", "https://amp.cnn.com/cnn/travel/article/turkmenistan-dog-national-holiday-scli-intl"],
       ["Meduza：阿什哈巴德的金色狗雕像", "https://meduza.io/en/feature/2020/11/12/turkmenistan-s-president-unveils-giant-golden-dog-statue-in-the-nation-s-capital"],
@@ -498,7 +557,7 @@ window.DOGS = [
     lat: 39.23, lon: 37.39, tags: ["local"], work: ["guard"],
     job: "保護羊群不被狼攻擊",
     story: "坎高犬的名字來自土耳其中部錫瓦斯省的坎高地區，是保護羊群不被狼攻擊的大型護畜犬。牠還遠渡重洋做了保育工作：非洲納米比亞的「獵豹保育基金會」把坎高犬送給當地牧場，讓牠們守護牲畜、把獵豹嚇走。牧民的牲畜損失減少了，就比較不會射殺或誘捕獵豹，等於狗狗間接救了獵豹。",
-    related: ["alabai"],
+    related: ["alabai", "komondor"],
     sources: [
       ["Wikipedia", "https://en.wikipedia.org/wiki/Kangal_Shepherd_Dog"],
       ["CNN：納米比亞用護衛犬保護獵豹", "https://amp.cnn.com/cnn/2016/03/08/africa/cheetahs-guard-dogs-namibia"]
@@ -528,7 +587,7 @@ window.DOGS = [
     job: "在山林灌木叢中打獵",
     story: "「柴」常被解釋為灌木叢，因為柴犬以前在山裡的灌木叢間幫忙打獵；也有人說是牠的紅棕毛色像枯掉的柴；還有一說，「柴」在古語裡是「小」的意思。1936 年柴犬被指定為日本的天然紀念物。網路迷因 Doge 的主角卡波醬（かぼす）也是柴犬，牠在 2024 年離世。",
     note: "「柴」的字源沒有定論，上面三種說法都有人支持。",
-    related: ["akita"],
+    related: ["akita", "kaiken"],
     sources: [
       ["AKC：柴犬的歷史", "https://www.akc.org/expert-advice/dog-breeds/shiba-inu-breed-history/"],
       ["Wikipedia", "https://en.wikipedia.org/wiki/Shiba_Inu"]
@@ -541,7 +600,7 @@ window.DOGS = [
     lat: 40.27, lon: 140.56, tags: ["common", "local"], work: ["hunt", "guard"],
     job: "獵大型動物、看守",
     story: "忠犬小八（ハチ公）就是秋田犬。牠的主人上野英三郎教授 1925 年過世後，小八還是每天到澀谷車站等他，等了將近十年。美國作家海倫・凱勒 1937 年訪問日本時聽了這個故事，很想養一隻秋田犬，於是得到一隻叫「神風號」的小狗，牠也成了第一隻到美國生活的秋田犬。",
-    related: ["shiba"],
+    related: ["shiba", "kaiken"],
     sources: [
       ["AKC：海倫・凱勒與秋田犬", "https://www.akc.org/expert-advice/dog-breeds/helen-keller-was-a-true-dog-lover/"],
       ["Wikipedia：忠犬小八", "https://en.wikipedia.org/wiki/Hachik%C5%8D"]
@@ -640,6 +699,22 @@ window.DOGS = [
     sources: [
       ["FCI 品種標準", "https://www.fci.be/Nomenclature/Standards/338g05-en.pdf"],
       ["Wikipedia", "https://en.wikipedia.org/wiki/Thai_Ridgeback"]
+    ]
+  },
+
+  {
+    id: "kaiken",
+    zh: "甲斐犬", ja: "甲斐犬（かいけん）", en: "Kai Ken",
+    region: "ea", country: ["392"], place: "日本・山梨縣（古稱甲斐國）",
+    lat: 35.66, lon: 138.57, tags: ["local"], work: ["hunt"],
+    etym: "甲斐是山梨縣的古名。",
+    job: "在山區獵野豬和日本髭羚",
+    story: "甲斐犬來自山梨縣的山區，當地人用牠獵野豬和日本髭羚。牠最大的特色是一身虎斑毛色，依深淺分成赤虎、中虎、黑虎三種，所以也被叫做「虎毛犬」。1934 年，甲斐犬被指定為日本的天然紀念物，和柴犬、秋田犬一樣由日本犬保存會負責保護。",
+    related: ["shiba", "akita"],
+    sources: [
+      ["日本犬保存會：甲斐犬", "https://nihonken-hozonkai.or.jp/en/kaiken"],
+      ["FCI 品種標準", "https://fci.be/Nomenclature/Standards/317g05-en.pdf"],
+      ["Wikipedia", "https://en.wikipedia.org/wiki/Kai_Ken"]
     ]
   },
 

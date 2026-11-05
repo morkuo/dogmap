@@ -706,20 +706,21 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     const [px, py] = T.apply(projection([d.lon, d.lat]));
     // If the pin is zoomed out of view, keep the card on screen and drop the arrow.
     const off = px < 0 || px > W || py < 0 || py > H;
-    const x = Math.max(0, Math.min(px, W)), y = Math.max(64, Math.min(py, H));
+    const minTop = barBottom() + 8; // never cover the controls at the top, even when they wrap to two rows
+    const x = Math.max(0, Math.min(px, W)), y = Math.max(minTop, Math.min(py, H));
     const pw = pop.offsetWidth, gap = 22;
-    scroll.style.maxHeight = (Math.min(H - 90, 660) - 52) + "px";
+    scroll.style.maxHeight = (Math.min(H - minTop - 20, 660) - 52) + "px";
     if (userPos) {
       // The reader dragged the card somewhere: keep it there (inside the window) and drop the arrow.
       const ph0 = pop.offsetHeight;
       userPos.left = Math.max(8, Math.min(userPos.left, W - pw - 8));
-      userPos.top = Math.max(8, Math.min(userPos.top, H - ph0 - 8));
+      userPos.top = Math.max(minTop, Math.min(userPos.top, H - ph0 - 8));
       pop.style.left = userPos.left + "px"; pop.style.top = userPos.top + "px";
       pop.querySelector(".arrow").style.visibility = "hidden";
       return;
     }
     const ph = pop.offsetHeight;
-    const top = Math.max(64, Math.min(y - 70, H - ph - 12));
+    const top = Math.max(minTop, Math.min(y - 70, H - ph - 12));
     // Pick the side that fits and hides the fewest related dogs (so their connecting lines stay visible).
     // Keep related dogs, journey stops and the linked breed visible beside the card.
     const relIds = selFam ? (d.breed ? [d.breed] : []) : (d.related || []);

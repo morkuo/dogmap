@@ -281,5 +281,35 @@ window.PHOTOS={
   "artist": "HiSa Hiller, Schweiz",
   "license": "CC BY-SA 3.0",
   "page": "https://commons.wikimedia.org/wiki/File:Thai-Ridgeback.jpg"
+ },
+ "fila": {
+  "file": "images/fila.jpg",
+  "artist": "Pleple2000",
+  "license": "CC BY-SA 3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Fila_brasileiro_ppk9.jpg"
+ },
+ "greatdane": {
+  "file": "images/greatdane.jpg",
+  "artist": "Lilly M",
+  "license": "CC BY-SA 2.5",
+  "page": "https://commons.wikimedia.org/wiki/File:Dog_niemiecki_%C5%BC%C3%B3%C5%82ty_LM980.jpg"
+ },
+ "wolfhound": {
+  "file": "images/wolfhound.jpg",
+  "artist": "Dux",
+  "license": "CC BY-SA 3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:(2)_Irish_Wolfhound_4.jpg"
+ },
+ "komondor": {
+  "file": "images/komondor.jpg",
+  "artist": "Nikki68 at Russian Wikipedia",
+  "license": "CC BY 2.5",
+  "page": "https://commons.wikimedia.org/wiki/File:Komondor_delvin.jpg"
+ },
+ "kaiken": {
+  "file": "images/kaiken.jpg",
+  "artist": "Kei87c1",
+  "license": "CC BY-SA 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Kai-front.jpg"
  }
 };
