@@ -215,7 +215,8 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
 
 /* Phone: card becomes a bottom sheet */
 @media (max-width: 640px) {
-  h1 { font-size: 19px; }
+  h1 { font-size: 17px; }
+  .brand { padding: 6px 12px; }
   .brand .count { display: none; }
   .search { flex: 1 1 140px; }
   .search input { width: 100%; }
@@ -310,7 +311,36 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   background: var(--amber); color: #1c1205; font-weight: 700; font-size: 14.5px; padding: 8px 16px; border-radius: 999px; box-shadow: var(--shadow);
   transition: opacity .35s ease; white-space: nowrap; max-width: calc(100vw - 24px); overflow: hidden; text-overflow: ellipsis;
 }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+/* Breed timeline */
+.timebtn { border: 1px solid var(--rule); background: var(--paper); border-radius: 999px; padding: 6px 14px; font-size: 14px; cursor: pointer; box-shadow: var(--shadow); }
+.app.timemode .pin.future { display: none; }
+.app.timemode .fam { display: none; }
+.app.timemode .pin.undated { opacity: .22; }
+.app.timemode .seg, .app.timemode .worksel, .app.timemode .search, .app.timemode .quizbtn, .app.timemode .timebtn, .app.timemode .legend { display: none; }
+.pin.born .ring { opacity: 1; stroke: var(--amber); animation: born .9s ease-out; }
+@keyframes born { from { stroke-width: 6; opacity: 1; } to { stroke-width: 1; opacity: 0; } }
+.tl { position: absolute; z-index: 9; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
+  width: 560px; max-width: calc(100vw - 24px); background: var(--paper); border: 1px solid var(--rule); border-radius: var(--r); box-shadow: var(--shadow);
+  padding: 12px 16px 14px; display: flex; flex-direction: column; gap: 8px; }
+.tl .tlhead { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.tl .tlyear { font-family: var(--font-display); font-weight: 700; font-size: 30px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.tl .tlyear small { font-family: var(--font-body); font-weight: 400; font-size: 13px; color: var(--ink-soft); margin-left: 8px; }
+.tl .tlbtns { display: flex; gap: 8px; }
+.tl .tlbtns { flex: none; }
+.tl .tlbtns button { white-space: nowrap; font-size: 13.5px; border: 1px solid var(--rule); background: var(--paper); padding: 4px 12px; border-radius: 8px; cursor: pointer; }
+.tl .tlbtns .primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.tl input[type=range] { width: 100%; accent-color: var(--amber); margin: 0; }
+.tl .ticks { position: relative; height: 14px; font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft); margin: -4px 8px 0; }
+.tl .ticks span { position: absolute; top: 0; transform: translateX(-50%); }
+.tl .tlevent { margin: 0; font-size: 14.5px; line-height: 1.65; min-height: 2.6em; }
+.tl .tlevent button { font: inherit; font-family: var(--font-display); font-weight: 700; border: 0; background: none; color: var(--amber); padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.tl .tlnote { margin: 0; font-size: 12px; color: var(--ink-soft); }
+@media (max-width: 640px) {
+  .tl { left: 0; right: 0; transform: none; width: auto; max-width: none; bottom: 0; border-radius: 16px 16px 0 0; border-bottom: 0; padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 14px); }
+  .tl .tlyear { font-size: 26px; }
+  .tl .tlyear small { display: block; margin: 4px 0 0; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } .pin.born .ring { animation: none; } }
 </style>
 
 </head>
@@ -330,6 +360,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     <label class="search"><input id="q" type="search" placeholder="搜尋：柴犬、プードル、Beagle…" aria-label="搜尋狗狗名稱"></label>
     <button type="button" class="listbtn" id="listbtn" aria-expanded="false" aria-controls="drawer">犬種列表</button>
     <button type="button" class="quizbtn" id="quizbtn">猜猜看</button>
+    <button type="button" class="timebtn" id="timebtn">年表</button>
   </div>
 
   <aside class="drawer" id="drawer" hidden><div class="drawerctl" id="drawerctl"></div><div id="drawerlist" class="drawerlist"></div></aside>
@@ -351,6 +382,16 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   <div class="tip" id="tip" hidden></div>
 
   <section class="quiz" id="quiz" hidden aria-live="polite"></section>
+  <section class="tl" id="tl" hidden aria-label="犬種年表">
+    <div class="tlhead">
+      <div class="tlyear" id="tlyear">1550</div>
+      <div class="tlbtns"><button type="button" class="primary" id="tlplay">暫停</button><button type="button" id="tlclose">結束年表</button></div>
+    </div>
+    <input type="range" id="tlrange" min="1550" max="2026" step="1" value="1550" aria-label="拖曳選擇年份">
+    <div class="ticks" id="tlticks" aria-hidden="true"></div>
+    <p class="tlevent" id="tlevent" aria-live="polite"></p>
+    <p class="tlnote">只列出有明確年份紀錄的事件，來源見各犬種卡片；灰點是年份未定的犬種。</p>
+  </section>
 
   <article class="pop" id="pop" hidden aria-live="polite">
     <span class="arrow"></span>
@@ -370,6 +411,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
 <script src="dogs.js"></script>
 <script src="photos.js"></script>
 <script src="famous.js"></script>
+<script src="timeline.js"></script>
 <script>
 (function () {
   const DOGS = window.DOGS, REGIONS = window.REGIONS, PHOTOS = window.PHOTOS || {};
@@ -390,6 +432,8 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     const q = query.toLowerCase();
     return [d.zh, d.ja, d.en, d.place, d.etym || ""].some(s => s.toLowerCase().includes(q));
   };
+  const MILE = window.MILESTONES || {}, ANCIENT = window.ANCIENT || {};
+  const shownNow = d => visible(d) && !(timeMode && MILE[d.id] && MILE[d.id].year > tlYear);
   const fmtCoord = (lat, lon) => `${Math.abs(lat).toFixed(1)}°${lat >= 0 ? "N" : "S"}  ${Math.abs(lon).toFixed(1)}°${lon >= 0 ? "E" : "W"}`;
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const isPhone = () => window.matchMedia("(max-width: 640px)").matches;
@@ -442,7 +486,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     }
   }
 
-  let W = 0, H = 0, quiz = null;
+  let W = 0, H = 0, quiz = null, timeMode = false, tlYear = 2026;
   const bar = document.querySelector(".bar");
   const barBottom = () => bar.getBoundingClientRect().bottom - app.getBoundingClientRect().top;
   const ctl = [".seg", ".worksel", ".search"].map(q => document.querySelector(q));
@@ -450,7 +494,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     const phone = isPhone(), host = document.getElementById("drawerctl"), lb = document.getElementById("listbtn");
     if (phone && ctl[0].parentNode !== host) ctl.forEach(n => host.appendChild(n));
     if (!phone && ctl[0].parentNode === host) ctl.forEach(n => bar.insertBefore(n, lb));
-    lb.textContent = phone ? "篩選・列表" : "犬種列表";
+    lb.textContent = phone ? "列表" : "犬種列表";
   }
   function layout() {
     placeControls();
@@ -460,7 +504,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     svg.attr("viewBox", `0 0 ${W} ${H}`);
     const top = barBottom() + 8;
     // During the quiz, keep the world clear of the quiz panel at the bottom.
-    const bottom = quiz ? H - (isPhone() ? 250 : 230) : isPhone() ? H - 12 : H - 50;
+    const bottom = quiz ? H - (isPhone() ? 250 : 230) : timeMode ? H - (isPhone() ? 230 : 200) : isPhone() ? H - 12 : H - 50;
     if (isPhone()) {
       // Phones are tall: fit the world to the screen height and let people swipe sideways.
       const h = bottom - top, w = h * 1.95;
@@ -514,7 +558,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     if (k >= minK) {
       // Treat every visible dot as an obstacle so names never sit on top of another dog's dot.
       for (const d of DOGS) {
-        if (!visible(d)) continue;
+        if (!shownNow(d)) continue;
         const [x, y] = T.apply(projection([d.lon, d.lat])), r = (d.id === selected ? 9 : 7) / Math.sqrt(s);
         boxes.push({ x0: x - r, x1: x + r, y0: y - r, y1: y + r, dot: true });
       }
@@ -522,7 +566,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
         const [x, y] = T.apply(projection([f.lon, f.lat])), r = 8;
         boxes.push({ x0: x - r, x1: x + r, y0: y - r, y1: y + r, dot: true });
       }
-      const order = DOGS.filter(d => visible(d) && d.id !== selected)
+      const order = DOGS.filter(d => shownNow(d) && d.id !== selected)
         .sort((a, b) => (b.id === hoverId) - (a.id === hoverId) || (b.tags.includes("common")) - (a.tags.includes("common")));
       for (const d of order) {
         const [x, y] = T.apply(projection([d.lon, d.lat]));
@@ -909,6 +953,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   const rank = s => s >= 800 ? "環遊世界的狗狗博士" : s >= 600 ? "很懂狗的地理通" : s >= 350 ? "正在認識世界的旅人" : "剛出門散步的小狗";
 
   function startQuiz() {
+    if (timeMode) endTimeline();
     closePop(); toggleDrawer(false); tip.hidden = true;
     const pool = DOGS.slice();
     for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
@@ -1016,6 +1061,64 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     guess(ll);
   });
   document.addEventListener("keydown", e => { if (quiz && e.key === "Escape") endQuiz(); });
+
+  // ── Breed timeline ──
+  const tl = document.getElementById("tl"), tlRange = document.getElementById("tlrange");
+  const tlEvents = Object.entries(MILE).map(([id, m]) => ({ id, ...m })).sort((a, b) => a.year - b.year);
+  let tlTimer = null;
+  // Year ticks placed at their true position on the 1550–2026 scale.
+  document.getElementById("tlticks").innerHTML = [1600, 1700, 1800, 1900, 2000]
+    .map(y => `<span style="left:${((y - 1550) / (2026 - 1550) * 100).toFixed(2)}%">${y}</span>`).join("");
+  function setYear(y, fromPlay) {
+    const prev = tlYear; tlYear = y; tlRange.value = y;
+    pins.classed("future", d => !!MILE[d.id] && MILE[d.id].year > y)
+        .classed("undated", d => !MILE[d.id] && !ANCIENT[d.id]);
+    // ripple on dogs that just appeared
+    if (fromPlay) pins.filter(d => MILE[d.id] && MILE[d.id].year > prev && MILE[d.id].year <= y)
+      .classed("born", true).each(function () { const el = this; setTimeout(() => el.classList.remove("born"), 950); });
+    const shown = DOGS.filter(d => MILE[d.id] && MILE[d.id].year <= y).length;
+    const ancient = Object.keys(ANCIENT).filter(id => byId[id]).length;
+    document.getElementById("tlyear").innerHTML = `${y}<small>地圖上 ${shown + ancient} 種（含 ${ancient} 種古老犬種）</small>`;
+    const last = tlEvents.filter(e => e.year <= y).pop();
+    document.getElementById("tlevent").innerHTML = last
+      ? `${esc(last.label || last.year + " 年")}｜<button type="button" data-go="${last.id}">${esc(byId[last.id].zh)}</button>：${esc(last.text)}`
+      : `一開始就有的古老犬種：${Object.keys(ANCIENT).filter(id => byId[id]).map(id => `<button type="button" data-go="${id}">${esc(byId[id].zh)}</button>`).join("、")}`;
+    if (selected && !shownNow(byId[selected])) closePop();
+    placeLabels();
+  }
+  function play() {
+    stopPlay();
+    if (tlYear >= 2026) setYear(1550);
+    document.getElementById("tlplay").textContent = "暫停";
+    tlTimer = setInterval(() => {
+      const next = Math.min(2026, tlYear + 3);
+      setYear(next, true);
+      if (next >= 2026) stopPlay();
+    }, 110);
+  }
+  function stopPlay() {
+    clearInterval(tlTimer); tlTimer = null;
+    document.getElementById("tlplay").textContent = tlYear >= 2026 ? "重新播放" : "播放";
+  }
+  function startTimeline() {
+    if (quiz) endQuiz();
+    closePop(); toggleDrawer(false);
+    timeMode = true; app.classList.add("timemode"); tl.hidden = false;
+    svg.call(zoom.transform, d3.zoomIdentity); layout();
+    setYear(1550); play();
+  }
+  function endTimeline() {
+    stopPlay(); timeMode = false; tlYear = 2026;
+    app.classList.remove("timemode"); tl.hidden = true;
+    pins.classed("future", false).classed("undated", false);
+    layout(); applyFilter();
+  }
+  document.getElementById("timebtn").addEventListener("click", startTimeline);
+  document.getElementById("tlclose").addEventListener("click", endTimeline);
+  document.getElementById("tlplay").addEventListener("click", () => tlTimer ? stopPlay() : play());
+  tlRange.addEventListener("input", () => { clearInterval(tlTimer); tlTimer = null; setYear(+tlRange.value); stopPlay(); });
+  tl.addEventListener("click", e => { e.stopPropagation(); const t = e.target.closest("[data-go]"); if (t) { stopPlay(); select(t.dataset.go); } });
+  document.addEventListener("keydown", e => { if (timeMode && e.key === "Escape" && pop.hidden) endTimeline(); });
 
   window.addEventListener("resize", layout);
   layout(); applyFilter();
