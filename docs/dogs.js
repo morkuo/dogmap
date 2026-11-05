@@ -8,7 +8,7 @@ window.REGIONS = [
   { id: "eu", name: "歐洲" },
   { id: "af", name: "非洲" },
   { id: "wa", name: "西亞・中亞" },
-  { id: "ea", name: "東亞" },
+  { id: "ea", name: "東亞・東南亞" },
   { id: "oc", name: "大洋洲" }
 ];
 
@@ -34,7 +34,7 @@ window.DOGS = [
     job: "幫漁夫叼回漁獲與繩網，後來成為撿水鳥的獵犬",
     story: "你知道拉布拉多其實不是從拉布拉多來的嗎？牠的祖先是紐芬蘭島上的「聖約翰斯水犬」（St. John's water dog），跟著漁夫工作，在冰冷的海水裡把脫鉤的魚、漁網和繩子叼回船上，所以非常會游泳。19 世紀，往來紐芬蘭和英國普爾港的貿易船把這些狗帶到英國，馬姆斯伯里伯爵等貴族看上牠們下水叼物的本事，把牠們培育成撿回水鳥的獵犬。牠跟黃金獵犬的英文名字都有 Retriever（尋回犬），意思就是「把東西撿回來的狗」。",
     note: "「拉布拉多」這個名字怎麼來的沒有定論。常見說法是借用當時同屬紐芬蘭殖民地的拉布拉多地區之名；也有人認為和葡萄牙語 lavrador（勞動者）有關。",
-    related: ["golden", "newfoundland"],
+    related: ["golden", "newfoundland", "pwd"],
     sources: [
       ["加拿大百科全書", "https://www.thecanadianencyclopedia.ca/en/article/labrador-retriever"],
       ["AKC：拉布拉多的歷史", "https://www.akc.org/expert-advice/dog-breeds/labrador-retriever-history/"],
@@ -159,6 +159,20 @@ window.DOGS = [
     sources: [
       ["Wikipedia", "https://en.wikipedia.org/wiki/Dogo_Argentino"],
       ["AKC 犬種介紹", "https://www.akc.org/dog-breeds/dogo-argentino/"]
+    ]
+  },
+
+  {
+    id: "havanese",
+    zh: "哈瓦那犬", ja: "ハバニーズ", en: "Havanese",
+    region: "la", country: ["192"], place: "古巴・哈瓦那",
+    lat: 23.13, lon: -82.38, tags: ["local"], work: ["companion"],
+    job: "伴侶犬",
+    story: "哈瓦那犬是古巴的國犬，祖先是已經滅絕的「哈瓦那小白狗」（Blanquito de la Habana）。殖民時期，牠是古巴上流社會的寵物。1959 年古巴革命後，很多人逃到美國，卻很少有人能帶上狗，留在古巴的哈瓦那犬也所剩無幾。1970 年代，一對美國夫婦從古巴流亡家庭那裡找到少數幾隻，靠牠們重新把這個品種復育起來。",
+    note: "美國的復育計畫一開始找到幾隻狗，不同資料寫的數字不太一樣。",
+    sources: [
+      ["Wikipedia", "https://en.wikipedia.org/wiki/Havanese_dog"],
+      ["AKC：從流亡中重生的哈瓦那犬", "https://www.akc.org/expert-advice/dog-breeds/havanese-history-bouncing-back-from-exile/"]
     ]
   },
 
@@ -315,6 +329,7 @@ window.DOGS = [
     job: "伴侶犬",
     story: "馬爾濟斯是非常古老的小型伴侶犬，兩千多年前地中海一帶的希臘、羅馬人就養這種白色小狗。英文 Maltese 就是「馬爾他的」。牠沒有底毛，所以不太會換毛，那身長長的白毛是牠的招牌。",
     note: "名字裡的「馬爾他」也可能是指克羅埃西亞的姆列特島（古名也叫 Melita），起源地沒有定論。",
+    related: ["coton"],
     sources: [
       ["Wikipedia", "https://en.wikipedia.org/wiki/Maltese_dog"],
       ["AKC 犬種介紹", "https://www.akc.org/dog-breeds/maltese/"]
@@ -331,6 +346,33 @@ window.DOGS = [
     sources: [
       ["大英百科全書", "https://www.britannica.com/animal/Samoyed-breed-of-dog"],
       ["Wikipedia", "https://en.wikipedia.org/wiki/Samoyed_dog"]
+    ]
+  },
+
+  {
+    id: "lundehund",
+    zh: "挪威海鸚犬", ja: "ノルウェジアン・ルンデフンド", en: "Norwegian Lundehund",
+    region: "eu", country: ["578"], place: "挪威・羅弗敦群島的韋略島",
+    lat: 67.67, lon: 12.67, tags: ["local"], work: ["hunt"],
+    job: "在海邊懸崖上抓海鸚",
+    story: "Lundehund 是挪威語的「海鸚狗」。以前挪威北方的島民靠海鸚當食物，這種狗就負責爬上懸崖、鑽進岩縫把海鸚叼出來。為了這份工作，牠長出一身奇特的構造：每隻腳通常有六根腳趾，頭可以往後仰到碰到背，前腳也能往兩側張得很開。最早的文字紀錄可以追溯到 1591 年。後來海鸚被列為保護動物，這種狗沒了工作，數量一度少到快要滅絕。",
+    note: "犬瘟熱讓牠們幾乎滅絕的確切年份，各資料記載不同。",
+    sources: [
+      ["AKC：關於挪威海鸚犬的 7 件事", "https://www.akc.org/expert-advice/lifestyle/7-things-you-didnt-know-about-the-norwegian-lundehund/"],
+      ["Wikipedia", "https://en.wikipedia.org/wiki/Norwegian_Lundehund"]
+    ]
+  },
+  {
+    id: "pwd",
+    zh: "葡萄牙水犬", ja: "ポーチュギーズ・ウォーター・ドッグ", en: "Portuguese Water Dog",
+    region: "eu", country: ["620"], place: "葡萄牙・南部阿爾加維海岸",
+    lat: 37.1, lon: -8.0, tags: ["local"], work: ["fish"],
+    job: "幫漁夫把魚趕進網子、在船之間傳遞東西",
+    story: "葡萄牙水犬是漁船上的水手：牠會跳進海裡把魚趕進漁網、撿回掉進水裡的漁具，還會在船和船、船和岸之間游泳傳遞東西。後來漁船有了新技術，牠的工作消失，數量也跟著變少。這個品種後來在美國出了名，因為美國前總統歐巴馬家的兩隻狗 Bo 和 Sunny 都是葡萄牙水犬。牠跟拉布拉多一樣，都是從幫漁夫工作起家的。",
+    related: ["labrador", "poodle"],
+    sources: [
+      ["Mental Floss：葡萄牙水犬冷知識", "https://www.mentalfloss.com/animals/dogs/9-fuzzy-facts-about-portuguese-water-dog"],
+      ["Wikipedia", "https://en.wikipedia.org/wiki/Portuguese_Water_Dog"]
     ]
   },
 
@@ -355,9 +397,38 @@ window.DOGS = [
     job: "合力纏住獅子，等獵人趕到",
     story: "牠的背上有一條毛往反方向長的「背脊」，這個特徵一般認為來自南非原住民科伊科伊人養的狗。後來歐洲殖民者把這些狗和歐洲犬種混種，培育出能在非洲草原上獵獅的狗。牠們不負責殺獅子，而是一群輪流纏住獅子，讓牠動彈不得，直到獵人趕來。1922 年，品種標準在辛巴威的布拉瓦約訂定。",
     note: "背脊特徵來自科伊科伊犬是育種者普遍的看法，但沒辦法完全證實。",
+    related: ["thairidge"],
     sources: [
       ["AKC：羅德西亞背脊犬曾經獵獅", "https://www.akc.org/expert-advice/dog-breeds/the-rhodesian-ridgeback-once-hunted-lions/"],
       ["Wikipedia", "https://en.wikipedia.org/wiki/Rhodesian_Ridgeback"]
+    ]
+  },
+
+  {
+    id: "coton",
+    zh: "棉花面紗犬", ja: "コトン・ド・テュレアール", en: "Coton de Tuléar",
+    region: "af", country: ["450"], place: "馬達加斯加・圖利亞拉（Tuléar）",
+    lat: -23.35, lon: 43.67, tags: ["local"], work: ["companion"],
+    job: "貴族的伴侶犬",
+    story: "名字的 Coton 是法文的「棉花」，形容牠一身蓬鬆柔軟的白毛；Tuléar 則是馬達加斯加西南部的港口城市（今天叫圖利亞拉）。牠被稱為「馬達加斯加的皇家犬」，當時統治馬達加斯加的梅里納王國貴族很喜歡牠，平民不能養。1974 年馬達加斯加還發行過印有牠的郵票。",
+    note: "梅里納貴族是從 17 世紀還是 19 世紀開始養牠，資料說法不一；「平民養了會被處死」之類的故事也沒有可靠證據。",
+    related: ["maltese"],
+    sources: [
+      ["AKC：棉花面紗犬的歷史", "https://www.akc.org/expert-advice/dog-breeds/coton-de-tulear-history/"],
+      ["Wikipedia", "https://en.wikipedia.org/wiki/Coton_de_Tulear"]
+    ]
+  },
+  {
+    id: "azawakh",
+    zh: "阿札瓦克犬", ja: "アザワク", en: "Azawakh",
+    region: "af", country: ["466", "562"], place: "馬利與尼日交界的阿札瓦克河谷",
+    lat: 16.5, lon: 3.5, tags: ["local"], work: ["hunt", "guard"],
+    job: "追獵瞪羚和野兔，也幫忙看守營地",
+    story: "阿札瓦克犬的名字來自撒哈拉南緣、馬利和尼日交界的阿札瓦克河谷。牠是當地圖瓦雷克人等遊牧民族的視覺獵犬，又高又瘦、腿非常長，能在沙漠裡高速追捕瞪羚和野兔，平常也幫忙看守營地。圖瓦雷克人稱牠為「自由之民的獵犬」。牠直到 1970 年代才被帶到歐洲。",
+    related: ["saluki", "basenji"],
+    sources: [
+      ["Wikipedia", "https://en.wikipedia.org/wiki/Azawakh"],
+      ["AKC 犬種介紹", "https://www.akc.org/dog-breeds/azawakh/"]
     ]
   },
 
@@ -369,7 +440,7 @@ window.DOGS = [
     lat: 33.5, lon: 41.0, tags: ["local"], work: ["hunt"],
     job: "用眼睛追獵瞪羚",
     story: "薩路基是最古老的犬種類型之一，屬於「視覺獵犬」：靠眼睛發現獵物，再用速度追上去。牠是中東貝都因人的獵犬，可以在沙漠中追捕瞪羚。在一些伊斯蘭文化裡狗被視為不潔，但薩路基常是例外，可以進到帳篷裡。",
-    related: ["afghan"],
+    related: ["afghan", "azawakh"],
     sources: [
       ["Wikipedia", "https://en.wikipedia.org/wiki/Saluki"],
       ["AKC 犬種介紹", "https://www.akc.org/dog-breeds/saluki/"]
@@ -389,7 +460,49 @@ window.DOGS = [
     ]
   },
 
-  // ───────── 東亞 ─────────
+  {
+    id: "canaan",
+    zh: "迦南犬", ja: "カナーン・ドッグ", en: "Canaan Dog",
+    region: "wa", country: ["376"], place: "以色列",
+    lat: 31.5, lon: 35.0, tags: ["local"], work: ["guard"],
+    job: "看守營地，後來成為軍犬",
+    story: "迦南犬是以色列的國犬，祖先是從古代就生活在這個地區的半野生狗。1930 年代，從維也納移居來的犬類學家 Rudolphina Menzel 受託為當地組織訓練工作犬，她發現從歐洲引進的犬種受不了這裡的炎熱和崎嶇地形，於是改用本地的流浪狗，從中培育出迦南犬。二戰期間，她訓練了將近 500 隻迦南犬投入軍事工作。",
+    note: "Menzel 抵達的年份和品種標準制定的年份，不同資料寫法不一。",
+    sources: [
+      ["Wikipedia", "https://en.wikipedia.org/wiki/Canaan_Dog"],
+      ["國際迦南犬協會：品種歷史", "https://icdca.org/History/breed.htm"]
+    ]
+  },
+  {
+    id: "alabai",
+    zh: "中亞牧羊犬", ja: "セントラル・アジア・シェパード・ドッグ", en: "Central Asian Shepherd Dog（Alabai）",
+    region: "wa", country: ["795"], place: "中亞（土庫曼等地）",
+    lat: 38.5, lon: 59.5, tags: ["local"], work: ["guard"],
+    job: "保護羊群不被狼攻擊",
+    story: "中亞牧羊犬在土庫曼叫做 Alabai，是體型巨大的護畜犬，負責在草原上保護羊群不被狼攻擊。牠在土庫曼的地位非常特別：2020 年，首都阿什哈巴德立起一座鍍金的 Alabai 雕像，底座四周還有播放真狗影片的螢幕；土庫曼政府也把每年四月的最後一個星期日訂為 Alabai 的節日，跟國寶阿哈爾捷金馬同一天慶祝。",
+    note: "鍍金雕像的高度，各家媒體報導從 6 公尺到 15 公尺都有。",
+    related: ["kangal", "tibetanmastiff"],
+    sources: [
+      ["CNN：土庫曼為狗設國定節日", "https://amp.cnn.com/cnn/travel/article/turkmenistan-dog-national-holiday-scli-intl"],
+      ["Meduza：阿什哈巴德的金色狗雕像", "https://meduza.io/en/feature/2020/11/12/turkmenistan-s-president-unveils-giant-golden-dog-statue-in-the-nation-s-capital"],
+      ["Wikipedia", "https://en.wikipedia.org/wiki/Central_Asian_Shepherd_Dog"]
+    ]
+  },
+  {
+    id: "kangal",
+    zh: "坎高犬", ja: "カンガル・シェパード・ドッグ", en: "Kangal Shepherd Dog",
+    region: "wa", country: ["792"], place: "土耳其・錫瓦斯省坎高地區",
+    lat: 39.23, lon: 37.39, tags: ["local"], work: ["guard"],
+    job: "保護羊群不被狼攻擊",
+    story: "坎高犬的名字來自土耳其中部錫瓦斯省的坎高地區，是保護羊群不被狼攻擊的大型護畜犬。牠還遠渡重洋做了保育工作：非洲納米比亞的「獵豹保育基金會」把坎高犬送給當地牧場，讓牠們守護牲畜、把獵豹嚇走。牧民的牲畜損失減少了，就比較不會射殺或誘捕獵豹，等於狗狗間接救了獵豹。",
+    related: ["alabai"],
+    sources: [
+      ["Wikipedia", "https://en.wikipedia.org/wiki/Kangal_Shepherd_Dog"],
+      ["CNN：納米比亞用護衛犬保護獵豹", "https://amp.cnn.com/cnn/2016/03/08/africa/cheetahs-guard-dogs-namibia"]
+    ]
+  },
+
+  // ───────── 東亞・東南亞 ─────────
   {
     id: "taiwandog",
     zh: "台灣犬", ja: "台湾犬（タイワンケン）", en: "Taiwan Dog（Formosan Mountain Dog）",
@@ -504,8 +617,24 @@ window.DOGS = [
     lat: 31.0, lon: 91.0, tags: ["local"], work: ["guard"],
     job: "替遊牧民看守羊群與帳篷",
     story: "藏獒是青藏高原遊牧民的守護犬，白天跟著畜群，晚上守在帳篷外防狼和其他野獸。牠能在高海拔、低氧的地方生活，研究發現，藏獒幫助適應高原的基因（EPAS1），很可能是古時候和青藏高原的狼混血得來的。",
+    related: ["alabai"],
     sources: [
       ["Wikipedia", "https://en.wikipedia.org/wiki/Tibetan_Mastiff"]
+    ]
+  },
+
+  {
+    id: "thairidge",
+    zh: "泰國脊背犬", ja: "タイ・リッジバック・ドッグ", en: "Thai Ridgeback Dog",
+    region: "ea", country: ["764"], place: "泰國東部",
+    lat: 13.3, lon: 102.0, tags: ["local"], work: ["hunt", "guard"],
+    job: "打獵、看家、跟著牛車護送",
+    story: "泰國脊背犬背上也有一條毛逆著長的「背脊」，跟非洲的羅德西亞背脊犬一樣，牠們是少數有這個特徵的純種狗。牠來自泰國東部，以前那裡交通不便，很少和外地的狗混種，所以保留了原本的樣子。當地人用牠打獵、看家，還讓牠跟著牛車一起走、保護車隊。有文字紀錄的歷史大約 350 年。",
+    note: "牠和羅德西亞背脊犬有沒有共同祖先，目前還不清楚。",
+    related: ["ridgeback"],
+    sources: [
+      ["FCI 品種標準", "https://www.fci.be/Nomenclature/Standards/338g05-en.pdf"],
+      ["Wikipedia", "https://en.wikipedia.org/wiki/Thai_Ridgeback"]
     ]
   },
 

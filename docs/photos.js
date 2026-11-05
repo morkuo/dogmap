@@ -227,5 +227,59 @@ window.PHOTOS={
   "artist": "Blanky",
   "license": "CC BY-SA 3.0",
   "page": "https://commons.wikimedia.org/wiki/File:Hummel_Vedor_vd_Robandahoeve.jpg"
+ },
+ "havanese": {
+  "file": "images/havanese.jpg",
+  "artist": "audrey_sel",
+  "license": "CC BY-SA 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:A_Havanese_judging.jpg"
+ },
+ "lundehund": {
+  "file": "images/lundehund.jpg",
+  "artist": "Karen Elise Dahlmo",
+  "license": "CC BY-SA 3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Lundehund-2003.jpg"
+ },
+ "pwd": {
+  "file": "images/pwd.jpg",
+  "artist": "Silke Hollje-Schumacher",
+  "license": "CC BY-SA 3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:C%C3%A3o_de_agua_Portugu%C3%AAs_2.jpg"
+ },
+ "coton": {
+  "file": "images/coton.jpg",
+  "artist": "Uschi Goess",
+  "license": "CC BY-SA 3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Coton_de_Tular_1.jpg"
+ },
+ "azawakh": {
+  "file": "images/azawakh.jpg",
+  "artist": "Cristian.vantu",
+  "license": "CC BY-SA 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Bistrita_2015_(22).jpg"
+ },
+ "canaan": {
+  "file": "images/canaan.jpg",
+  "artist": "Canaan Dog, Hodowla Samorodok Hanaana",
+  "license": "CC BY-SA 3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:CanaanDogChakede.jpg"
+ },
+ "alabai": {
+  "file": "images/alabai.jpg",
+  "artist": "Halalosirambankiskecskek",
+  "license": "CC BY-SA 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:2.CAO_in_Hungary.jpg"
+ },
+ "kangal": {
+  "file": "images/kangal.jpg",
+  "artist": "Kangalshepherddog",
+  "license": "CC BY-SA 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Kangal_front_on.jpg"
+ },
+ "thairidge": {
+  "file": "images/thairidge.jpg",
+  "artist": "HiSa Hiller, Schweiz",
+  "license": "CC BY-SA 3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Thai-Ridgeback.jpg"
  }
 };
