@@ -57,6 +57,14 @@ button:focus-visible, input:focus-visible, .pin:focus-visible, a:focus-visible {
 
 .app { position: relative; height: 100%; overflow: hidden; }
 #map { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+.app.zoomed #map { cursor: grab; }
+.app.zoomed #map:active { cursor: grabbing; }
+.app.zoomed .pin { cursor: pointer; }
+.panhint {
+  position: absolute; z-index: 6; right: calc(max(12px, env(safe-area-inset-right, 0px)) + 46px); bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
+  background: var(--ink); color: var(--paper); font-size: 13px; padding: 5px 12px; border-radius: 8px; pointer-events: none;
+  transition: opacity .3s ease;
+}
 .country { fill: var(--land); stroke: var(--border); stroke-width: .6; vector-effect: non-scaling-stroke; }
 .country.hi { fill: var(--land-hi); }
 .grat { fill: none; stroke: var(--border); stroke-opacity: .35; stroke-width: .5; vector-effect: non-scaling-stroke; }
@@ -287,6 +295,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     <span><i style="background:var(--accent);box-shadow:0 0 0 2px var(--amber)"></i>兩者都是</span>
     <button type="button" id="rand">隨機一隻</button>
   </div>
+  <div class="panhint" id="panhint" hidden>放大後可以拖曳地圖來移動</div>
   <div class="mapctl">
     <button type="button" id="zin" aria-label="放大">+</button>
     <button type="button" id="zout" aria-label="縮小">−</button>
@@ -352,10 +361,27 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   pins.append("circle").attr("class", "dot");
   pins.append("text").text(d => d.zh).attr("text-anchor", "middle");
 
-  // Zoom only: mouse wheel / trackpad, two-finger pinch, and the +/- buttons. No drag-to-pan, and the map never moves on its own.
-  const zoom = d3.zoom().scaleExtent([1, 14])
-    .filter(e => e.type === "wheel" || (e.type.startsWith("touch") && e.touches && e.touches.length > 1))
-    .on("zoom", e => { T = e.transform; g.attr("transform", T); sizePins(); placePop(); tip.hidden = true; });
+  // The map never moves on its own. Zoom with the wheel, a pinch or the buttons; once zoomed in, drag to pan.
+  // At full view the world already fits, so dragging is off there.
+  const zoom = d3.zoom().scaleExtent([1, 14]).clickDistance(5)
+    .filter(e => {
+      if (e.type === "wheel") return true;
+      if (e.type === "dblclick") return false;
+      if (e.type.startsWith("touch")) return e.touches.length > 1 || T.k > 1.01;
+      return e.type === "mousedown" && e.button === 0 && T.k > 1.01;
+    })
+    .on("zoom", e => { T = e.transform; g.attr("transform", T); sizePins(); placePop(); tip.hidden = true; onZoomed(); });
+  let hintShown = false;
+  function onZoomed() {
+    const z = T.k > 1.01;
+    app.classList.toggle("zoomed", z);
+    if (z && !hintShown) {
+      hintShown = true;
+      const h = document.getElementById("panhint");
+      h.hidden = false; h.style.opacity = "1";
+      setTimeout(() => { h.style.opacity = "0"; setTimeout(() => { h.hidden = true; }, 350); }, 3200);
+    }
+  }
 
   let W = 0, H = 0, quiz = null;
   const bar = document.querySelector(".bar");

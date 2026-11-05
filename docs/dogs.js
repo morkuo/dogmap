@@ -509,11 +509,12 @@ window.DOGS = [
     region: "ea", country: ["158"], place: "台灣・中央山脈",
     lat: 23.7, lon: 121.0, tags: ["local"], work: ["hunt"],
     job: "原住民的狩獵夥伴",
-    story: "台灣犬又叫「台灣土狗」，是台灣原住民上山打獵的夥伴，在茂密的山林裡非常敏捷。日治時期以後，大量外來犬種進入台灣，純種台灣犬越來越少。1970 年代末，台灣大學和日本學者合作，在原住民部落裡找回了幾十隻純種台灣犬，成為後來保育和育種的基礎。牠的特徵是三角形的頭、杏仁眼、鐮刀尾，舌頭上常有黑斑。國際畜犬聯盟（FCI）在 2015 年收錄了牠的品種標準。",
+    story: "台灣犬又叫「台灣土狗」，是台灣原住民上山打獵的夥伴，在茂密的山林裡非常敏捷。日治時期以後，大量外來犬種進入台灣，純種台灣犬越來越少。1976 到 1980 年間，台灣大學和日本名古屋大學、岐阜大學的學者合作，跑遍 29 個原住民部落，找到的 160 隻狗裡只有 46 隻被認為是純種台灣犬，牠們成為後來保育和育種的基礎。牠的特徵是三角形的頭、杏仁眼、鐮刀尾，舌頭上常有黑斑。國際畜犬聯盟（FCI）在 2015 年收錄了牠的品種標準。",
     note: "台灣犬和南亞、東南亞古代獵犬的血緣關係還有爭議。",
     sources: [
       ["Wikipedia", "https://en.wikipedia.org/wiki/Taiwan_Dog"],
-      ["AmCham Taiwan：古老的狗", "https://topics.amcham.com.tw/2018/07/an-ancient-dog-finds-its-place-in-the-modern-world/"]
+      ["AmCham Taiwan：古老的狗", "https://topics.amcham.com.tw/2018/07/an-ancient-dog-finds-its-place-in-the-modern-world/"],
+      ["原始犬與古老犬種協會（PADS）期刊", "https://padsociety.org/wp-content/uploads/2018/06/JournalofPADS_43Engl..pdf"]
     ]
   },
   {
@@ -603,11 +604,11 @@ window.DOGS = [
     region: "ea", country: ["156"], place: "中國北方",
     lat: 41.0, lon: 111.0, tags: ["local"], work: ["guard", "hunt"],
     job: "看守、打獵、拉車",
-    story: "鬆獅犬最大的特徵是藍黑色的舌頭，幼犬剛出生時舌頭是粉紅色的，長大才慢慢變深。牠是很古老的犬種，基因研究顯示牠跟狼的血緣比大多數狗都近。牠走路時後腿比較直，步伐看起來有點像踩高蹺。",
+    story: "鬆獅犬最大的特徵是藍黑色的舌頭，連嘴唇也是同樣的顏色。牠是很古老的犬種：2017 年的基因研究發現，鬆獅犬大約在 8,300 年前就從中國本土的狗分化出來，而且和秋田犬、柴犬一樣，屬於最早從狼分出來的犬種譜系之一。牠走路時後腿比較直，步伐看起來有點像踩高蹺。",
     related: ["shihtzu"],
     sources: [
       ["Wikipedia", "https://en.wikipedia.org/wiki/Chow_Chow"],
-      ["AKC 犬種介紹", "https://www.akc.org/dog-breeds/chow-chow/"]
+      ["BMC Genomics（2017）：鬆獅犬的基因研究", "https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-017-3525-9"]
     ]
   },
   {
@@ -619,7 +620,8 @@ window.DOGS = [
     story: "藏獒是青藏高原遊牧民的守護犬，白天跟著畜群，晚上守在帳篷外防狼和其他野獸。牠能在高海拔、低氧的地方生活，研究發現，藏獒幫助適應高原的基因（EPAS1），很可能是古時候和青藏高原的狼混血得來的。",
     related: ["alabai"],
     sources: [
-      ["Wikipedia", "https://en.wikipedia.org/wiki/Tibetan_Mastiff"]
+      ["Wikipedia", "https://en.wikipedia.org/wiki/Tibetan_Mastiff"],
+      ["PeerJ（2017）：高原狼的 EPAS1 基因進入高原犬", "https://peerj.com/articles/3522"]
     ]
   },
 
@@ -645,10 +647,11 @@ window.DOGS = [
     region: "oc", country: ["036"], place: "澳洲・新南威爾斯",
     lat: -32.3, lon: 150.9, tags: ["local"], work: ["herd"],
     job: "在廣大的牧場上趕牛",
-    story: "這才是真的在澳洲培育的牧犬。19 世紀澳洲的牧場大、天氣熱，從英國帶來的牧羊犬撐不住，於是牧場主人把牧牛犬和澳洲野犬丁格混種，培育出耐熱、耐操又會咬牛腳跟趕牛的狗。目前金氏世界紀錄最長壽的狗就是一隻澳洲牧牛犬 Bluey，活了 29 歲 5 個月。",
+    story: "這才是真的在澳洲培育的牧犬。19 世紀澳洲的牧場大、天氣熱，從英國帶來的牧羊犬撐不住，1840 年左右，新南威爾斯的牧場主人 Thomas Hall 把從英國帶來的藍色牧羊犬和澳洲野犬丁格混種，培育出耐熱、耐操又會咬牛腳跟趕牛的狗，當時叫做「Hall 的咬腳跟犬」（Halls Heeler）。目前金氏世界紀錄最長壽的狗就是一隻澳洲牧牛犬 Bluey，活了 29 歲 5 個月。",
     related: ["dingo", "aussie"],
     sources: [
       ["Wikipedia", "https://en.wikipedia.org/wiki/Australian_Cattle_Dog"],
+      ["Wikipedia：Halls Heeler", "https://en.wikipedia.org/wiki/Halls_Heeler"],
       ["Wikipedia：Bluey", "https://en.wikipedia.org/wiki/Bluey_(long-lived_dog)"]
     ]
   },
