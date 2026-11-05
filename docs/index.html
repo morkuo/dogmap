@@ -396,6 +396,17 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   .qopts button { min-height: 46px; }
   .resetseen { padding: 10px 0; }
 }
+/* First-visit hint */
+.welcome {
+  position: absolute; z-index: 11; left: 50%; transform: translateX(-50%);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 70px); width: 440px; max-width: calc(100vw - 24px);
+  background: var(--ink); color: var(--paper); border-radius: var(--r); box-shadow: var(--shadow);
+  padding: 12px 14px; display: flex; gap: 12px; align-items: center;
+}
+.welcome p { margin: 0; font-size: 14px; line-height: 1.7; }
+.welcome button { flex: none; border: 0; background: var(--paper); color: var(--ink); font-weight: 700; border-radius: 8px; padding: 6px 14px; min-height: 40px; cursor: pointer; }
+.app.quizmode .welcome, .app.timemode .welcome { display: none; }
+@media (max-width: 640px) { .welcome { top: calc(env(safe-area-inset-top, 0px) + 64px); bottom: auto; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } .pin.born .ring { animation: none; } }
 </style>
 
@@ -432,6 +443,10 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     <button type="button" id="rand">隨機一隻</button>
   </div>
   <div class="toast" id="toast" hidden></div>
+  <div class="welcome" id="welcome" hidden role="dialog" aria-label="怎麼玩">
+    <p><b>點地圖上的圓點</b>，認識每種狗的老家和小故事。★ 是歷史上的名犬；想玩遊戲就按「猜猜看」，想看犬種怎麼一路出現就按「年表」。</p>
+    <button type="button" id="welcomeok">知道了</button>
+  </div>
   <div class="panhint" id="panhint" hidden>放大後可以拖曳地圖來移動</div>
   <div class="mapctl">
     <button type="button" id="zin" aria-label="放大">+</button>
@@ -1283,6 +1298,21 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   tl.addEventListener("click", e => { e.stopPropagation(); const t = e.target.closest("[data-go]"); if (t) { stopPlay(); select(t.dataset.go); } });
   document.addEventListener("keydown", e => { if (timeMode && e.key === "Escape" && pop.hidden) endTimeline(); });
 
+  // First visit only: a one-line hint on how to use the map (remembered in this browser).
+  const welcome = document.getElementById("welcome");
+  let welcomed = false;
+  try { welcomed = localStorage.getItem("dogmap-welcomed") === "1"; } catch (_) {}
+  const dismissWelcome = () => {
+    welcome.hidden = true;
+    try { localStorage.setItem("dogmap-welcomed", "1"); } catch (_) {}
+  };
+  if (!welcomed) welcome.hidden = false;
+  document.getElementById("welcomeok").addEventListener("click", dismissWelcome);
+  // Opening any dog also counts as having got the idea.
+  const _select = select;
+  let started = false; // the dog opened from the link at load time does not count
+  select = function (id, opts) { if (started && !welcome.hidden) dismissWelcome(); return _select(id, opts); };
+
   window.addEventListener("resize", layout);
   layout(); applyFilter();
   pop.classList.remove("enter");
@@ -1291,6 +1321,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   else if (fromHash.startsWith("f-") && famById[fromHash.slice(2)]) selectFamous(fromHash.slice(2));
   else if (!isPhone()) select("labrador", { auto: true });
   pop.classList.remove("enter");
+  started = true;
   window.addEventListener("hashchange", () => {
     const h = decodeURIComponent(location.hash.slice(1)); if (quiz) return;
     if (byId[h]) select(h); else if (h.startsWith("f-") && famById[h.slice(2)]) selectFamous(h.slice(2));
