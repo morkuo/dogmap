@@ -251,7 +251,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
 
 /* Quiz */
 .app.quizmode .pin, .app.quizmode .seg, .app.quizmode .search, .app.quizmode .listbtn,
-.app.quizmode .worksel, .app.quizmode .legend, .app.quizmode .quizbtn, .app.quizmode .brand .count { display: none; }
+.app.quizmode .worksel, .app.quizmode .legend, .app.quizmode .quizbtn, .app.quizmode .timebtn, .app.quizmode .brand .count { display: none; }
 .app.quizmode #map { cursor: crosshair; }
 .quiz {
   position: absolute; z-index: 9; left: 50%; transform: translateX(-50%);
@@ -340,6 +340,22 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   .tl .tlyear { font-size: 26px; }
   .tl .tlyear small { display: block; margin: 4px 0 0; }
 }
+/* Quiz chooser + photo quiz */
+.qmodes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.qmodes button { text-align: left; border: 1px solid var(--rule); background: var(--paper); border-radius: 10px; padding: 10px 12px; cursor: pointer; display: flex; flex-direction: column; gap: 2px; }
+.qmodes button:hover { border-color: var(--ink-soft); }
+.qmodes b { font-family: var(--font-display); font-size: 17px; }
+.qmodes span { font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; }
+.qphoto { position: relative; height: 190px; border-radius: 10px; overflow: hidden; background: var(--rule); }
+.qphoto::before { content: ""; position: absolute; inset: -16px; background: var(--bg) center / cover no-repeat; filter: blur(14px) brightness(.75); }
+.qphoto img { position: relative; width: 100%; height: 100%; object-fit: contain; display: block; }
+.qopts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.qopts button { font-family: var(--font-display); font-size: 16px; border: 1px solid var(--rule); background: var(--paper); border-radius: 10px; padding: 8px 10px; cursor: pointer; }
+.qopts button:hover:not(:disabled) { border-color: var(--ink-soft); }
+.qopts button.right { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.qopts button.wrong { background: var(--amber-soft); border-color: var(--amber); color: var(--amber); text-decoration: line-through; }
+.qopts button:disabled { cursor: default; }
+@media (max-width: 640px) { .qphoto { height: 150px; } .qmodes { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } .pin.born .ring { animation: none; } }
 </style>
 
@@ -953,16 +969,69 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   const scoreFor = dist => dist <= 300 ? 100 : Math.max(0, Math.round(100 - (dist - 300) / 47));
   const rank = s => s >= 800 ? "環遊世界的狗狗博士" : s >= 600 ? "很懂狗的地理通" : s >= 350 ? "正在認識世界的旅人" : "剛出門散步的小狗";
 
-  function startQuiz() {
+  const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  function startQuiz(kind) {
     if (timeMode) endTimeline();
     closePop(); toggleDrawer(false); tip.hidden = true;
-    const pool = DOGS.slice();
-    for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
-    quiz = { list: pool.slice(0, ROUNDS), i: 0, score: 0, results: [], hint: false, guessed: false };
+    if (!kind) {
+      // Let the player pick a game first.
+      quiz = { chooser: true };
+      app.classList.add("quizmode");
+      quizEl.innerHTML = `<div class="qhead"><span>猜猜看</span><span>每局 ${ROUNDS} 題</span></div>
+        <div class="qmodes">
+          <button type="button" data-q="mode-map"><b>猜老家</b><span>看名字和照片，在地圖上點出牠來自哪裡</span></button>
+          <button type="button" data-q="mode-photo"><b>看照片猜品種</b><span>看一張照片，從四個名字裡選出正確答案</span></button>
+        </div>
+        <div class="qbtns"><button type="button" data-q="quit">回到地圖</button></div>`;
+      quizEl.hidden = false;
+      return;
+    }
+    const pool = shuffle(DOGS.filter(d => kind !== "photo" || PHOTOS[d.id]).slice());
+    quiz = { kind, list: pool.slice(0, ROUNDS), i: 0, score: 0, results: [], hint: false, guessed: false };
     app.classList.add("quizmode");
     svg.call(zoom.transform, d3.zoomIdentity);
     layout();
-    renderQuestion();
+    kind === "photo" ? renderPhotoQuestion() : renderQuestion();
+  }
+  // Photo quiz: four choices, wrong ones from the same region when possible so it is not too easy.
+  function renderPhotoQuestion() {
+    const d = quiz.list[quiz.i];
+    quiz.guessed = false;
+    pins.classed("sel", false);
+    const same = shuffle(DOGS.filter(x => x.id !== d.id && x.region === d.region));
+    const other = shuffle(DOGS.filter(x => x.id !== d.id && x.region !== d.region));
+    const opts = shuffle([d, ...same.slice(0, 2), ...other].slice(0, 4));
+    const ph = PHOTOS[d.id];
+    quizEl.innerHTML = `${qHead()}
+      <div class="qphoto" style="--bg:url('${esc(ph.file)}')"><img src="${esc(ph.file)}" alt="猜猜這是哪一種狗"></div>
+      <p class="qask">這是哪一種狗？</p>
+      <div class="qopts">${opts.map(o => `<button type="button" data-pick="${o.id}">${esc(o.zh)}</button>`).join("")}</div>
+      <div class="qbtns"><button type="button" data-q="quit">結束遊戲</button></div>`;
+    quizEl.hidden = false;
+  }
+  function pickPhoto(id) {
+    const d = quiz.list[quiz.i], ok = id === d.id, pts = ok ? 100 : 0;
+    quiz.score += pts; quiz.guessed = true;
+    quiz.results.push({ d, ok, pts });
+    quizEl.querySelectorAll("[data-pick]").forEach(b => {
+      b.disabled = true;
+      if (b.dataset.pick === d.id) b.classList.add("right");
+      else if (b.dataset.pick === id) b.classList.add("wrong");
+    });
+    // Show where the answer comes from on the map.
+    quizG.selectAll("*").remove();
+    quizG.append("circle").attr("class", "qans").attr("transform", `translate(${projection([d.lon, d.lat])})`);
+    quizG.append("text").attr("class", "qlabel").attr("text-anchor", "middle").text(d.zh)
+      .attr("transform", `translate(${projection([d.lon, d.lat])})`);
+    sizeQuiz();
+    const last = quiz.i === ROUNDS - 1;
+    const fact = d.myth || d.etym || ("原本的工作是" + d.job + "。");
+    quizEl.querySelector(".qask").outerHTML = `<p class="qfact"><b>${ok ? "答對了！" : "答案是" + esc(d.zh) + "。"}</b>
+      <span lang="ja">${esc(d.ja)}</span>・<span lang="en">${esc(d.en)}</span>，來自${esc(d.place)}。${esc(fact)}</p>`;
+    quizEl.querySelector(".qbtns").innerHTML = `<button type="button" class="primary" data-q="next">${last ? "看總成績" : "下一題 →"}</button>
+      <button type="button" data-q="quit">結束遊戲</button>`;
+    quizEl.querySelector(".qhead").outerHTML = qHead();
+    quizEl.querySelector(".primary").focus();
   }
   function endQuiz() {
     quiz = null; quizG.selectAll("*").remove();
@@ -1016,11 +1085,12 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   }
   function renderSummary() {
     quizG.selectAll("*").remove();
-    const rows = quiz.results.map(r => `<dt>${esc(r.d.zh)}</dt><dd>${km(r.dist)} 公里・${r.pts} 分</dd>`).join("");
+    const photo = quiz.kind === "photo";
+    const rows = quiz.results.map(r => `<dt>${esc(r.d.zh)}</dt><dd>${photo ? (r.ok ? "答對" : "答錯") : km(r.dist) + " 公里"}・${r.pts} 分</dd>`).join("");
     quizEl.innerHTML = `<div class="qhead"><span>遊戲結束</span><span>滿分 ${ROUNDS * 100}</span></div>
       <p class="qbig">${quiz.score} 分<small>${rank(quiz.score)}</small></p>
       <dl class="qlist">${rows}</dl>
-      <p class="qsub">距離是用每種狗的大致原產區域計算的，不是精確地點。</p>
+      ${photo ? "" : `<p class="qsub">距離是用每種狗的大致原產區域計算的，不是精確地點。</p>`}
       <div class="qbtns">
         <button type="button" class="primary" data-q="again">再玩一次</button>
         <button type="button" data-q="quit">回到地圖</button>
@@ -1035,10 +1105,14 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   zoom.on("zoom.quiz", () => sizeQuiz());
   quizEl.addEventListener("click", e => {
     e.stopPropagation();
+    const pick = e.target.closest("[data-pick]");
+    if (pick && quiz && !quiz.guessed) return pickPhoto(pick.dataset.pick);
     const t = e.target.closest("[data-q]"); if (!t || !quiz) return;
     const a = t.dataset.q;
     if (a === "quit") return endQuiz();
-    if (a === "again") return startQuiz();
+    if (a === "again") return startQuiz(quiz.kind);
+    if (a === "mode-map") return startQuiz("map");
+    if (a === "mode-photo") return startQuiz("photo");
     if (a === "hint") {
       quiz.hint = true;
       t.outerHTML = `<span class="qsub">提示：在<b>${esc(regionName[quiz.list[quiz.i].region])}</b></span>`;
@@ -1046,13 +1120,13 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     }
     if (a === "next") {
       quiz.i++;
-      if (quiz.i >= ROUNDS) renderSummary(); else renderQuestion();
+      if (quiz.i >= ROUNDS) renderSummary(); else (quiz.kind === "photo" ? renderPhotoQuestion() : renderQuestion());
     }
   });
-  document.getElementById("quizbtn").addEventListener("click", startQuiz);
+  document.getElementById("quizbtn").addEventListener("click", () => startQuiz());
   svg.on("click", e => {
     if (!quiz) return closePop();
-    if (quiz.guessed || quiz.i >= ROUNDS) return;
+    if (quiz.chooser || quiz.kind !== "map" || quiz.guessed || quiz.i >= ROUNDS) return;
     const pt = T.invert(d3.pointer(e, svg.node()));
     const ll = projection.invert(pt);
     // Ignore clicks outside the globe outline (the inverse projection would wrap them around).
