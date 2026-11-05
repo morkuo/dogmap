@@ -367,6 +367,23 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
 .qopts button.wrong { background: var(--amber-soft); border-color: var(--amber); color: var(--amber); text-decoration: line-through; }
 .qopts button:disabled { cursor: default; }
 @media (max-width: 640px) { .qphoto { height: 150px; } .qmodes { grid-template-columns: 1fr; } }
+/* Touch screens: every control gets a finger-sized target (about 44px). */
+@media (pointer: coarse) {
+  .listbtn, .quizbtn, .timebtn, .seg button, .search input, .worksel select { min-height: 42px; }
+  .legend { padding: 4px 6px; gap: 2px 4px; }
+  .legend .kindbtn, .legend .famtoggle, .legend #rand { min-height: 40px; padding: 0 10px; font-size: 13px; display: inline-flex; align-items: center; }
+  .legend #rand { text-decoration: underline; }
+  .mapctl button { width: 44px; height: 44px; }
+  .close { width: 40px; height: 40px; font-size: 20px; }
+  .grip { height: 30px; }
+  .chip { min-height: 38px; padding: 4px 14px; display: inline-flex; align-items: center; }
+  .nav button, .qbtns button, .tl .tlbtns button { min-height: 42px; padding: 6px 14px; }
+  .share { min-height: 40px; padding: 6px 14px; }
+  .sources li { padding-block: 5px; }
+  .photo figcaption a { display: inline-block; padding-block: 6px; }
+  .qopts button { min-height: 46px; }
+  .resetseen { padding: 10px 0; }
+}
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } .pin.born .ring { animation: none; } }
 </style>
 
