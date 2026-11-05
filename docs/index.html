@@ -154,8 +154,10 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   position: absolute; z-index: 3; top: 8px; right: 8px; width: 32px; height: 32px; border-radius: 50%;
   border: 0; background: color-mix(in srgb, var(--paper) 85%, transparent); font-size: 18px; line-height: 1; cursor: pointer;
 }
-.photo { position: relative; aspect-ratio: 3 / 2; max-width: 100%; background: var(--rule); flex: none; margin: 0; }
-.photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo { position: relative; aspect-ratio: 3 / 2; max-width: 100%; background: var(--rule); flex: none; margin: 0; overflow: hidden; }
+.photo::before { content: ""; position: absolute; inset: -16px; background: var(--bg) center / cover no-repeat; filter: blur(14px) brightness(.75); }
+.photo img { position: relative; width: 100%; height: 100%; object-fit: contain; display: block; }
+.photo figcaption { z-index: 1; }
 .photo figcaption {
   position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 10px 4px; font-size: 10.5px; line-height: 1.4;
   color: #f2f5f5; background: linear-gradient(transparent, rgba(0,0,0,.6));
@@ -219,13 +221,15 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   .search input { width: 100%; }
   .pop {
     left: 0 !important; right: 0; top: auto !important; bottom: 0; width: auto; max-width: none;
-    height: 62%; border-radius: 16px 16px 0 0; border-bottom: 0;
+    height: 46%; border-radius: 16px 16px 0 0; border-bottom: 0;
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   .pop .arrow { display: none; }
   .pop .scroll { flex: 1; min-height: 0; max-height: none !important; border-radius: 16px 16px 0 0; }
   .nav { border-radius: 0; }
-  .photo { aspect-ratio: 2 / 1; }
+  .photo { aspect-ratio: 16 / 9; }
+  .grip::before { background: var(--ink-soft); box-shadow: none; }
+  .grip { top: -2px; }
   .drawer { width: auto; right: max(12px, env(safe-area-inset-right, 0px)); top: calc(env(safe-area-inset-top, 0px) + 112px); }
 }
 /* Filters, name myths, sharing */
@@ -383,8 +387,9 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     .filter(e => {
       if (e.type === "wheel") return true;
       if (e.type === "dblclick") return false;
-      if (e.type.startsWith("touch")) return e.touches.length > 1 || T.k > 1.01;
-      return e.type === "mousedown" && e.button === 0 && T.k > 1.01;
+      const canPan = T.k > 1.01 || isPhone(); // on phones the world is wider than the screen
+      if (e.type.startsWith("touch")) return e.touches.length > 1 || canPan;
+      return e.type === "mousedown" && e.button === 0 && canPan;
     })
     .on("zoom", e => { T = e.transform; g.attr("transform", T); sizePins(); placePop(); tip.hidden = true; onZoomed(); });
   let hintShown = false;
@@ -416,16 +421,32 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     W = app.clientWidth; H = app.clientHeight;
     svg.attr("viewBox", `0 0 ${W} ${H}`);
     const top = barBottom() + 8;
-    // On phones the card covers the lower 62%, so fit the world into the strip above it.
     // During the quiz, keep the world clear of the quiz panel at the bottom.
-    const bottom = quiz ? H - (isPhone() ? 250 : 230)
-      : isPhone() ? Math.max(top + 160, H * 0.38 - 6) : H - 50;
-    projection.fitExtent([[10, top], [W - 10, bottom]], { type: "Sphere" });
+    const bottom = quiz ? H - (isPhone() ? 250 : 230) : isPhone() ? H - 12 : H - 50;
+    if (isPhone()) {
+      // Phones are tall: fit the world to the screen height and let people swipe sideways.
+      const h = bottom - top, w = h * 1.95;
+      projection.fitExtent([[0, top], [w, bottom]], { type: "Sphere" });
+      const focus = (selected && byId[selected]) || byId[decodeURIComponent((location.hash || "").slice(1))] || { lon: 110, lat: 25 };
+      const [fx] = projection([focus.lon, focus.lat]);
+      const [tx, ty] = projection.translate();
+      const sb = d3.geoPath(projection).bounds({ type: "Sphere" });
+      const shift = Math.max(Math.min(W / 2 - fx, -sb[0][0]), W - sb[1][0]);
+      projection.translate([tx + shift, ty]);
+    } else {
+      projection.fitExtent([[10, top], [W - 10, bottom]], { type: "Sphere" });
+    }
     grat.attr("d", path(d3.geoGraticule10()));
     cSel.attr("d", path);
     pins.attr("transform", d => `translate(${projection([d.lon, d.lat])})`);
     if (selected) drawRelations(byId[selected]);
-    zoom.extent([[0, 0], [W, H]]).translateExtent([[0, 0], [W, H]]);
+    if (isPhone()) {
+      // Allow panning across the whole world, plus room to pull southern dogs up above the card.
+      const sb = path.bounds({ type: "Sphere" });
+      zoom.extent([[0, 0], [W, H]]).translateExtent([[Math.min(0, sb[0][0]), 0], [Math.max(W, sb[1][0]), H + H * 0.45]]);
+    } else {
+      zoom.extent([[0, 0], [W, H]]).translateExtent([[0, 0], [W, H]]);
+    }
     const dr = document.getElementById("drawer");
     if (dr) dr.style.top = (barBottom() + 8) + "px";
     sizePins(); placePop();
@@ -436,9 +457,37 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     pins.select("circle.hit").attr("r", 12 / k);
     pins.select("circle.dot").attr("r", d => (d.id === selected ? 7.5 : 5.5) / s);
     pins.select("circle.ring").attr("r", 12 / s);
+    pins.select("text").attr("font-size", 13 / k).attr("stroke-width", 3 / k);
+    placeLabels();
+  }
+  // Show a name only where it fits: try above the dot, then below; skip it if it would overlap another label.
+  let hoverId = null;
+  function placeLabels() {
+    const k = T.k, s = Math.sqrt(k);
+    const minK = isPhone() ? 1 : 2.4;
+    const boxes = [], show = new Map();
+    const hit = (a) => boxes.some(b => a.x0 < b.x1 && a.x1 > b.x0 && a.y0 < b.y1 && a.y1 > b.y0);
+    if (k >= minK) {
+      // Treat every visible dot as an obstacle so names never sit on top of another dog's dot.
+      for (const d of DOGS) {
+        if (!visible(d)) continue;
+        const [x, y] = T.apply(projection([d.lon, d.lat])), r = (d.id === selected ? 9 : 7) / Math.sqrt(s);
+        boxes.push({ x0: x - r, x1: x + r, y0: y - r, y1: y + r, dot: true });
+      }
+      const order = DOGS.filter(d => visible(d) && d.id !== selected)
+        .sort((a, b) => (b.id === hoverId) - (a.id === hoverId) || (b.tags.includes("common")) - (a.tags.includes("common")));
+      for (const d of order) {
+        const [x, y] = T.apply(projection([d.lon, d.lat]));
+        if (x < -40 || x > W + 40 || y < -20 || y > H + 20) continue;
+        const w = d.zh.length * 13 + 6, r = 10 * s / 1;
+        const cands = [["above", { x0: x - w / 2, x1: x + w / 2, y0: y - r - 18, y1: y - r + 1 }],
+                       ["below", { x0: x - w / 2, x1: x + w / 2, y0: y + r - 1, y1: y + r + 18 }]];
+        for (const [pos, b] of cands) { if (!hit(b)) { boxes.push(b); show.set(d.id, pos); break; } }
+      }
+    }
     pins.select("text")
-      .attr("font-size", 13 / k).attr("y", -10 / s - 3 / k).attr("stroke-width", 3 / k)
-      .attr("display", d => (k >= 2.4 && d.id !== selected) ? null : "none");
+      .attr("display", d => show.has(d.id) ? null : "none")
+      .attr("y", d => show.get(d.id) === "below" ? (10 / s + 13 / k) : (-10 / s - 3 / k));
   }
 
   svg.call(zoom).on("dblclick.zoom", null);
@@ -450,6 +499,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   // tooltip
   const tip = document.getElementById("tip");
   pins.on("mouseenter", (e, d) => {
+    hoverId = d.id;
     if (d.id === selected) return;
     const [x, y] = T.apply(projection([d.lon, d.lat]));
     tip.textContent = d.zh; tip.hidden = false;
@@ -466,7 +516,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     const related = (d.related || []).filter(id => byId[id]).map(id =>
       `<button type="button" class="chip" data-go="${id}">${esc(byId[id].zh)}</button>`).join("");
     const ph = PHOTOS[d.id];
-    const photo = ph ? `<figure class="photo">
+    const photo = ph ? `<figure class="photo" style="--bg:url('${esc(ph.file)}')">
         <img src="${esc(ph.file)}" alt="${esc(d.zh)}的照片">
         <figcaption>照片：${esc(ph.artist)}・<a href="${esc(ph.page)}" target="_blank" rel="noopener">${esc(ph.license || "Wikimedia Commons")}</a></figcaption>
       </figure>` : "";
@@ -809,7 +859,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   layout(); applyFilter();
   pop.classList.remove("enter");
   const fromHash = decodeURIComponent((location.hash || "").slice(1));
-  select(byId[fromHash] ? fromHash : "labrador");
+  if (byId[fromHash]) select(fromHash); else if (!isPhone()) select("labrador");
   pop.classList.remove("enter");
   window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (byId[h] && !quiz) select(h); });
 })();
