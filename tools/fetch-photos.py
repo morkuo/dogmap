@@ -79,7 +79,11 @@ def main():
         ii = page["imageinfo"][0]
         em = ii.get("extmetadata", {})
         rel = "images/" + did + ".jpg"
-        open(os.path.join(ROOT, rel), "wb").write(get(ii["thumburl"]))
+        out = os.path.join(ROOT, rel)
+        open(out, "wb").write(get(ii["thumburl"]))
+        # 統一成 JPEG、長邊 800px、較高壓縮，讓手機載入快（卡片上最大只顯示約 370px 寬）
+        subprocess.run(["sips", "-s", "format", "jpeg", "-s", "formatOptions", "low", "-Z", "800", out, "--out", out],
+                       capture_output=True)
         photos[did] = {
             "file": rel,
             "artist": clean_artist(em.get("Artist", {}).get("value", "")),
