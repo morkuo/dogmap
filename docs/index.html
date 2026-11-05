@@ -284,6 +284,32 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   .qdog { grid-template-columns: 72px 1fr; }
   .qdog img { width: 72px; height: 72px; }
 }
+/* Famous dogs, journeys, collection */
+.fam { cursor: pointer; }
+.fam path { fill: var(--ink); stroke: var(--paper); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+.fam.sel path { fill: var(--amber); }
+.app.nofam .fam, .app.quizmode .fam, .app.quizmode .trip { display: none; }
+.legend .famtoggle { display: inline-flex; align-items: center; gap: 5px; color: var(--ink-soft); text-decoration: none; }
+.legend .famtoggle[aria-pressed="false"] { opacity: .55; text-decoration: line-through; }
+.legend .famtoggle svg { width: 11px; height: 11px; fill: var(--ink); }
+.trip path.leg { fill: none; stroke: var(--amber); stroke-width: 2.5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.trip circle { fill: var(--amber); stroke: var(--paper); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.trip circle.on { fill: var(--ink); }
+.trip text { font-family: var(--font-mono); font-weight: 500; fill: var(--paper); pointer-events: none; }
+.triplist { margin: 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; font-size: 14px; line-height: 1.6; }
+.triplist li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: baseline; border-radius: 6px; padding: 2px 4px; cursor: default; }
+.triplist li:hover { background: var(--amber-soft); }
+.triplist .n { font-family: var(--font-mono); font-size: 12px; color: var(--paper); background: var(--amber); border-radius: 999px; width: 20px; height: 20px; display: inline-grid; place-items: center; }
+.famcard .yr { font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.chip.fam-chip::before { content: "★"; margin-right: 4px; color: var(--amber); }
+.chip.seen::after { content: "✓"; margin-left: 5px; color: var(--amber); font-family: var(--font-body); font-size: 12px; }
+.drawer h3 .badge { font-family: var(--font-body); font-size: 11.5px; font-weight: 700; color: var(--paper); background: var(--amber); padding: 0 8px; border-radius: 999px; letter-spacing: .04em; }
+.resetseen { border: 0; background: none; color: var(--accent); font-size: 12.5px; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+.toast {
+  position: absolute; z-index: 12; left: 50%; top: calc(env(safe-area-inset-top, 0px) + 70px); transform: translateX(-50%);
+  background: var(--amber); color: #1c1205; font-weight: 700; font-size: 14.5px; padding: 8px 16px; border-radius: 999px; box-shadow: var(--shadow);
+  transition: opacity .35s ease; white-space: nowrap; max-width: calc(100vw - 24px); overflow: hidden; text-overflow: ellipsis;
+}
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 
@@ -312,8 +338,10 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     <span><i style="background:var(--accent)"></i>世界常見</span>
     <span><i style="background:var(--amber)"></i>在地特色</span>
     <span><i style="background:var(--accent);box-shadow:0 0 0 2px var(--amber)"></i>兩者都是</span>
+    <button type="button" class="famtoggle" id="famtoggle" aria-pressed="true" title="顯示或隱藏歷史上的名犬"><svg viewBox="-10 -10 20 20" aria-hidden="true"><path d="M0,-9L2.6,-3.2L8.8,-2.8L4.1,1.3L5.5,7.4L0,4.1L-5.5,7.4L-4.1,1.3L-8.8,-2.8L-2.6,-3.2Z"/></svg>名犬</button>
     <button type="button" id="rand">隨機一隻</button>
   </div>
+  <div class="toast" id="toast" hidden></div>
   <div class="panhint" id="panhint" hidden>放大後可以拖曳地圖來移動</div>
   <div class="mapctl">
     <button type="button" id="zin" aria-label="放大">+</button>
@@ -341,9 +369,13 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
 <script src="world.js"></script>
 <script src="dogs.js"></script>
 <script src="photos.js"></script>
+<script src="famous.js"></script>
 <script>
 (function () {
   const DOGS = window.DOGS, REGIONS = window.REGIONS, PHOTOS = window.PHOTOS || {};
+  const FAMOUS = window.FAMOUS || [], TRIPS = window.TRIPS || {};
+  const famById = Object.fromEntries(FAMOUS.map(f => [f.id, f]));
+  let selFam = null;
   const byId = Object.fromEntries(DOGS.map(d => [d.id, d]));
   const regionName = Object.fromEntries(REGIONS.map(r => [r.id, r.name]));
   const WORKS = window.WORKS || [];
@@ -373,6 +405,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   const grat = g.append("path").attr("class", "grat");
   const cSel = g.append("g").selectAll("path").data(countries.features).join("path").attr("class", "country");
   const relG = g.append("g").attr("class", "rellayer");
+  const tripG = g.append("g").attr("class", "trip");
   const pins = g.append("g").selectAll("g.pin").data(DOGS, d => d.id).join("g")
     .attr("class", d => "pin " + kind(d)).attr("tabindex", 0).attr("role", "button")
     .attr("aria-label", d => `${d.zh}，${d.place}`);
@@ -380,6 +413,11 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   pins.append("circle").attr("class", "ring");
   pins.append("circle").attr("class", "dot");
   pins.append("text").text(d => d.zh).attr("text-anchor", "middle");
+  const starPath = d3.symbol(d3.symbolStar, 120)();
+  const fams = g.append("g").attr("class", "famlayer").selectAll("g.fam").data(FAMOUS, f => f.id).join("g")
+    .attr("class", "fam").attr("tabindex", 0).attr("role", "button").attr("aria-label", f => `名犬：${f.name}，${f.place}`);
+  fams.append("circle").attr("class", "hit").attr("fill", "transparent");
+  fams.append("path").attr("d", starPath);
 
   // The map never moves on its own. Zoom with the wheel, a pinch or the buttons; once zoomed in, drag to pan.
   // At full view the world already fits, so dragging is off there.
@@ -439,6 +477,8 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     grat.attr("d", path(d3.geoGraticule10()));
     cSel.attr("d", path);
     pins.attr("transform", d => `translate(${projection([d.lon, d.lat])})`);
+    fams.attr("transform", f => `translate(${projection([f.lon, f.lat])})`);
+    if (selected) drawTrip(byId[selected]);
     if (selected) drawRelations(byId[selected]);
     if (isPhone()) {
       // Allow panning across the whole world, plus room to pull southern dogs up above the card.
@@ -458,6 +498,10 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     pins.select("circle.dot").attr("r", d => (d.id === selected ? 7.5 : 5.5) / s);
     pins.select("circle.ring").attr("r", 12 / s);
     pins.select("text").attr("font-size", 13 / k).attr("stroke-width", 3 / k);
+    fams.select("path").attr("transform", f => `scale(${(f.id === selFam ? 1.35 : 1) / s})`);
+    fams.select("circle.hit").attr("r", 12 / k);
+    tripG.selectAll("circle").attr("r", 8 / s);
+    tripG.selectAll("text").attr("font-size", 10 / s).attr("dy", 3.5 / s);
     placeLabels();
   }
   // Show a name only where it fits: try above the dot, then below; skip it if it would overlap another label.
@@ -508,8 +552,64 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     .on("click", (e, d) => { e.stopPropagation(); select(d.id); })
     .on("keydown", (e, d) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(d.id); } });
 
+  fams.on("mouseenter", (e, f) => {
+    if (f.id === selFam) return;
+    const [x, y] = T.apply(projection([f.lon, f.lat]));
+    tip.textContent = "★ " + f.name; tip.hidden = false; tip.style.left = x + "px"; tip.style.top = y + "px";
+  }).on("mouseleave", () => { tip.hidden = true; })
+    .on("click", (e, f) => { e.stopPropagation(); selectFamous(f.id); })
+    .on("keydown", (e, f) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selectFamous(f.id); } });
+  document.getElementById("famtoggle").addEventListener("click", e => {
+    const on = e.currentTarget.getAttribute("aria-pressed") !== "true";
+    e.currentTarget.setAttribute("aria-pressed", on);
+    app.classList.toggle("nofam", !on);
+    if (!on && selFam) closePop();
+  });
+
+  // ── Collection: remember which dogs this viewer has met (only in this browser) ──
+  const SEEN_KEY = "dogmap-seen-v1";
+  let seen = new Set();
+  try { seen = new Set(JSON.parse(localStorage.getItem(SEEN_KEY) || "[]").filter(id => byId[id])); } catch (_) {}
+  const toast = document.getElementById("toast");
+  function say(msg) {
+    toast.textContent = msg; toast.hidden = false; toast.style.opacity = "1";
+    clearTimeout(say.t); say.t = setTimeout(() => { toast.style.opacity = "0"; setTimeout(() => { toast.hidden = true; }, 380); }, 3200);
+  }
+  function markSeen(id) {
+    if (seen.has(id)) return;
+    seen.add(id);
+    try { localStorage.setItem(SEEN_KEY, JSON.stringify([...seen])); } catch (_) {}
+    updateCount();
+    const r = byId[id].region, inR = DOGS.filter(d => d.region === r);
+    if (seen.size === DOGS.length) say(`你認識了全部 ${DOGS.length} 種狗！`);
+    else if (inR.every(d => seen.has(d.id))) say(`${regionName[r]}的 ${inR.length} 種狗你都認識了！`);
+  }
+  function updateCount() {
+    const el = document.getElementById("count");
+    if (el) el.textContent = `已認識 ${seen.size}／${DOGS.length}`;
+  }
+
   // ── Popup ──
   const pop = document.getElementById("pop"), scroll = document.getElementById("popscroll");
+  const famOf = id => FAMOUS.filter(f => f.breed === id);
+  function renderFamous(f) {
+    const b = f.breed && byId[f.breed];
+    scroll.innerHTML = `<div class="body famcard" style="padding-top:22px">
+        <div class="eyebrow"><span>歷史上的名犬</span><span class="yr">${esc(f.year)}</span></div>
+        <div class="names">
+          <h2>${esc(f.name)}</h2>
+          <div class="row"><span class="lab">日</span><span class="ja" lang="ja">${esc(f.ja)}</span></div>
+          <div class="row"><span class="lab">EN</span><span class="en" lang="en">${esc(f.en)}</span></div>
+        </div>
+        <dl class="meta"><dt>地點</dt><dd>${esc(f.place)}</dd><dt>品種</dt><dd>${b ? esc(b.zh) : "不在這份地圖的犬種裡"}</dd></dl>
+        <p class="story">${esc(f.text)}</p>
+        ${f.note ? `<div class="note"><b>說法不一</b>${esc(f.note)}</div>` : ""}
+        ${b ? `<div><p class="sub">認識這個犬種</p><div class="chips"><button type="button" class="chip" data-go="${b.id}">${esc(b.zh)}</button></div></div>` : ""}
+        <div><p class="sub">資料來源</p><ul class="sources">${f.sources.map(([t, u]) =>
+          `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("")}</ul></div>
+      </div>`;
+    scroll.scrollTop = 0;
+  }
   function renderPop(d) {
     const tags = d.tags.map(t => `<span class="tag ${t}">${t === "common" ? "世界常見" : "在地特色"}</span>`).join("") +
       (d.work || []).map(w => `<span class="wtag">${esc(workName[w] || w)}</span>`).join("");
@@ -537,6 +637,10 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
         </dl>
         <p class="story">${esc(d.story)}</p>
         ${d.note ? `<div class="note"><b>說法不一</b>${esc(d.note)}</div>` : ""}
+        ${TRIPS[d.id] ? `<div><p class="sub">牠的旅程（地圖上的橘色路線）</p><ol class="triplist">${TRIPS[d.id].map(([, , t], i) =>
+          `<li data-stop="${i}"><span class="n">${i + 1}</span><span>${esc(t)}</span></li>`).join("")}</ol></div>` : ""}
+        ${famOf(d.id).length ? `<div><p class="sub">這個犬種的名犬</p><div class="chips">${famOf(d.id).map(f =>
+          `<button type="button" class="chip fam-chip" data-fam="${f.id}">${esc(f.name)}</button>`).join("")}</div></div>` : ""}
         ${related ? `<div><p class="sub">相關的狗</p><div class="chips">${related}</div></div>` : ""}
         <div><p class="sub">資料來源</p><ul class="sources">${d.sources.map(([t, u]) =>
           `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("")}</ul></div>
@@ -546,9 +650,10 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   }
 
   let userPos = null, sheetH = null;
+  const current = () => selFam ? famById[selFam] : byId[selected];
   function placePop() {
-    if (pop.hidden || !selected || isPhone()) return;
-    const d = byId[selected];
+    if (pop.hidden || !(selected || selFam) || isPhone()) return;
+    const d = current();
     const [px, py] = T.apply(projection([d.lon, d.lat]));
     // If the pin is zoomed out of view, keep the card on screen and drop the arrow.
     const off = px < 0 || px > W || py < 0 || py > H;
@@ -567,7 +672,10 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     const ph = pop.offsetHeight;
     const top = Math.max(64, Math.min(y - 70, H - ph - 12));
     // Pick the side that fits and hides the fewest related dogs (so their connecting lines stay visible).
-    const relPts = (d.related || []).filter(id => byId[id] && visible(byId[id])).map(id => T.apply(projection([byId[id].lon, byId[id].lat])));
+    // Keep related dogs, journey stops and the linked breed visible beside the card.
+    const relIds = selFam ? (d.breed ? [d.breed] : []) : (d.related || []);
+    const relPts = relIds.filter(id => byId[id] && visible(byId[id])).map(id => T.apply(projection([byId[id].lon, byId[id].lat])))
+      .concat(((!selFam && TRIPS[d.id]) || []).map(([la, lo]) => T.apply(projection([lo, la]))));
     const covers = l => relPts.filter(([rx, ry]) => rx >= l - 8 && rx <= l + pw + 8 && ry >= top - 8 && ry <= top + ph + 8).length;
     // Candidates: right next to the pin, left next to it, or against either screen edge (no arrow).
     const opts = [["right", x + gap, true], ["left", x - gap - pw, true], ["right", W - pw - 12, false], ["left", 12, false]]
@@ -581,16 +689,17 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     pop.querySelector(".arrow").style.visibility = (off || !adj) ? "hidden" : "visible";
   }
 
-  function openPop(d) {
+  function openPop(d, render) {
     const wasHidden = pop.hidden;
-    renderPop(d);
+    (render || renderPop)(d);
     pop.hidden = false;
     if (wasHidden) { pop.classList.add("enter"); void pop.offsetWidth; pop.classList.remove("enter"); }
     placePop();
   }
   function closePop() {
     if (pop.hidden) return;
-    pop.hidden = true; selected = null; userPos = null;
+    pop.hidden = true; selected = null; selFam = null; userPos = null;
+    fams.classed("sel", false); tripG.selectAll("*").remove();
     pins.classed("sel", false); cSel.classed("hi", false);
     drawRelations(null);
     sizePins(); renderDrawer(); setHash("");
@@ -633,6 +742,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   pop.addEventListener("pointerup", endDrag);
   pop.addEventListener("pointercancel", endDrag);
   const hiRel = (id, on) => relG.selectAll("path").classed("on", r => on && r === id);
+  pop.addEventListener("mouseover", e => { const li = e.target.closest("[data-stop]"); tripG.selectAll("circle").classed("on", (x, i) => !!li && i === +li.dataset.stop); });
   pop.addEventListener("mouseover", e => { const t = e.target.closest("[data-go]"); if (t) hiRel(t.dataset.go, true); });
   pop.addEventListener("mouseout", e => { const t = e.target.closest("[data-go]"); if (t) hiRel(t.dataset.go, false); });
   pop.addEventListener("click", e => {
@@ -640,6 +750,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     if (Date.now() - dragEndedAt < 300) return; // the click that ends a drag is not a button press
     const t = e.target.closest("button"); if (!t) return;
     if (t.dataset.go) return select(t.dataset.go);
+    if (t.dataset.fam) return selectFamous(t.dataset.fam);
     if (t.dataset.step) step(+t.dataset.step);
     if (t.dataset.share) {
       const url = location.href.split("#")[0] + "#" + t.dataset.share;
@@ -648,6 +759,10 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     }
   });
   function step(n) {
+    if (selFam) {
+      let i = FAMOUS.findIndex(f => f.id === selFam);
+      return selectFamous(FAMOUS[(i + n + FAMOUS.length) % FAMOUS.length].id);
+    }
     const list = DOGS.filter(visible); if (!list.length) return;
     let i = list.findIndex(x => x.id === selected);
     i = ((i < 0 ? 0 : i + n) + list.length) % list.length;
@@ -672,11 +787,13 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     const html = REGIONS.map(r => {
       const ds = DOGS.filter(d => d.region === r.id && visible(d));
       if (!ds.length) return "";
-      return `<section><h3>${r.name}<small>${ds.length}</small></h3><div class="chips">${ds.map(d =>
-        `<button type="button" class="chip ${kind(d) === "local" ? "local" : ""} ${d.id === selected ? "on" : ""}" data-go="${d.id}">${esc(d.zh)}</button>`).join("")}</div></section>`;
+      const all = DOGS.filter(d => d.region === r.id), got = all.filter(d => seen.has(d.id)).length;
+      return `<section><h3>${r.name}<small>${got}／${all.length}</small>${got === all.length ? '<span class="badge">集滿了</span>' : ""}</h3><div class="chips">${ds.map(d =>
+        `<button type="button" class="chip ${kind(d) === "local" ? "local" : ""} ${d.id === selected ? "on" : ""} ${seen.has(d.id) ? "seen" : ""}" data-go="${d.id}">${esc(d.zh)}</button>`).join("")}</div></section>`;
     }).join("");
     drawerList.innerHTML = (html || `<p class="empty">找不到符合「${esc(query)}」的狗，試試中文、日文或英文名稱。</p>`) +
-      `<p class="about">資料整理自 Wikipedia、美國犬業俱樂部（AKC）、大英百科全書、各犬種協會與博物館等公開資料；照片來自 Wikimedia Commons，作者與授權標在每張照片下方。犬種起源常有多種說法，有分歧的地方會特別標出。地圖圓點標的是大致的原產區域。</p>`;
+      `<p class="about">資料整理自 Wikipedia、美國犬業俱樂部（AKC）、大英百科全書、各犬種協會與博物館等公開資料；照片來自 Wikimedia Commons，作者與授權標在每張照片下方。犬種起源常有多種說法，有分歧的地方會特別標出。地圖圓點標的是大致的原產區域。</p>
+      <p class="about" style="border:0;padding:0">打勾的是你打開過的狗（只記在這個瀏覽器裡）。<button type="button" class="resetseen" data-reset="1">清除紀錄</button></p>`;
   }
   function toggleDrawer(open) {
     drawer.hidden = !open; listbtn.setAttribute("aria-expanded", open);
@@ -684,20 +801,60 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   }
   listbtn.addEventListener("click", () => toggleDrawer(drawer.hidden));
   drawer.addEventListener("click", e => {
+    if (e.target.closest("[data-reset]")) {
+      seen = new Set(); try { localStorage.removeItem(SEEN_KEY); } catch (_) {}
+      updateCount(); renderDrawer(); return;
+    }
     const t = e.target.closest("[data-go]"); if (!t) return;
     if (isPhone()) toggleDrawer(false);
     select(t.dataset.go);
   });
 
-  function select(id) {
+  function select(id, opts) {
     const d = byId[id]; if (!d) return;
-    selected = id; tip.hidden = true;
+    selected = id; selFam = null; tip.hidden = true;
+    fams.classed("sel", false);
     pins.classed("sel", x => x.id === id);
     pins.filter(x => x.id === id).raise();
     cSel.classed("hi", f => d.country.includes(f.id));
     sizePins(); renderDrawer(); openPop(d);
     drawRelations(d);
+    drawTrip(d);
+    if (!(opts && opts.auto)) markSeen(id);
     setHash(id);
+  }
+  function selectFamous(fid) {
+    const f = famById[fid]; if (!f) return;
+    selected = null; selFam = fid; tip.hidden = true;
+    pins.classed("sel", false); fams.classed("sel", x => x.id === fid);
+    fams.filter(x => x.id === fid).raise();
+    cSel.classed("hi", false);
+    tripG.selectAll("*").remove();
+    drawRelations(f.breed && byId[f.breed] ? { lon: f.lon, lat: f.lat, related: [f.breed] } : null);
+    sizePins(); renderDrawer(); openPop(f, renderFamous);
+    setHash("f-" + fid);
+  }
+  // Numbered journey route for breeds that travelled.
+  function drawTrip(d) {
+    tripG.selectAll("*").remove();
+    const stops = (d && TRIPS[d.id]) || [];
+    if (stops.length < 2) return;
+    for (let i = 1; i < stops.length; i++) {
+      const a = [stops[i - 1][1], stops[i - 1][0]], b = [stops[i][1], stops[i][0]];
+      const leg = tripG.append("path").attr("class", "leg").attr("d", path({ type: "LineString", coordinates: [a, b] }));
+      const L = leg.node().getTotalLength();
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && L > 0) {
+        leg.attr("stroke-dasharray", `${L} ${L}`).attr("stroke-dashoffset", L)
+          .transition().delay(250 + (i - 1) * 550).duration(550).ease(d3.easeCubicInOut).attr("stroke-dashoffset", 0)
+          .on("end", function () { d3.select(this).attr("stroke-dasharray", null); });
+      }
+    }
+    stops.forEach(([la, lo], i) => {
+      const gg = tripG.append("g").attr("transform", `translate(${projection([lo, la])})`);
+      gg.append("circle");
+      gg.append("text").attr("text-anchor", "middle").text(i + 1);
+    });
+    sizePins();
   }
   // Dashed great-circle lines from the open dog to its related dogs.
   function drawRelations(d) {
@@ -714,7 +871,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   function applyFilter() {
     pins.attr("hidden", d => visible(d) ? null : "");
     const list = DOGS.filter(visible);
-    document.getElementById("count").textContent = `${list.length} 種狗`;
+    updateCount();
     if (selected && !list.some(d => d.id === selected)) closePop();
     else if (selected) drawRelations(byId[selected]);
     renderDrawer();
@@ -859,9 +1016,14 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   layout(); applyFilter();
   pop.classList.remove("enter");
   const fromHash = decodeURIComponent((location.hash || "").slice(1));
-  if (byId[fromHash]) select(fromHash); else if (!isPhone()) select("labrador");
+  if (byId[fromHash]) select(fromHash);
+  else if (fromHash.startsWith("f-") && famById[fromHash.slice(2)]) selectFamous(fromHash.slice(2));
+  else if (!isPhone()) select("labrador", { auto: true });
   pop.classList.remove("enter");
-  window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (byId[h] && !quiz) select(h); });
+  window.addEventListener("hashchange", () => {
+    const h = decodeURIComponent(location.hash.slice(1)); if (quiz) return;
+    if (byId[h]) select(h); else if (h.startsWith("f-") && famById[h.slice(2)]) selectFamous(h.slice(2));
+  });
 })();
 </script>
 </body>
