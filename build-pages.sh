@@ -5,7 +5,7 @@ set -e
 cd "$(dirname "$0")"
 rm -rf docs
 mkdir -p docs/images
-cp world.js dogs.js photos.js docs/
+cp world.js dogs.js photos.js famous.js docs/
 cp images/*.jpg docs/images/
 {
   printf '<!doctype html>\n<html lang="zh-Hant">\n<head>\n'
