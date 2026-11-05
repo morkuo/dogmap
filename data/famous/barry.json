@@ -1,0 +1,20 @@
+{
+  "id": "barry",
+  "name": "Barry",
+  "ja": "バリー",
+  "en": "Barry",
+  "breed": "stbernard",
+  "year": "1800–1814",
+  "place": "瑞士・大聖伯納山口修道院",
+  "lat": 45.95,
+  "lon": 7.35,
+  "text": "大聖伯納山口修道院最有名的救難犬，據說一生救了 40 多個人。牠的標本現在還在瑞士伯恩自然史博物館展出，修道院也一直保持有一隻狗叫 Barry。",
+  "note": "「把小男孩背回修道院」之類的故事，博物館認為多半是後人加油添醋。",
+  "sources": [
+    [
+      "伯恩自然史博物館",
+      "https://www.nmbe.ch/sites/default/files/2021-12/Barry_Broschuere_14_E.pdf"
+    ]
+  ],
+  "order": 2
+}

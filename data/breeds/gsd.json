@@ -1,0 +1,37 @@
+{
+  "id": "gsd",
+  "zh": "德國牧羊犬",
+  "ja": "ジャーマン・シェパード・ドッグ",
+  "en": "German Shepherd Dog",
+  "region": "eu",
+  "country": [
+    "276"
+  ],
+  "place": "德國",
+  "lat": 49,
+  "lon": 8.4,
+  "tags": [
+    "common"
+  ],
+  "work": [
+    "herd",
+    "guard"
+  ],
+  "job": "牧羊，後來成為警犬、軍犬",
+  "story": "德國牧羊犬的起點很明確：1899 年，德國騎兵軍官 Max von Stephanitz 在一場犬展上看中一隻叫 Horand 的牧羊犬，把牠買下、改名為 Horand von Grafrath，登記為這個品種的第一號，並成立了德國牧羊犬協會。他的目標是培育一隻聰明、能工作的狗。隨著德國牧羊業衰退，他轉而把牠推向警察和軍隊的工作。",
+  "milestone": {
+    "year": 1899,
+    "text": "Horand 被登記為德國牧羊犬第一號"
+  },
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/German_Shepherd"
+    ],
+    [
+      "Wikipedia：Max von Stephanitz",
+      "https://en.wikipedia.org/wiki/Max_von_Stephanitz"
+    ]
+  ],
+  "order": 20
+}

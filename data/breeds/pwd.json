@@ -1,0 +1,48 @@
+{
+  "id": "pwd",
+  "zh": "葡萄牙水犬",
+  "ja": "ポーチュギーズ・ウォーター・ドッグ",
+  "en": "Portuguese Water Dog",
+  "region": "eu",
+  "country": [
+    "620"
+  ],
+  "place": "葡萄牙・南部阿爾加維海岸",
+  "lat": 37.1,
+  "lon": -8,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "fish"
+  ],
+  "job": "幫漁夫把魚趕進網子、在船之間傳遞東西",
+  "story": "葡萄牙水犬是漁船上的水手：牠會跳進海裡把魚趕進漁網、撿回掉進水裡的漁具，還會在船和船、船和岸之間游泳傳遞東西。後來漁船有了新技術，牠的工作消失，數量也跟著變少。這個品種後來在美國出了名，因為美國前總統歐巴馬家的兩隻狗 Bo 和 Sunny 都是葡萄牙水犬。牠跟拉布拉多一樣，都是從幫漁夫工作起家的。",
+  "related": [
+    "labrador",
+    "poodle"
+  ],
+  "trip": [
+    {
+      "lat": 37.1,
+      "lon": -8,
+      "text": "葡萄牙阿爾加維：漁船上的工作犬"
+    },
+    {
+      "lat": 38.9,
+      "lon": -77.04,
+      "text": "2009 年：Bo 搬進美國白宮"
+    }
+  ],
+  "sources": [
+    [
+      "Mental Floss：葡萄牙水犬冷知識",
+      "https://www.mentalfloss.com/animals/dogs/9-fuzzy-facts-about-portuguese-water-dog"
+    ],
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Portuguese_Water_Dog"
+    ]
+  ],
+  "order": 27
+}

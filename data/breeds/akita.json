@@ -1,0 +1,59 @@
+{
+  "id": "akita",
+  "zh": "秋田犬",
+  "ja": "秋田犬（あきたいぬ）",
+  "en": "Akita",
+  "region": "ea",
+  "country": [
+    "392"
+  ],
+  "place": "日本・秋田縣大館市一帶",
+  "lat": 40.27,
+  "lon": 140.56,
+  "tags": [
+    "common",
+    "local"
+  ],
+  "work": [
+    "hunt",
+    "guard"
+  ],
+  "job": "獵大型動物、看守",
+  "story": "忠犬小八（ハチ公）就是秋田犬。牠的主人上野英三郎教授 1925 年過世後，小八還是每天到澀谷車站等他，等了將近十年。美國作家海倫・凱勒 1937 年訪問日本時聽了這個故事，很想養一隻秋田犬，於是得到一隻叫「神風號」的小狗，牠也成了第一隻到美國生活的秋田犬。",
+  "related": [
+    "shiba",
+    "kaiken"
+  ],
+  "milestone": {
+    "year": 1931,
+    "text": "秋田犬成為日本第一個被指定為天然紀念物的犬種"
+  },
+  "trip": [
+    {
+      "lat": 40.27,
+      "lon": 140.56,
+      "text": "秋田縣大館一帶"
+    },
+    {
+      "lat": 35.66,
+      "lon": 139.7,
+      "text": "1925–1935 年：忠犬小八在東京澀谷車站等主人"
+    },
+    {
+      "lat": 41.25,
+      "lon": -73.31,
+      "text": "1937 年：海倫・凱勒把「神風號」帶回美國康乃狄克州的家"
+    }
+  ],
+  "sources": [
+    [
+      "AKC：海倫・凱勒與秋田犬",
+      "https://www.akc.org/expert-advice/dog-breeds/helen-keller-was-a-true-dog-lover/"
+    ],
+    [
+      "Wikipedia：忠犬小八",
+      "https://en.wikipedia.org/wiki/Hachik%C5%8D"
+    ]
+  ],
+  "order": 42
+}

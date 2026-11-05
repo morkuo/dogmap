@@ -1,0 +1,35 @@
+{
+  "id": "afghan",
+  "zh": "阿富汗獵犬",
+  "ja": "アフガン・ハウンド",
+  "en": "Afghan Hound",
+  "region": "wa",
+  "country": [
+    "004"
+  ],
+  "place": "阿富汗山區",
+  "lat": 34.5,
+  "lon": 69.2,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "hunt"
+  ],
+  "job": "在山區追獵",
+  "story": "那身飄逸的長毛不只是好看，是為了抵抗阿富汗山區的寒冷。牠和薩路基一樣是視覺獵犬，跑起來非常快，腰胯靈活，在崎嶇山地也能急轉彎。2005 年，韓國團隊做出世界上第一隻複製狗 Snuppy，就是一隻阿富汗獵犬。",
+  "related": [
+    "saluki"
+  ],
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Afghan_Hound"
+    ],
+    [
+      "Wikipedia：Snuppy",
+      "https://en.wikipedia.org/wiki/Snuppy"
+    ]
+  ],
+  "order": 36
+}

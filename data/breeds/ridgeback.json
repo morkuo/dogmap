@@ -1,0 +1,41 @@
+{
+  "id": "ridgeback",
+  "zh": "羅德西亞背脊犬",
+  "ja": "ローデシアン・リッジバック",
+  "en": "Rhodesian Ridgeback",
+  "region": "af",
+  "country": [
+    "716"
+  ],
+  "place": "辛巴威（舊稱南羅德西亞）",
+  "lat": -20.15,
+  "lon": 28.58,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "hunt"
+  ],
+  "etym": "Rhodesian 是辛巴威的舊稱羅德西亞；Ridgeback 是「背上有一條脊」。",
+  "job": "合力纏住獅子，等獵人趕到",
+  "story": "牠的背上有一條毛往反方向長的「背脊」，這個特徵一般認為來自南非原住民科伊科伊人養的狗。後來歐洲殖民者把這些狗和歐洲犬種混種，培育出能在非洲草原上獵獅的狗。牠們不負責殺獅子，而是一群輪流纏住獅子，讓牠動彈不得，直到獵人趕來。1922 年，品種標準在辛巴威的布拉瓦約訂定。",
+  "note": "背脊特徵來自科伊科伊犬是育種者普遍的看法，但沒辦法完全證實。",
+  "related": [
+    "thairidge"
+  ],
+  "milestone": {
+    "year": 1922,
+    "text": "羅德西亞背脊犬的品種標準在辛巴威訂定"
+  },
+  "sources": [
+    [
+      "AKC：羅德西亞背脊犬曾經獵獅",
+      "https://www.akc.org/expert-advice/dog-breeds/the-rhodesian-ridgeback-once-hunted-lions/"
+    ],
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Rhodesian_Ridgeback"
+    ]
+  ],
+  "order": 32
+}

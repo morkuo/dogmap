@@ -1,0 +1,48 @@
+{
+  "id": "kangal",
+  "zh": "坎高犬",
+  "ja": "カンガル・シェパード・ドッグ",
+  "en": "Kangal Shepherd Dog",
+  "region": "wa",
+  "country": [
+    "792"
+  ],
+  "place": "土耳其・錫瓦斯省坎高地區",
+  "lat": 39.23,
+  "lon": 37.39,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "guard"
+  ],
+  "job": "保護羊群不被狼攻擊",
+  "story": "坎高犬的名字來自土耳其中部錫瓦斯省的坎高地區，是保護羊群不被狼攻擊的大型護畜犬。牠還遠渡重洋做了保育工作：非洲納米比亞的「獵豹保育基金會」把坎高犬送給當地牧場，讓牠們守護牲畜、把獵豹嚇走。牧民的牲畜損失減少了，就比較不會射殺或誘捕獵豹，等於狗狗間接救了獵豹。",
+  "related": [
+    "alabai",
+    "komondor"
+  ],
+  "trip": [
+    {
+      "lat": 39.23,
+      "lon": 37.39,
+      "text": "土耳其坎高：保護羊群不被狼攻擊"
+    },
+    {
+      "lat": -20.46,
+      "lon": 16.65,
+      "text": "納米比亞：守護牧場，讓牧民不必射殺獵豹"
+    }
+  ],
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Kangal_Shepherd_Dog"
+    ],
+    [
+      "CNN：納米比亞用護衛犬保護獵豹",
+      "https://amp.cnn.com/cnn/2016/03/08/africa/cheetahs-guard-dogs-namibia"
+    ]
+  ],
+  "order": 39
+}

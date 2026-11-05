@@ -1,0 +1,40 @@
+{
+  "id": "bordercollie",
+  "zh": "邊境牧羊犬",
+  "ja": "ボーダー・コリー",
+  "en": "Border Collie",
+  "region": "eu",
+  "country": [
+    "826"
+  ],
+  "place": "英格蘭與蘇格蘭交界",
+  "lat": 55.4,
+  "lon": -2.4,
+  "tags": [
+    "common"
+  ],
+  "work": [
+    "herd"
+  ],
+  "job": "趕羊",
+  "story": "「邊境」指的是英格蘭和蘇格蘭的交界地帶，這裡丘陵多、羊也多。邊境牧羊犬趕羊時會壓低身子、用眼睛盯著羊，牧羊人稱為「eye」，光用眼神就能讓羊群移動。牠以聰明出名，美國一隻叫 Chaser 的邊境牧羊犬學會了超過 1,000 個玩具的名字，還被寫進科學論文。",
+  "related": [
+    "aussie",
+    "corgi"
+  ],
+  "milestone": {
+    "year": 1893,
+    "text": "邊境牧羊犬的「祖父」Old Hemp 在英格蘭北部出生"
+  },
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Border_Collie"
+    ],
+    [
+      "Wikipedia：Chaser",
+      "https://en.wikipedia.org/wiki/Chaser_(dog)"
+    ]
+  ],
+  "order": 14
+}

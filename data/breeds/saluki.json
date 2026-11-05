@@ -1,0 +1,38 @@
+{
+  "id": "saluki",
+  "zh": "薩路基獵犬",
+  "ja": "サルーキ",
+  "en": "Saluki",
+  "region": "wa",
+  "country": [
+    "368",
+    "760"
+  ],
+  "place": "中東・肥沃月彎",
+  "lat": 33.5,
+  "lon": 41,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "hunt"
+  ],
+  "job": "用眼睛追獵瞪羚",
+  "story": "薩路基是最古老的犬種類型之一，屬於「視覺獵犬」：靠眼睛發現獵物，再用速度追上去。牠是中東貝都因人的獵犬，可以在沙漠中追捕瞪羚。在一些伊斯蘭文化裡狗被視為不潔，但薩路基常是例外，可以進到帳篷裡。",
+  "related": [
+    "afghan",
+    "azawakh"
+  ],
+  "ancient": "最古老的犬種類型之一",
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Saluki"
+    ],
+    [
+      "AKC 犬種介紹",
+      "https://www.akc.org/dog-breeds/saluki/"
+    ]
+  ],
+  "order": 35
+}

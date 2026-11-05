@@ -1,0 +1,36 @@
+{
+  "id": "newfoundland",
+  "zh": "紐芬蘭犬",
+  "ja": "ニューファンドランド",
+  "en": "Newfoundland",
+  "region": "na",
+  "country": [
+    "124"
+  ],
+  "place": "加拿大・紐芬蘭島",
+  "lat": 48.9,
+  "lon": -55.6,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "fish",
+    "rescue"
+  ],
+  "job": "漁船上的工作犬、水上救生",
+  "story": "紐芬蘭犬是拉布拉多的「大表哥」。早期拉布拉多甚至被叫做「小紐芬蘭犬」，兩者都來自同一座島。牠體型巨大，腳趾間有蹼，身上是防水的雙層厚毛，以前在漁船上幫忙拖網、把落水的人拖回岸邊，到現在還有紐芬蘭犬接受水上救生訓練。英國詩人拜倫的愛犬 Boatswain 就是紐芬蘭犬，拜倫還為牠寫了墓誌銘。",
+  "related": [
+    "labrador"
+  ],
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Newfoundland_dog"
+    ],
+    [
+      "加拿大百科全書（拉布拉多條目）",
+      "https://www.thecanadianencyclopedia.ca/en/article/labrador-retriever"
+    ]
+  ],
+  "order": 2
+}

@@ -1,0 +1,53 @@
+{
+  "id": "husky",
+  "zh": "西伯利亞哈士奇",
+  "ja": "シベリアン・ハスキー",
+  "en": "Siberian Husky",
+  "region": "ea",
+  "country": [
+    "643"
+  ],
+  "place": "俄羅斯・西伯利亞東北（楚科奇半島）",
+  "lat": 66,
+  "lon": 172,
+  "tags": [
+    "common"
+  ],
+  "work": [
+    "sled"
+  ],
+  "job": "楚科奇人的雪橇犬，長途拉輕貨",
+  "story": "哈士奇原本是西伯利亞東北角楚科奇人養的雪橇犬，特色是耐寒、吃得少、能跑很遠。1925 年冬天，阿拉斯加的諾姆鎮爆發白喉，血清只能靠狗拉雪橇接力送過去，二十位雪橇手和一百多隻狗跑了約 1,000 公里。最後一棒的領頭犬 Balto 成了明星，紐約中央公園還立了牠的雕像；不過跑最長、最危險路段的，其實是另一隻哈士奇 Togo。",
+  "related": [
+    "malamute",
+    "samoyed"
+  ],
+  "milestone": {
+    "year": 1908,
+    "label": "1908 年前後",
+    "text": "哈士奇被帶到阿拉斯加諾姆參加雪橇比賽"
+  },
+  "trip": [
+    {
+      "lat": 66,
+      "lon": 172,
+      "text": "西伯利亞東北：楚科奇人的雪橇犬"
+    },
+    {
+      "lat": 64.5,
+      "lon": -165.41,
+      "text": "1908 年前後：被帶到阿拉斯加諾姆參加雪橇比賽，1925 年跑了血清接力"
+    }
+  ],
+  "sources": [
+    [
+      "AKC：Togo",
+      "https://www.akc.org/expert-advice/lifestyle/togo-siberian-husky-sled-dog-hero-of-1925/"
+    ],
+    [
+      "Wikipedia：1925 諾姆血清接力",
+      "https://en.wikipedia.org/wiki/1925_serum_run_to_Nome"
+    ]
+  ],
+  "order": 3
+}

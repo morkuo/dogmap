@@ -1,0 +1,19 @@
+{
+  "id": "bluey",
+  "name": "Bluey",
+  "ja": "ブルーイ",
+  "en": "Bluey",
+  "breed": "cattledog",
+  "year": "1910–1939",
+  "place": "澳洲・維多利亞州羅徹斯特",
+  "lat": -36.36,
+  "lon": 144.7,
+  "text": "這隻澳洲牧牛犬活了 29 歲 5 個月，是金氏世界紀錄裡有可靠證據、最長壽的狗。牠工作了大約 20 年，在牧場上幫忙趕牛和羊。",
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Bluey_(long-lived_dog)"
+    ]
+  ],
+  "order": 9
+}

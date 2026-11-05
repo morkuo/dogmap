@@ -1,0 +1,59 @@
+{
+  "id": "frenchie",
+  "zh": "法國鬥牛犬",
+  "ja": "フレンチ・ブルドッグ",
+  "en": "French Bulldog",
+  "region": "eu",
+  "country": [
+    "250"
+  ],
+  "place": "法國・巴黎",
+  "lat": 48.86,
+  "lon": 2.35,
+  "tags": [
+    "common"
+  ],
+  "work": [
+    "companion"
+  ],
+  "myth": "名字叫法國鬥牛犬，祖先卻是英國的小型鬥牛犬。",
+  "job": "伴侶犬、抓老鼠",
+  "story": "法鬥的祖先其實是英國的小型鬥牛犬。19 世紀工業革命時，英國諾丁漢的蕾絲工匠被機器搶了工作，很多人搬到法國諾曼第，也帶上了自己的小鬥牛犬。這些狗在法國和當地的狗混種，在巴黎大受歡迎，常出現在咖啡館和舞廳。那對招牌的蝙蝠耳，也是這時候被固定下來的特色。",
+  "note": "諾丁漢蕾絲工匠的故事流傳很廣，但留下的文獻不多，細節不能完全確定。",
+  "related": [
+    "boston",
+    "pug"
+  ],
+  "milestone": {
+    "year": 1905,
+    "text": "英國育犬協會承認法國鬥牛犬是獨立的犬種"
+  },
+  "trip": [
+    {
+      "lat": 52.95,
+      "lon": -1.15,
+      "text": "英國諾丁漢：蕾絲工匠養的小型鬥牛犬"
+    },
+    {
+      "lat": 49.18,
+      "lon": -0.37,
+      "text": "19 世紀：工匠移居法國諾曼第，也帶上了狗"
+    },
+    {
+      "lat": 48.86,
+      "lon": 2.35,
+      "text": "巴黎：成為咖啡館與舞廳裡的寵兒"
+    }
+  ],
+  "sources": [
+    [
+      "AKC：法鬥的歷史",
+      "https://www.akc.org/expert-advice/dog-breeds/breed-history-french-bulldog/"
+    ],
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/French_Bulldog"
+    ]
+  ],
+  "order": 17
+}

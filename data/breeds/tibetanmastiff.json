@@ -1,0 +1,35 @@
+{
+  "id": "tibetanmastiff",
+  "zh": "藏獒",
+  "ja": "チベタン・マスティフ",
+  "en": "Tibetan Mastiff",
+  "region": "ea",
+  "country": [
+    "156"
+  ],
+  "place": "青藏高原",
+  "lat": 31,
+  "lon": 91,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "guard"
+  ],
+  "job": "替遊牧民看守羊群與帳篷",
+  "story": "藏獒是青藏高原遊牧民的守護犬，白天跟著畜群，晚上守在帳篷外防狼和其他野獸。牠能在高海拔、低氧的地方生活，研究發現，藏獒幫助適應高原的基因（EPAS1），很可能是古時候和青藏高原的狼混血得來的。",
+  "related": [
+    "alabai"
+  ],
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Tibetan_Mastiff"
+    ],
+    [
+      "PeerJ（2017）：高原狼的 EPAS1 基因進入高原犬",
+      "https://peerj.com/articles/3522"
+    ]
+  ],
+  "order": 48
+}

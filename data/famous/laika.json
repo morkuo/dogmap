@@ -1,0 +1,24 @@
+{
+  "id": "laika",
+  "name": "Laika、Belka 與 Strelka",
+  "ja": "ライカ、ベルカとストレルカ",
+  "en": "Laika, Belka & Strelka",
+  "breed": "",
+  "year": "1957・1960",
+  "place": "哈薩克・拜科努爾太空發射場",
+  "lat": 45.92,
+  "lon": 63.34,
+  "text": "蘇聯的太空狗原本都是莫斯科街頭的流浪狗。1957 年 11 月 3 日，Laika 搭乘史普尼克 2 號升空，成為第一個繞地球軌道飛行的地球生物，但這趟任務從一開始就沒有讓牠回來的計畫。1960 年 8 月，Belka 和 Strelka 在太空待了一天多、繞地球 17 圈後平安返回，是第一批從軌道活著回來的狗。",
+  "note": "Laika 的真正死因，蘇聯當時沒有公開，直到 2002 年才對外說明。",
+  "sources": [
+    [
+      "Wikipedia：Belka 與 Strelka",
+      "https://en.wikipedia.org/wiki/Belka_and_Strelka"
+    ],
+    [
+      "Wikipedia：Laika",
+      "https://en.wikipedia.org/wiki/Laika"
+    ]
+  ],
+  "order": 4
+}

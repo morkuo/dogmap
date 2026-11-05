@@ -1,0 +1,24 @@
+{
+  "id": "stubby",
+  "name": "Stubby 中士",
+  "ja": "スタビー軍曹",
+  "en": "Sergeant Stubby",
+  "breed": "",
+  "year": "1917–1918",
+  "place": "第一次世界大戰・法國西線戰場",
+  "lat": 48.87,
+  "lon": 5.78,
+  "text": "Stubby 原本是美國耶魯大學附近的流浪狗，跟著美軍第 102 步兵團到了法國戰場。牠中過毒氣之後對毒氣特別敏感，曾在清晨毒氣來襲時跑過壕溝吠叫、叫醒熟睡的士兵，後來被升為「中士」，是第一隻在美軍中獲得軍階的狗。",
+  "note": "也有資料說牠升為中士，是因為幫忙抓到一名德軍間諜。",
+  "sources": [
+    [
+      "大英百科全書",
+      "https://www.britannica.com/biography/Sergeant-Stubby"
+    ],
+    [
+      "Connecticut History",
+      "https://connecticuthistory.org/a-true-dog-of-war-sergeant-stubby"
+    ]
+  ],
+  "order": 5
+}

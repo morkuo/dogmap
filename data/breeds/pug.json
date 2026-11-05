@@ -1,0 +1,58 @@
+{
+  "id": "pug",
+  "zh": "巴哥犬",
+  "ja": "パグ",
+  "en": "Pug",
+  "region": "ea",
+  "country": [
+    "156"
+  ],
+  "place": "中國",
+  "lat": 34.3,
+  "lon": 113,
+  "tags": [
+    "common"
+  ],
+  "work": [
+    "companion"
+  ],
+  "job": "宮廷伴侶犬",
+  "story": "巴哥犬源自中國，後來由荷蘭商人帶到歐洲，和荷蘭的奧蘭治王室結下緣分。傳說 1572 年，一隻叫 Pompey 的巴哥在刺客來襲時把熟睡的奧蘭治親王威廉吵醒，救了他一命。1688 年威廉三世到英國繼承王位，也把巴哥一起帶了過去，巴哥就在英國流行起來。",
+  "note": "巴哥在中國出現的年代說法很多，從漢朝到宋朝都有；Pompey 的故事也偏向傳說，連牠到底是不是巴哥都有爭議。",
+  "related": [
+    "shihtzu",
+    "frenchie"
+  ],
+  "milestone": {
+    "year": 1688,
+    "text": "巴哥犬跟著威廉三世從荷蘭來到英國"
+  },
+  "trip": [
+    {
+      "lat": 34.3,
+      "lon": 113,
+      "text": "中國：宮廷裡的小狗"
+    },
+    {
+      "lat": 52.1,
+      "lon": 5.1,
+      "text": "荷蘭：由荷蘭商人帶到歐洲，和奧蘭治王室結緣"
+    },
+    {
+      "lat": 51.5,
+      "lon": -0.13,
+      "text": "1688 年：跟著威廉三世到英國"
+    }
+  ],
+  "sources": [
+    [
+      "AKC：巴哥冷知識",
+      "https://www.akc.org/expert-advice/lifestyle/things-you-didnt-know-about-the-pug/"
+    ],
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Pug"
+    ]
+  ],
+  "order": 46
+}

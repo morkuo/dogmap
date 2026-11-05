@@ -1,0 +1,19 @@
+{
+  "id": "kabosu",
+  "name": "卡波醬（かぼす）",
+  "ja": "かぼすちゃん",
+  "en": "Kabosu",
+  "breed": "shiba",
+  "year": "2010–2024",
+  "place": "日本・千葉縣佐倉市",
+  "lat": 35.72,
+  "lon": 140.22,
+  "text": "網路迷因 Doge 裡那隻斜眼看鏡頭的柴犬，就是卡波醬。牠的照片在 2010 年被主人放上部落格，之後傳遍全世界，還成了一種加密貨幣的圖示。卡波醬在 2024 年過世。",
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Kabosu_(dog)"
+    ]
+  ],
+  "order": 10
+}

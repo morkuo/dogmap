@@ -1,0 +1,41 @@
+{
+  "id": "taiwandog",
+  "zh": "台灣犬",
+  "ja": "台湾犬（タイワンケン）",
+  "en": "Taiwan Dog（Formosan Mountain Dog）",
+  "region": "ea",
+  "country": [
+    "158"
+  ],
+  "place": "台灣・中央山脈",
+  "lat": 23.7,
+  "lon": 121,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "hunt"
+  ],
+  "job": "原住民的狩獵夥伴",
+  "story": "台灣犬又叫「台灣土狗」，是台灣原住民上山打獵的夥伴，在茂密的山林裡非常敏捷。日治時期以後，大量外來犬種進入台灣，純種台灣犬越來越少。1976 到 1980 年間，台灣大學和日本名古屋大學、岐阜大學的學者合作，跑遍 29 個原住民部落，找到的 160 隻狗裡只有 46 隻被認為是純種台灣犬，牠們成為後來保育和育種的基礎。牠的特徵是三角形的頭、杏仁眼、鐮刀尾，舌頭上常有黑斑。國際畜犬聯盟（FCI）在 2015 年收錄了牠的品種標準。",
+  "note": "台灣犬和南亞、東南亞古代獵犬的血緣關係還有爭議。",
+  "milestone": {
+    "year": 1976,
+    "text": "台大與日本學者開始走訪部落、搶救台灣犬"
+  },
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Taiwan_Dog"
+    ],
+    [
+      "AmCham Taiwan：古老的狗",
+      "https://topics.amcham.com.tw/2018/07/an-ancient-dog-finds-its-place-in-the-modern-world/"
+    ],
+    [
+      "原始犬與古老犬種協會（PADS）期刊",
+      "https://padsociety.org/wp-content/uploads/2018/06/JournalofPADS_43Engl..pdf"
+    ]
+  ],
+  "order": 40
+}

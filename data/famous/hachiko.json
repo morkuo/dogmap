@@ -1,0 +1,19 @@
+{
+  "id": "hachiko",
+  "name": "忠犬小八",
+  "ja": "ハチ公",
+  "en": "Hachikō",
+  "breed": "akita",
+  "year": "1925–1935",
+  "place": "日本・東京澀谷車站",
+  "lat": 35.659,
+  "lon": 139.7,
+  "text": "小八的主人上野英三郎教授在 1925 年過世後，小八還是每天到澀谷車站等他回家，一等就將近十年，直到 1935 年過世。現在澀谷車站前的小八銅像，是東京最有名的會合地點之一。",
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Hachik%C5%8D"
+    ]
+  ],
+  "order": 1
+}

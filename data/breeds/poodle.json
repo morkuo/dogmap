@@ -1,0 +1,48 @@
+{
+  "id": "poodle",
+  "zh": "貴賓狗",
+  "ja": "プードル",
+  "en": "Poodle",
+  "region": "eu",
+  "country": [
+    "276",
+    "250"
+  ],
+  "place": "德國（一說法國）",
+  "lat": 50.5,
+  "lon": 8,
+  "tags": [
+    "common"
+  ],
+  "work": [
+    "hunt"
+  ],
+  "myth": "常被當成法國狗，但多數學者認為牠起源於德國。",
+  "etym": "英文 Poodle 來自德文 Pudel，和「潑水」有關；法文叫 Caniche，來自 cane（母鴨）。",
+  "job": "下水撿野鴨的獵犬",
+  "story": "貴賓狗看起來很貴氣，以前其實是下水撿鴨子的獵犬。英文 Poodle 來自德文 Pudel，和「在水裡潑水」有關；法文叫 Caniche，來自 cane（母鴨）。那個奇特的造型剪法原本也是為了工作：剪短的部分讓牠游泳輕快，保留的毛則保護關節和胸口不受冷水刺激。後來法國貴族非常喜愛牠，貴賓狗也成了法國的國犬。",
+  "note": "起源地有爭議：大多數學者認為是中世紀的德國，但國際畜犬聯盟（FCI）把原產地登記為法國。",
+  "trip": [
+    {
+      "lat": 50.5,
+      "lon": 8,
+      "text": "德國（一說）：下水撿鴨子的獵犬"
+    },
+    {
+      "lat": 48.86,
+      "lon": 2.35,
+      "text": "法國：貴族的寵兒，後來成為法國國犬"
+    }
+  ],
+  "sources": [
+    [
+      "AKC：貴賓狗的歷史",
+      "https://www.akc.org/expert-advice/dog-breeds/poodle-history/"
+    ],
+    [
+      "大英百科全書",
+      "https://www.britannica.com/animal/poodle"
+    ]
+  ],
+  "order": 18
+}

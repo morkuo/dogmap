@@ -1,0 +1,46 @@
+{
+  "id": "alabai",
+  "zh": "中亞牧羊犬",
+  "ja": "セントラル・アジア・シェパード・ドッグ",
+  "en": "Central Asian Shepherd Dog（Alabai）",
+  "region": "wa",
+  "country": [
+    "795"
+  ],
+  "place": "中亞（土庫曼等地）",
+  "lat": 38.5,
+  "lon": 59.5,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "guard"
+  ],
+  "job": "保護羊群不被狼攻擊",
+  "story": "中亞牧羊犬在土庫曼叫做 Alabai，是體型巨大的護畜犬，負責在草原上保護羊群不被狼攻擊。牠在土庫曼的地位非常特別：2020 年，首都阿什哈巴德立起一座鍍金的 Alabai 雕像，底座四周還有播放真狗影片的螢幕；土庫曼政府也把每年四月的最後一個星期日訂為 Alabai 的節日，跟國寶阿哈爾捷金馬同一天慶祝。",
+  "note": "鍍金雕像的高度，各家媒體報導從 6 公尺到 15 公尺都有。",
+  "related": [
+    "kangal",
+    "tibetanmastiff",
+    "komondor"
+  ],
+  "milestone": {
+    "year": 2020,
+    "text": "土庫曼首都立起鍍金的 Alabai 雕像"
+  },
+  "sources": [
+    [
+      "CNN：土庫曼為狗設國定節日",
+      "https://amp.cnn.com/cnn/travel/article/turkmenistan-dog-national-holiday-scli-intl"
+    ],
+    [
+      "Meduza：阿什哈巴德的金色狗雕像",
+      "https://meduza.io/en/feature/2020/11/12/turkmenistan-s-president-unveils-giant-golden-dog-statue-in-the-nation-s-capital"
+    ],
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Central_Asian_Shepherd_Dog"
+    ]
+  ],
+  "order": 38
+}

@@ -1,0 +1,41 @@
+{
+  "id": "basenji",
+  "zh": "巴仙吉犬",
+  "ja": "バセンジー",
+  "en": "Basenji",
+  "region": "af",
+  "country": [
+    "180"
+  ],
+  "place": "剛果盆地",
+  "lat": -1,
+  "lon": 23,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "hunt"
+  ],
+  "etym": "來自剛果的林加拉語，原本的說法是「村民的狗」，後來「狗」字被省略，只留下 basenji。",
+  "job": "在森林裡幫獵人把獵物趕進網子",
+  "story": "巴仙吉被叫做「不會叫的狗」，但牠不是啞巴：因為喉頭構造特別，牠發不出一般的汪汪聲，興奮時會發出像唱山歌一樣的「約德爾」叫聲。牠來自中非剛果的森林，當地獵人很重視牠的速度和安靜。歐洲人最早在 1895 年記錄到這種狗。牠還有一個像貓的習慣：很愛用舌頭把自己舔乾淨。",
+  "milestone": {
+    "year": 1895,
+    "text": "歐洲人第一次記錄到剛果的巴仙吉犬"
+  },
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Basenji"
+    ],
+    [
+      "AKC 犬種介紹",
+      "https://www.akc.org/dog-breeds/basenji/"
+    ],
+    [
+      "Wiktionary：Basenji 的字源",
+      "https://en.wiktionary.org/wiki/Basenji"
+    ]
+  ],
+  "order": 31
+}

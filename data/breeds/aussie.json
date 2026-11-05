@@ -1,0 +1,43 @@
+{
+  "id": "aussie",
+  "zh": "澳洲牧羊犬",
+  "ja": "オーストラリアン・シェパード",
+  "en": "Australian Shepherd",
+  "region": "na",
+  "country": [
+    "840"
+  ],
+  "place": "美國西部",
+  "lat": 40.7,
+  "lon": -111.9,
+  "tags": [
+    "common"
+  ],
+  "work": [
+    "herd"
+  ],
+  "myth": "名字裡有澳洲，但其實是在美國西部培育出來的。",
+  "job": "美國西部牧場的牧羊犬",
+  "story": "名字裡有澳洲，但牠其實是在美國西部的牧場培育出來的。最常見的說法是：牧羊人帶著狗、跟著從澳洲運來的羊群一起到美國，美國人就把這種狗叫做「澳洲來的牧羊犬」。1950、60 年代牠常在牛仔競技表演中出場，才紅了起來。",
+  "note": "早期常說牠和西班牙、法國邊境的巴斯克牧羊人有關，但有學者認為巴斯克人的角色不大；2017 年的基因研究則顯示牠跟英國系的牧羊犬比較接近。",
+  "related": [
+    "bordercollie",
+    "cattledog"
+  ],
+  "milestone": {
+    "year": 1950,
+    "label": "1950–60 年代",
+    "text": "澳洲牧羊犬在美國的牛仔競技表演中走紅"
+  },
+  "sources": [
+    [
+      "AKC：澳洲牧羊犬的歷史",
+      "https://www.akc.org/expert-advice/dog-breeds/australian-shepherd-history-behind-breed/"
+    ],
+    [
+      "AKC：澳洲牧羊犬冷知識",
+      "https://www.akc.org/expert-advice/lifestyle/australian-shepherd-facts/"
+    ]
+  ],
+  "order": 5
+}

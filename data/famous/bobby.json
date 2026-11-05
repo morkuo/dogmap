@@ -1,0 +1,20 @@
+{
+  "id": "bobby",
+  "name": "忠犬巴比",
+  "ja": "グレーフライアーズ・ボビー",
+  "en": "Greyfriars Bobby",
+  "breed": "",
+  "year": "1858–1872",
+  "place": "英國・蘇格蘭愛丁堡",
+  "lat": 55.947,
+  "lon": -3.191,
+  "text": "傳說小狗 Bobby 的主人 John Gray 在 1858 年過世、葬在愛丁堡的灰衣修士教堂墓園後，Bobby 守在主人墓旁長達 14 年，直到 1872 年過世。現在墓園入口附近有牠的雕像和墓碑。",
+  "note": "這個故事有不少爭議：主人是哪一位 John Gray、Bobby 是什麼品種，甚至是不是只有一隻 Bobby，都有人質疑。",
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Greyfriars_Bobby"
+    ]
+  ],
+  "order": 6
+}

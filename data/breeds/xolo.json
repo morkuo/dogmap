@@ -1,0 +1,38 @@
+{
+  "id": "xolo",
+  "zh": "墨西哥無毛犬",
+  "ja": "ショロイツクインツレ",
+  "en": "Xoloitzcuintli",
+  "region": "la",
+  "country": [
+    "484"
+  ],
+  "place": "墨西哥中部",
+  "lat": 19.4,
+  "lon": -99.1,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "guard"
+  ],
+  "etym": "阿茲特克人的納瓦特爾語：Xolotl（掌管閃電與死亡的神）＋ itzcuintli（狗）。",
+  "job": "看家犬，傳說中引導亡魂的狗",
+  "story": "牠的名字唸作「修洛伊茲昆特利」，是阿茲特克人的納瓦特爾語：Xolotl 是掌管閃電與死亡的神，itzcuintli 是狗。阿茲特克人相信，人死後要穿越冥界 Mictlán，這種狗會帶著亡魂渡河。這個品種的歷史至少有 3,500 年。皮克斯動畫《可可夜總會》裡那隻傻呼呼的狗 Dante，就是墨西哥無毛犬。",
+  "related": [
+    "chihuahua",
+    "peruvian"
+  ],
+  "ancient": "至少 3,500 年歷史",
+  "sources": [
+    [
+      "National Geographic",
+      "https://www.nationalgeographic.com/history/article/hairless-dog-mexico-xolo-xoloitzcuintli-Aztec"
+    ],
+    [
+      "Wikipedia：中美洲神話中的狗",
+      "https://en.wikipedia.org/wiki/Dogs_in_Mesoamerican_folklore_and_myth"
+    ]
+  ],
+  "order": 8
+}

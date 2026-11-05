@@ -1,0 +1,32 @@
+{
+  "id": "beagle",
+  "zh": "米格魯",
+  "ja": "ビーグル",
+  "en": "Beagle",
+  "region": "eu",
+  "country": [
+    "826"
+  ],
+  "place": "英國・英格蘭",
+  "lat": 52.4,
+  "lon": -1.2,
+  "tags": [
+    "common"
+  ],
+  "work": [
+    "hunt"
+  ],
+  "job": "成群用鼻子追蹤野兔",
+  "story": "米格魯是英國的嗅覺獵犬，獵人會帶一群米格魯，讓牠們聞著氣味追野兔，獵人走路就跟得上。牠的鼻子靈到美國農業部在機場組了一支「米格魯巡邏隊」，專門嗅出旅客行李裡的水果和肉品。史努比也是米格魯。台灣習慣叫牠「米格魯」，是從英文 Beagle 音譯來的。",
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Beagle"
+    ],
+    [
+      "Wikipedia：Beagle Brigade",
+      "https://en.wikipedia.org/wiki/Beagle_Brigade"
+    ]
+  ],
+  "order": 16
+}

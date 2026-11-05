@@ -1,0 +1,40 @@
+{
+  "id": "malamute",
+  "zh": "阿拉斯加雪橇犬",
+  "ja": "アラスカン・マラミュート",
+  "en": "Alaskan Malamute",
+  "region": "na",
+  "country": [
+    "840"
+  ],
+  "place": "美國・阿拉斯加西北（科策布灣）",
+  "lat": 66.9,
+  "lon": -162.6,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "sled"
+  ],
+  "etym": "來自阿拉斯加西北部的因紐皮雅特族群 Malimiut（馬勒穆特人）。",
+  "job": "拉重物的雪橇犬",
+  "story": "常被誤認成哈士奇，但牠比較大隻、骨架更粗。名字來自阿拉斯加西北部的因紐皮雅特族群 Mahlemiut（馬勒穆特人），他們用這種狗在極地拉重物、幫忙獵海豹。哈士奇是長跑選手，馬拉穆是舉重選手：跑得不快，但力氣很大。牠也是阿拉斯加州的州犬。",
+  "related": [
+    "husky"
+  ],
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Alaskan_Malamute"
+    ],
+    [
+      "AKC 犬種介紹",
+      "https://www.akc.org/dog-breeds/alaskan-malamute/"
+    ],
+    [
+      "Merriam-Webster：malamute",
+      "https://www.merriam-webster.com/dictionary/malamute"
+    ]
+  ],
+  "order": 4
+}

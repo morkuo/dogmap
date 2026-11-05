@@ -1,11 +1,12 @@
 #!/bin/sh
-# 產生 GitHub Pages 用的版本到 docs/
+# 檢查資料、產生 data.js，再把網站輸出到 docs/（GitHub Pages 發布的資料夾）
 # index.html 是照 Artifact 格式寫的（沒有 <!doctype>/<head>），這裡幫它包上完整的 HTML 外框。
 set -e
 cd "$(dirname "$0")"
+node tools/build-data.mjs
 rm -rf docs
 mkdir -p docs/images
-cp world.js dogs.js photos.js famous.js timeline.js docs/
+cp world.js data.js docs/
 cp images/*.jpg docs/images/
 {
   printf '<!doctype html>\n<html lang="zh-Hant">\n<head>\n'

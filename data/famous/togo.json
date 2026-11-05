@@ -1,0 +1,19 @@
+{
+  "id": "togo",
+  "name": "Togo 與 Balto",
+  "ja": "トーゴーとバルト",
+  "en": "Togo & Balto",
+  "breed": "husky",
+  "year": "1925",
+  "place": "美國・阿拉斯加諾姆",
+  "lat": 64.5,
+  "lon": -165.41,
+  "text": "1925 年諾姆爆發白喉，二十位雪橇手和一百多隻狗接力約 1,000 公里送來血清。最後一棒的 Balto 成了明星，紐約中央公園還有牠的雕像；不過跑最長、最危險路段的是 Togo。",
+  "sources": [
+    [
+      "AKC：Togo",
+      "https://www.akc.org/expert-advice/lifestyle/togo-siberian-husky-sled-dog-hero-of-1925/"
+    ]
+  ],
+  "order": 3
+}

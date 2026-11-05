@@ -1,0 +1,38 @@
+{
+  "id": "lundehund",
+  "zh": "挪威海鸚犬",
+  "ja": "ノルウェジアン・ルンデフンド",
+  "en": "Norwegian Lundehund",
+  "region": "eu",
+  "country": [
+    "578"
+  ],
+  "place": "挪威・羅弗敦群島的韋略島",
+  "lat": 67.67,
+  "lon": 12.67,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "hunt"
+  ],
+  "etym": "挪威語 lunde（海鸚）＋ hund（狗）。",
+  "job": "在海邊懸崖上抓海鸚",
+  "story": "Lundehund 是挪威語的「海鸚狗」。以前挪威北方的島民靠海鸚當食物，這種狗就負責爬上懸崖、鑽進岩縫把海鸚叼出來。為了這份工作，牠長出一身奇特的構造：每隻腳通常有六根腳趾，頭可以往後仰到碰到背，前腳也能往兩側張得很開。最早的文字紀錄可以追溯到 1591 年。後來海鸚被列為保護動物，這種狗沒了工作，數量一度少到快要滅絕。",
+  "note": "犬瘟熱讓牠們幾乎滅絕的確切年份，各資料記載不同。",
+  "milestone": {
+    "year": 1591,
+    "text": "挪威韋略島的海鸚狗第一次出現在文字紀錄裡"
+  },
+  "sources": [
+    [
+      "AKC：關於挪威海鸚犬的 7 件事",
+      "https://www.akc.org/expert-advice/lifestyle/7-things-you-didnt-know-about-the-norwegian-lundehund/"
+    ],
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Norwegian_Lundehund"
+    ]
+  ],
+  "order": 26
+}

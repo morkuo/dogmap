@@ -1,0 +1,53 @@
+{
+  "id": "pekingese",
+  "zh": "北京犬",
+  "ja": "ペキニーズ",
+  "en": "Pekingese",
+  "region": "ea",
+  "country": [
+    "156"
+  ],
+  "place": "中國・北京",
+  "lat": 40.3,
+  "lon": 116,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "companion"
+  ],
+  "etym": "Peking 是北京的舊式拼音。",
+  "job": "宮廷伴侶犬",
+  "story": "北京犬以前是中國皇室的狗，一般人不能隨便養。1860 年英法聯軍攻進北京、火燒圓明園時，英軍從宮裡帶走了五隻北京犬，其中一隻被送給維多利亞女王，取名叫 Looty（意思是「戰利品」），北京犬就這樣傳進了西方。",
+  "related": [
+    "shihtzu",
+    "pug"
+  ],
+  "milestone": {
+    "year": 1860,
+    "text": "英軍從北京帶走北京犬，牠們從此傳入西方"
+  },
+  "trip": [
+    {
+      "lat": 40.3,
+      "lon": 116,
+      "text": "北京：皇宮裡的狗，一般人不能隨便養"
+    },
+    {
+      "lat": 51.5,
+      "lon": -0.13,
+      "text": "1860 年：被英軍帶到英國，其中一隻獻給維多利亞女王"
+    }
+  ],
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Pekingese"
+    ],
+    [
+      "Wikipedia：Looty",
+      "https://en.wikipedia.org/wiki/Looty"
+    ]
+  ],
+  "order": 45
+}

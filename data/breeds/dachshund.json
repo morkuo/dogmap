@@ -1,0 +1,38 @@
+{
+  "id": "dachshund",
+  "zh": "臘腸狗",
+  "ja": "ダックスフンド",
+  "en": "Dachshund",
+  "region": "eu",
+  "country": [
+    "276"
+  ],
+  "place": "德國",
+  "lat": 48.5,
+  "lon": 10.5,
+  "tags": [
+    "common"
+  ],
+  "work": [
+    "hunt"
+  ],
+  "etym": "德文 Dachs（獾）＋ Hund（狗），直翻就是「獾狗」。",
+  "job": "鑽進地洞獵獾",
+  "story": "德文 Dachshund 直翻就是「獾狗」：Dachs 是獾，Hund 是狗。牠又長又矮的身體是為了鑽進獾的地洞，大型的獵獾和野豬，小型的獵狐狸和兔子。18 世紀起，德國的林務員和獵人專門培育牠來打獵。1972 年慕尼黑奧運的吉祥物 Waldi，就是一隻彩色條紋的臘腸狗。",
+  "milestone": {
+    "year": 1700,
+    "label": "1700 年代初",
+    "text": "德國書籍第一次可查證地記載「獾狗」"
+  },
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Dachshund"
+    ],
+    [
+      "Mental Floss：臘腸狗冷知識",
+      "https://www.mentalfloss.com/animals/dogs/9-spunky-facts-about-dachshunds"
+    ]
+  ],
+  "order": 19
+}

@@ -1,0 +1,19 @@
+{
+  "id": "snuppy",
+  "name": "Snuppy",
+  "ja": "スナッピー",
+  "en": "Snuppy",
+  "breed": "afghan",
+  "year": "2005",
+  "place": "韓國・首爾大學",
+  "lat": 37.46,
+  "lon": 126.95,
+  "text": "2005 年，首爾大學的研究團隊宣布做出世界上第一隻複製狗 Snuppy，牠是一隻阿富汗獵犬。名字取自 SNU（首爾大學）和 puppy（小狗）。",
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Snuppy"
+    ]
+  ],
+  "order": 11
+}

@@ -1,0 +1,42 @@
+{
+  "id": "komondor",
+  "zh": "可蒙犬",
+  "ja": "コモンドール",
+  "en": "Komondor",
+  "region": "eu",
+  "country": [
+    "348"
+  ],
+  "place": "匈牙利大平原",
+  "lat": 47,
+  "lon": 19.8,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "guard"
+  ],
+  "etym": "一說來自 Koman-dor，意思是「庫曼人的狗」。",
+  "job": "保護羊群不被狼攻擊",
+  "story": "可蒙犬一身白色的長毛會自己糾結成一條一條的繩狀，看起來像一支大拖把。牠是匈牙利的護畜犬，和中亞來的遊牧民族庫曼人有關：庫曼人在 13 世紀遷入匈牙利，考古學家也在庫曼人的墓地裡發現過這種狗的遺骸。匈牙利文獻裡最早提到可蒙犬，是 1544 年的一本古籍。",
+  "note": "可蒙犬的祖先是否更早來自其他地區，目前沒有定論。",
+  "related": [
+    "alabai",
+    "kangal"
+  ],
+  "milestone": {
+    "year": 1544,
+    "text": "匈牙利古籍第一次提到可蒙犬"
+  },
+  "sources": [
+    [
+      "AKC：可蒙犬的歷史",
+      "https://www.akc.org/expert-advice/dog-breeds/komondor-history/"
+    ],
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Komondor"
+    ]
+  ],
+  "order": 30
+}

@@ -1,0 +1,41 @@
+{
+  "id": "golden",
+  "zh": "黃金獵犬",
+  "ja": "ゴールデン・レトリーバー",
+  "en": "Golden Retriever",
+  "region": "eu",
+  "country": [
+    "826"
+  ],
+  "place": "英國・蘇格蘭高地（Guisachan 莊園）",
+  "lat": 57.27,
+  "lon": -4.86,
+  "tags": [
+    "common"
+  ],
+  "work": [
+    "hunt"
+  ],
+  "etym": "Retriever 是「把東西撿回來的狗」，拉布拉多的英文名字也有這個字。",
+  "job": "撿回獵人打下的鳥",
+  "story": "黃金獵犬的生日可以精準到 1868 年。蘇格蘭高地的莊園主人 Dudley Marjoribanks（後來的特威德茅斯男爵）把一隻黃色的波浪毛尋回犬 Nous，和一隻現在已經滅絕的特威德水獵犬 Belle 配種，生下的小狗就是黃金獵犬的源頭。高地多雨、湖泊沼澤多，他想要一隻能在陸上、也能下水把打下的鳥撿回來的狗。拉布拉多是幫漁夫撿東西起家的，黃金獵犬則是為了打獵撿鳥。",
+  "note": "早期紀錄對 Nous 是波浪毛還是平毛尋回犬、以及配種年份的細節有些出入。",
+  "related": [
+    "labrador"
+  ],
+  "milestone": {
+    "year": 1868,
+    "text": "第一窩黃金獵犬在蘇格蘭高地出生"
+  },
+  "sources": [
+    [
+      "美國黃金獵犬協會（GRCA）",
+      "https://grca.org/?p=1831"
+    ],
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Golden_Retriever"
+    ]
+  ],
+  "order": 13
+}

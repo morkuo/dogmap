@@ -1,0 +1,45 @@
+{
+  "id": "kaiken",
+  "zh": "甲斐犬",
+  "ja": "甲斐犬（かいけん）",
+  "en": "Kai Ken",
+  "region": "ea",
+  "country": [
+    "392"
+  ],
+  "place": "日本・山梨縣（古稱甲斐國）",
+  "lat": 35.66,
+  "lon": 138.57,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "hunt"
+  ],
+  "etym": "甲斐是山梨縣的古名。",
+  "job": "在山區獵野豬和日本髭羚",
+  "story": "甲斐犬來自山梨縣的山區，當地人用牠獵野豬和日本髭羚。牠最大的特色是一身虎斑毛色，依深淺分成赤虎、中虎、黑虎三種，所以也被叫做「虎毛犬」。1934 年，甲斐犬被指定為日本的天然紀念物，和柴犬、秋田犬一樣由日本犬保存會負責保護。",
+  "related": [
+    "shiba",
+    "akita"
+  ],
+  "milestone": {
+    "year": 1934,
+    "text": "甲斐犬被指定為日本的天然紀念物"
+  },
+  "sources": [
+    [
+      "日本犬保存會：甲斐犬",
+      "https://nihonken-hozonkai.or.jp/en/kaiken"
+    ],
+    [
+      "FCI 品種標準",
+      "https://fci.be/Nomenclature/Standards/317g05-en.pdf"
+    ],
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Kai_Ken"
+    ]
+  ],
+  "order": 50
+}

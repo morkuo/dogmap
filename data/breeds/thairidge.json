@@ -1,0 +1,37 @@
+{
+  "id": "thairidge",
+  "zh": "泰國脊背犬",
+  "ja": "タイ・リッジバック・ドッグ",
+  "en": "Thai Ridgeback Dog",
+  "region": "ea",
+  "country": [
+    "764"
+  ],
+  "place": "泰國東部",
+  "lat": 13.3,
+  "lon": 102,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "hunt",
+    "guard"
+  ],
+  "job": "打獵、看家、跟著牛車護送",
+  "story": "泰國脊背犬背上也有一條毛逆著長的「背脊」，跟非洲的羅德西亞背脊犬一樣，牠們是少數有這個特徵的純種狗。牠來自泰國東部，以前那裡交通不便，很少和外地的狗混種，所以保留了原本的樣子。當地人用牠打獵、看家，還讓牠跟著牛車一起走、保護車隊。有文字紀錄的歷史大約 350 年。",
+  "note": "牠和羅德西亞背脊犬有沒有共同祖先，目前還不清楚。",
+  "related": [
+    "ridgeback"
+  ],
+  "sources": [
+    [
+      "FCI 品種標準",
+      "https://www.fci.be/Nomenclature/Standards/338g05-en.pdf"
+    ],
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Thai_Ridgeback"
+    ]
+  ],
+  "order": 49
+}

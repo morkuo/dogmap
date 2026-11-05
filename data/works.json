@@ -1,0 +1,34 @@
+[
+  {
+    "id": "hunt",
+    "name": "打獵"
+  },
+  {
+    "id": "herd",
+    "name": "放牧"
+  },
+  {
+    "id": "sled",
+    "name": "拉雪橇"
+  },
+  {
+    "id": "guard",
+    "name": "看守"
+  },
+  {
+    "id": "fish",
+    "name": "協助漁夫"
+  },
+  {
+    "id": "rescue",
+    "name": "救難"
+  },
+  {
+    "id": "companion",
+    "name": "伴侶"
+  },
+  {
+    "id": "wild",
+    "name": "野生"
+  }
+]

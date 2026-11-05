@@ -1,0 +1,19 @@
+{
+  "id": "bo",
+  "name": "Bo 與 Sunny",
+  "ja": "ボーとサニー",
+  "en": "Bo & Sunny",
+  "breed": "pwd",
+  "year": "2009–2017",
+  "place": "美國・華盛頓特區白宮",
+  "lat": 38.897,
+  "lon": -77.036,
+  "text": "美國前總統歐巴馬一家的兩隻葡萄牙水犬。Bo 在 2009 年住進白宮，2013 年 Sunny 也加入，成為「第一家庭」的狗。",
+  "sources": [
+    [
+      "National Geographic",
+      "https://www.nationalgeographic.com/animals/article/130820-portuguese-water-dog-animals-white-house-president-pets-nation"
+    ]
+  ],
+  "order": 12
+}

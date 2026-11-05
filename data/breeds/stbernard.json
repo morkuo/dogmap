@@ -1,0 +1,37 @@
+{
+  "id": "stbernard",
+  "zh": "聖伯納犬",
+  "ja": "セント・バーナード",
+  "en": "St. Bernard",
+  "region": "eu",
+  "country": [
+    "756"
+  ],
+  "place": "瑞士・大聖伯納山口",
+  "lat": 45.87,
+  "lon": 7.17,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "rescue"
+  ],
+  "job": "雪地搜救",
+  "story": "聖伯納犬的名字來自瑞士和義大利邊界的大聖伯納山口，山口上有座修道院收留過路的旅人，從 17 世紀末開始養狗，後來這些狗負責在雪地裡找迷路的人。最有名的一隻叫 Barry（1800–1814），據說救了 40 多個人，牠的標本現在還在瑞士伯恩自然史博物館。為了紀念牠，修道院一直保持有一隻狗叫 Barry。",
+  "note": "「Barry 把小男孩背回修道院」這類故事，博物館認為多半是後人加油添醋。",
+  "milestone": {
+    "year": 1707,
+    "text": "大聖伯納山口修道院的狗第一次出現在紀錄裡"
+  },
+  "sources": [
+    [
+      "伯恩自然史博物館：Barry",
+      "https://www.nmbe.ch/sites/default/files/2021-12/Barry_Broschuere_14_E.pdf"
+    ],
+    [
+      "Smithsonian",
+      "https://www.smithsonianmag.com/travel/a-brief-history-of-the-st-bernard-rescue-dog-13787665/"
+    ]
+  ],
+  "order": 23
+}

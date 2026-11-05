@@ -1,0 +1,38 @@
+{
+  "id": "samoyed",
+  "zh": "薩摩耶犬",
+  "ja": "サモエド",
+  "en": "Samoyed",
+  "region": "eu",
+  "country": [
+    "643"
+  ],
+  "place": "俄羅斯・西伯利亞西北（亞馬爾半島一帶）",
+  "lat": 67.5,
+  "lon": 70,
+  "tags": [
+    "common"
+  ],
+  "work": [
+    "herd",
+    "sled"
+  ],
+  "etym": "來自西伯利亞涅涅茨人的舊稱「薩摩耶德人」（Samoyed），這個稱呼現在已經不用了。",
+  "job": "放牧馴鹿、拉雪橇",
+  "story": "薩摩耶的名字來自西伯利亞的涅涅茨人，他們以前被稱作「薩摩耶德人」（Samoyed）。涅涅茨人靠放牧馴鹿生活，這種白色的狗幫忙趕馴鹿、拉雪橇，晚上還會和主人擠在帳篷裡取暖。19 世紀末、20 世紀初，不少極地探險隊帶著這種狗出發，現在英美的薩摩耶很多都是那些探險犬的後代。",
+  "related": [
+    "husky",
+    "pomeranian"
+  ],
+  "sources": [
+    [
+      "大英百科全書",
+      "https://www.britannica.com/animal/Samoyed-breed-of-dog"
+    ],
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Samoyed_dog"
+    ]
+  ],
+  "order": 25
+}
