@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>狗狗從哪裡來</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one-screen atlas. The map fills the window; controls float at the top, the dog's card pops up beside its pin (bottom sheet on phones). */
+:root {
+  --sea: #dfe9ec;
+  --land: #f7f8f4;
+  --land-hi: #dfe8cf;
+  --border: #b9c6c4;
+  --ink: #1c2a2f;
+  --ink-soft: #55666b;
+  --paper: #fcfdfb;
+  --rule: #d5dfdd;
+  --accent: #2346c4;
+  --accent-soft: #e3e9ff;
+  --amber: #c96f12;
+  --amber-soft: #fbecd9;
+  --note-bg: #f4f1e2;
+  --shadow: 0 10px 30px rgba(20, 40, 50, .18), 0 2px 6px rgba(20, 40, 50, .08);
+  --font-display: "LXGW WenKai TC", "Klee One", "Kaiti TC", "BiauKai", serif;
+  --font-body: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --r: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --sea: #0f1a1e; --land: #1d2b30; --land-hi: #3d5a44; --border: #3a4d52;
+    --ink: #e6eeee; --ink-soft: #9fb1b4; --paper: #152126; --rule: #2b3b40;
+    --accent: #8fa8ff; --accent-soft: #23305c; --amber: #f2a54f; --amber-soft: #3d2c17;
+    --note-bg: #232a22; --shadow: 0 10px 30px rgba(0,0,0,.5), 0 2px 6px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --sea: #0f1a1e; --land: #1d2b30; --land-hi: #3d5a44; --border: #3a4d52;
+  --ink: #e6eeee; --ink-soft: #9fb1b4; --paper: #152126; --rule: #2b3b40;
+  --accent: #8fa8ff; --accent-soft: #23305c; --amber: #f2a54f; --amber-soft: #3d2c17;
+  --note-bg: #232a22; --shadow: 0 10px 30px rgba(0,0,0,.5), 0 2px 6px rgba(0,0,0,.3);
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body {
+  margin: 0; overflow: hidden;
+  background: var(--sea); color: var(--ink);
+  font-family: var(--font-body); font-size: 15px; line-height: 1.75;
+}
+button { font: inherit; color: inherit; }
+button:focus-visible, input:focus-visible, .pin:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.app { position: relative; height: 100%; overflow: hidden; }
+#map { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
+#map:active { cursor: grabbing; }
+.country { fill: var(--land); stroke: var(--border); stroke-width: .6; vector-effect: non-scaling-stroke; }
+.country.hi { fill: var(--land-hi); }
+.grat { fill: none; stroke: var(--border); stroke-opacity: .35; stroke-width: .5; vector-effect: non-scaling-stroke; }
+.pin { cursor: pointer; }
+.pin circle.dot { stroke: var(--paper); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.pin.common circle.dot { fill: var(--accent); }
+.pin.local circle.dot { fill: var(--amber); }
+.pin.both circle.dot { fill: var(--accent); stroke: var(--amber); stroke-width: 2.5; }
+.pin .ring { fill: none; stroke: var(--ink); stroke-width: 1.5; vector-effect: non-scaling-stroke; opacity: 0; }
+.pin.sel .ring { opacity: 1; }
+.pin .hit { fill: transparent; }
+.pin text { font-family: var(--font-display); fill: var(--ink); paint-order: stroke; stroke: var(--land); stroke-linejoin: round; pointer-events: none; }
+.pin[hidden] { display: none; }
+
+/* Floating chrome */
+.bar {
+  position: absolute; z-index: 5;
+  top: calc(env(safe-area-inset-top, 0px) + 12px);
+  left: max(12px, env(safe-area-inset-left, 0px)); right: max(12px, env(safe-area-inset-right, 0px));
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center; pointer-events: none;
+}
+.bar > * { pointer-events: auto; }
+.brand {
+  background: var(--paper); border: 1px solid var(--rule); border-radius: var(--r); box-shadow: var(--shadow);
+  padding: 6px 14px; display: flex; align-items: baseline; gap: 10px;
+}
+h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-height: 1.3; margin: 0; letter-spacing: .02em; }
+.brand .count { font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); }
+.seg { display: inline-flex; background: var(--paper); border: 1px solid var(--rule); border-radius: 999px; padding: 3px; box-shadow: var(--shadow); }
+.seg button { border: 0; background: transparent; color: var(--ink-soft); font-size: 14px; padding: 5px 13px; border-radius: 999px; cursor: pointer; white-space: nowrap; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.search input {
+  font: inherit; font-size: 14px; width: 220px; max-width: 100%;
+  padding: 7px 14px; border-radius: 999px; border: 1px solid var(--rule);
+  background: var(--paper); color: var(--ink); box-shadow: var(--shadow);
+}
+.search input::placeholder { color: var(--ink-soft); }
+.listbtn { border: 1px solid var(--rule); background: var(--paper); border-radius: 999px; padding: 6px 14px; font-size: 14px; cursor: pointer; box-shadow: var(--shadow); }
+.listbtn[aria-expanded="true"] { background: var(--ink); color: var(--paper); }
+
+.mapctl { position: absolute; z-index: 4; right: max(12px, env(safe-area-inset-right, 0px)); bottom: calc(env(safe-area-inset-bottom, 0px) + 14px); display: flex; flex-direction: column; gap: 6px; }
+.mapctl button { width: 36px; height: 36px; border-radius: 9px; border: 1px solid var(--rule); background: var(--paper); font-size: 18px; line-height: 1; cursor: pointer; box-shadow: var(--shadow); }
+.legend {
+  position: absolute; z-index: 4; left: max(12px, env(safe-area-inset-left, 0px)); bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
+  display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center;
+  background: var(--paper); border: 1px solid var(--rule); border-radius: 9px; padding: 4px 12px;
+  font-size: 12px; color: var(--ink-soft); box-shadow: var(--shadow); max-width: calc(100% - 90px);
+}
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.legend button { border: 0; background: none; color: var(--accent); font-size: 12px; cursor: pointer; padding: 0; text-decoration: underline; text-underline-offset: 2px; }
+.tip {
+  position: absolute; z-index: 6; pointer-events: none; background: var(--ink); color: var(--paper);
+  font-family: var(--font-display); font-size: 14px; padding: 2px 10px; border-radius: 6px; white-space: nowrap;
+  transform: translate(-50%, calc(-100% - 10px));
+}
+
+/* Popup card */
+.pop {
+  position: absolute; z-index: 8; width: 370px; max-width: calc(100vw - 24px);
+  background: var(--paper); border: 1px solid var(--rule); border-radius: var(--r); box-shadow: var(--shadow);
+  display: flex; flex-direction: column;
+  transition: opacity .18s ease, transform .18s ease;
+}
+.pop[hidden] { display: none !important; }
+.pop.enter { opacity: 0; transform: translateY(6px) scale(.98); }
+.pop .arrow { position: absolute; z-index: 0; width: 14px; height: 14px; background: var(--paper); border: 1px solid var(--rule); transform: rotate(45deg); top: var(--ay, 40px); }
+.pop.right .arrow { left: -8px; border-right: 0; border-top: 0; }
+.pop.left .arrow { right: -8px; border-left: 0; border-bottom: 0; }
+.pop .scroll { overflow-y: auto; overscroll-behavior: contain; display: flex; flex-direction: column; position: relative; z-index: 1; background: var(--paper); border-radius: var(--r) var(--r) 0 0; }
+.close {
+  position: absolute; z-index: 3; top: 8px; right: 8px; width: 32px; height: 32px; border-radius: 50%;
+  border: 0; background: color-mix(in srgb, var(--paper) 85%, transparent); font-size: 18px; line-height: 1; cursor: pointer;
+}
+.photo { position: relative; aspect-ratio: 3 / 2; max-width: 100%; background: var(--rule); flex: none; margin: 0; }
+.photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 10px 4px; font-size: 10.5px; line-height: 1.4;
+  color: #f2f5f5; background: linear-gradient(transparent, rgba(0,0,0,.6));
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.photo figcaption a { color: inherit; }
+.body { padding: 14px 18px 16px; display: flex; flex-direction: column; gap: 12px; }
+.eyebrow { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-size: 12px; letter-spacing: .08em; color: var(--ink-soft); }
+.tag { font-size: 12px; letter-spacing: .04em; padding: 0 9px; border-radius: 999px; }
+.tag.common { background: var(--accent-soft); color: var(--accent); }
+.tag.local { background: var(--amber-soft); color: var(--amber); }
+.names { display: flex; flex-direction: column; gap: 2px; }
+.names h2 { font-family: var(--font-display); font-weight: 700; font-size: 28px; line-height: 1.25; margin: 0; text-wrap: balance; }
+.names .row { display: grid; grid-template-columns: 26px 1fr; gap: 6px; align-items: baseline; }
+.names .lab { font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft); letter-spacing: .06em; }
+.names .ja { font-family: var(--font-display); font-size: 17px; }
+.names .en { font-size: 15px; font-weight: 500; }
+.meta { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; font-size: 13.5px; border-block: 1px solid var(--rule); padding-block: 8px; margin: 0; }
+.meta dt { color: var(--ink-soft); }
+.meta dd { margin: 0; }
+.meta .coord { font-family: var(--font-mono); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.story { margin: 0; font-size: 15px; line-height: 1.9; }
+.note { background: var(--note-bg); border-radius: 8px; padding: 8px 12px; font-size: 13.5px; line-height: 1.75; }
+.note b { margin-right: 4px; }
+.sub { font-size: 12px; letter-spacing: .08em; color: var(--ink-soft); margin: 0 0 6px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-family: var(--font-display); font-size: 14px; border: 1px solid var(--rule); background: var(--paper); padding: 2px 12px; border-radius: 999px; cursor: pointer; }
+.chip:hover { border-color: var(--ink-soft); }
+.chip.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.chip.local { border-color: color-mix(in srgb, var(--amber) 45%, var(--rule)); }
+.sources { margin: 0; padding-left: 18px; font-size: 13px; }
+.sources a { color: var(--accent); text-underline-offset: 2px; }
+.nav { display: flex; justify-content: space-between; gap: 8px; padding: 10px 18px; border-top: 1px solid var(--rule); background: var(--paper); position: relative; z-index: 2; flex: none; border-radius: 0 0 var(--r) var(--r); }
+.nav button { font-size: 13.5px; border: 1px solid var(--rule); background: var(--paper); padding: 4px 12px; border-radius: 8px; cursor: pointer; }
+
+/* List drawer */
+.drawer {
+  position: absolute; z-index: 7;
+  top: calc(env(safe-area-inset-top, 0px) + 64px); left: max(12px, env(safe-area-inset-left, 0px));
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 60px);
+  width: 320px; max-width: calc(100vw - 24px);
+  background: var(--paper); border: 1px solid var(--rule); border-radius: var(--r); box-shadow: var(--shadow);
+  overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 14px;
+}
+.drawer h3 { font-family: var(--font-display); font-size: 17px; margin: 0 0 6px; display: flex; align-items: baseline; gap: 8px; }
+.drawer h3 small { font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); font-weight: 400; }
+.drawer .about { font-size: 12.5px; color: var(--ink-soft); line-height: 1.7; border-top: 1px solid var(--rule); padding-top: 10px; margin: 0; }
+.empty { color: var(--ink-soft); font-size: 14px; }
+
+/* Phone: card becomes a bottom sheet */
+@media (max-width: 640px) {
+  h1 { font-size: 19px; }
+  .brand .count { display: none; }
+  .search { flex: 1 1 140px; }
+  .search input { width: 100%; }
+  .pop {
+    left: 0 !important; right: 0; top: auto !important; bottom: 0; width: auto; max-width: none;
+    height: 62%; border-radius: 16px 16px 0 0; border-bottom: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .pop .arrow { display: none; }
+  .pop .scroll { flex: 1; min-height: 0; max-height: none !important; border-radius: 16px 16px 0 0; }
+  .nav { border-radius: 0; }
+  .photo { aspect-ratio: 2 / 1; }
+  .drawer { width: auto; right: max(12px, env(safe-area-inset-right, 0px)); top: calc(env(safe-area-inset-top, 0px) + 112px); }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+</head>
+<body>
+<div class="app" id="app">
+  <svg id="map" role="img" aria-label="世界地圖，標出各犬種的原產地"></svg>
+
+  <div class="bar">
+    <div class="brand"><h1>狗狗從哪裡來</h1><span class="count" id="count"></span></div>
+    <div class="seg" role="group" aria-label="顯示哪些狗">
+      <button type="button" id="mode-all" data-mode="all" aria-pressed="true">全部</button>
+      <button type="button" id="mode-common" data-mode="common" aria-pressed="false">常見狗的老家</button>
+      <button type="button" id="mode-local" data-mode="local" aria-pressed="false">各地特色犬</button>
+    </div>
+    <label class="search"><input id="q" type="search" placeholder="搜尋：柴犬、プードル、Beagle…" aria-label="搜尋狗狗名稱"></label>
+    <button type="button" class="listbtn" id="listbtn" aria-expanded="false" aria-controls="drawer">犬種列表</button>
+  </div>
+
+  <aside class="drawer" id="drawer" hidden></aside>
+
+  <div class="legend">
+    <span><i style="background:var(--accent)"></i>世界常見</span>
+    <span><i style="background:var(--amber)"></i>在地特色</span>
+    <span><i style="background:var(--accent);box-shadow:0 0 0 2px var(--amber)"></i>兩者都是</span>
+    <button type="button" id="rand">隨機一隻</button>
+  </div>
+  <div class="mapctl">
+    <button type="button" id="zin" aria-label="放大">+</button>
+    <button type="button" id="zout" aria-label="縮小">−</button>
+    <button type="button" id="zreset" aria-label="回到全圖" style="font-size:14px">⤢</button>
+  </div>
+  <div class="tip" id="tip" hidden></div>
+
+  <article class="pop" id="pop" hidden aria-live="polite">
+    <span class="arrow"></span>
+    <button type="button" class="close" id="close" aria-label="關閉">×</button>
+    <div class="scroll" id="popscroll"></div>
+    <div class="nav">
+      <button type="button" data-step="-1">← 上一隻</button>
+      <button type="button" data-step="1">下一隻 →</button>
+    </div>
+  </article>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="world.js"></script>
+<script src="dogs.js"></script>
+<script src="photos.js"></script>
+<script>
+(function () {
+  const DOGS = window.DOGS, REGIONS = window.REGIONS, PHOTOS = window.PHOTOS || {};
+  const byId = Object.fromEntries(DOGS.map(d => [d.id, d]));
+  const regionName = Object.fromEntries(REGIONS.map(r => [r.id, r.name]));
+  let mode = "all", query = "", selected = null, T = d3.zoomIdentity;
+
+  const kind = d => d.tags.includes("common") && d.tags.includes("local") ? "both" : d.tags.includes("common") ? "common" : "local";
+  const visible = d => {
+    if (mode !== "all" && !d.tags.includes(mode)) return false;
+    if (!query) return true;
+    const q = query.toLowerCase();
+    return [d.zh, d.ja, d.en, d.place].some(s => s.toLowerCase().includes(q));
+  };
+  const fmtCoord = (lat, lon) => `${Math.abs(lat).toFixed(1)}°${lat >= 0 ? "N" : "S"}  ${Math.abs(lon).toFixed(1)}°${lon >= 0 ? "E" : "W"}`;
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const isPhone = () => window.matchMedia("(max-width: 640px)").matches;
+
+  // ── Map ──
+  const app = document.getElementById("app");
+  const svg = d3.select("#map");
+  const world = window.WORLD;
+  const countries = topojson.feature(world, world.objects.countries);
+  const projection = d3.geoNaturalEarth1();
+  const path = d3.geoPath(projection);
+  const g = svg.append("g");
+  const grat = g.append("path").attr("class", "grat");
+  const cSel = g.append("g").selectAll("path").data(countries.features).join("path").attr("class", "country");
+  const pins = g.append("g").selectAll("g.pin").data(DOGS, d => d.id).join("g")
+    .attr("class", d => "pin " + kind(d)).attr("tabindex", 0).attr("role", "button")
+    .attr("aria-label", d => `${d.zh}，${d.place}`);
+  pins.append("circle").attr("class", "hit");
+  pins.append("circle").attr("class", "ring");
+  pins.append("circle").attr("class", "dot");
+  pins.append("text").text(d => d.zh).attr("text-anchor", "middle");
+
+  const zoom = d3.zoom().scaleExtent([1, 14])
+    .on("zoom", e => { T = e.transform; g.attr("transform", T); sizePins(); placePop(); tip.hidden = true; });
+
+  let W = 0, H = 0;
+  function layout() {
+    W = app.clientWidth; H = app.clientHeight;
+    svg.attr("viewBox", `0 0 ${W} ${H}`);
+    const top = isPhone() ? 110 : 64;
+    projection.fitExtent([[10, top], [W - 10, H - 50]], { type: "Sphere" });
+    grat.attr("d", path(d3.geoGraticule10()));
+    cSel.attr("d", path);
+    pins.attr("transform", d => `translate(${projection([d.lon, d.lat])})`);
+    zoom.translateExtent([[-W * 0.3, -H * 0.3], [W * 1.3, H * 1.3]]);
+    sizePins(); placePop();
+  }
+
+  function sizePins() {
+    const k = T.k, s = Math.sqrt(k);
+    pins.select("circle.hit").attr("r", 12 / k);
+    pins.select("circle.dot").attr("r", d => (d.id === selected ? 7.5 : 5.5) / s);
+    pins.select("circle.ring").attr("r", 12 / s);
+    pins.select("text")
+      .attr("font-size", 13 / k).attr("y", -10 / s - 3 / k).attr("stroke-width", 3 / k)
+      .attr("display", d => (k >= 2.4 && d.id !== selected) ? null : "none");
+  }
+
+  svg.call(zoom).on("dblclick.zoom", null);
+  svg.on("click", () => closePop());
+  d3.select("#zin").on("click", () => svg.transition().duration(300).call(zoom.scaleBy, 1.8));
+  d3.select("#zout").on("click", () => svg.transition().duration(300).call(zoom.scaleBy, 1 / 1.8));
+  d3.select("#zreset").on("click", () => { closePop(); svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity); });
+
+  // Fly so the pin lands where the popup has room beside (desktop) or above (phone) it.
+  function flyTo(d, instant) {
+    const [x, y] = projection([d.lon, d.lat]);
+    const k = Math.max(T.k, 3);
+    let tx, ty;
+    if (isPhone()) { tx = W / 2; ty = 110 + (H * 0.38 - 110) / 2; }
+    else { tx = Math.max(60, (W - 400) * 0.5); ty = H * 0.45; }
+    const t = d3.zoomIdentity.translate(tx - x * k, ty - y * k).scale(k);
+    if (instant) svg.call(zoom.transform, t); else svg.transition().duration(650).call(zoom.transform, t);
+  }
+  // On desktop, only move the map if the popup wouldn't fit next to the pin.
+  function needsFly(d) {
+    if (isPhone()) return true;
+    const [x, y] = T.apply(projection([d.lon, d.lat]));
+    const fits = x + 24 + 370 < W - 12 || x - 24 - 370 > 12;
+    return !fits || y < 80 || y > H - 60;
+  }
+
+  // tooltip
+  const tip = document.getElementById("tip");
+  pins.on("mouseenter", (e, d) => {
+    if (d.id === selected) return;
+    const [x, y] = T.apply(projection([d.lon, d.lat]));
+    tip.textContent = d.zh; tip.hidden = false;
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  }).on("mouseleave", () => { tip.hidden = true; })
+    .on("click", (e, d) => { e.stopPropagation(); select(d.id, needsFly(d)); })
+    .on("keydown", (e, d) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(d.id, needsFly(d)); } });
+
+  // ── Popup ──
+  const pop = document.getElementById("pop"), scroll = document.getElementById("popscroll");
+  function renderPop(d) {
+    const tags = d.tags.map(t => `<span class="tag ${t}">${t === "common" ? "世界常見" : "在地特色"}</span>`).join("");
+    const related = (d.related || []).filter(id => byId[id]).map(id =>
+      `<button type="button" class="chip" data-go="${id}">${esc(byId[id].zh)}</button>`).join("");
+    const ph = PHOTOS[d.id];
+    const photo = ph ? `<figure class="photo">
+        <img src="${esc(ph.file)}" alt="${esc(d.zh)}的照片">
+        <figcaption>照片：${esc(ph.artist)}・<a href="${esc(ph.page)}" target="_blank" rel="noopener">${esc(ph.license || "Wikimedia Commons")}</a></figcaption>
+      </figure>` : "";
+    scroll.innerHTML = `${photo}
+      <div class="body">
+        <div class="eyebrow"><span>${esc(regionName[d.region])}</span>${tags}</div>
+        <div class="names">
+          <h2>${esc(d.zh)}</h2>
+          <div class="row"><span class="lab">日</span><span class="ja" lang="ja">${esc(d.ja)}</span></div>
+          <div class="row"><span class="lab">EN</span><span class="en" lang="en">${esc(d.en)}</span></div>
+        </div>
+        <dl class="meta">
+          <dt>原產地</dt><dd>${esc(d.place)}</dd>
+          <dt>大致位置</dt><dd class="coord">${fmtCoord(d.lat, d.lon)}</dd>
+          <dt>原本的工作</dt><dd>${esc(d.job)}</dd>
+        </dl>
+        <p class="story">${esc(d.story)}</p>
+        ${d.note ? `<div class="note"><b>說法不一</b>${esc(d.note)}</div>` : ""}
+        ${related ? `<div><p class="sub">相關的狗</p><div class="chips">${related}</div></div>` : ""}
+        <div><p class="sub">資料來源</p><ul class="sources">${d.sources.map(([t, u]) =>
+          `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("")}</ul></div>
+      </div>`;
+    scroll.scrollTop = 0;
+  }
+
+  function placePop() {
+    if (pop.hidden || !selected || isPhone()) return;
+    const d = byId[selected];
+    const [x, y] = T.apply(projection([d.lon, d.lat]));
+    const pw = pop.offsetWidth, gap = 22;
+    scroll.style.maxHeight = (Math.min(H - 90, 660) - 52) + "px";
+    const ph = pop.offsetHeight;
+    let side = x + gap + pw < W - 12 ? "right" : "left";
+    if (side === "left" && x - gap - pw < 12) side = "right";
+    const left = side === "right" ? x + gap : x - gap - pw;
+    const top = Math.max(64, Math.min(y - 70, H - ph - 12));
+    pop.style.left = left + "px"; pop.style.top = top + "px";
+    pop.classList.toggle("right", side === "right"); pop.classList.toggle("left", side === "left");
+    pop.style.setProperty("--ay", Math.max(14, Math.min(y - top - 7, ph - 28)) + "px");
+    pop.style.visibility = (x < -20 || x > W + 20 || y < -20 || y > H + 20) ? "hidden" : "visible";
+  }
+
+  function openPop(d) {
+    const wasHidden = pop.hidden;
+    renderPop(d);
+    pop.hidden = false;
+    if (wasHidden) { pop.classList.add("enter"); void pop.offsetWidth; pop.classList.remove("enter"); }
+    placePop();
+  }
+  function closePop() {
+    if (pop.hidden) return;
+    pop.hidden = true; selected = null;
+    pins.classed("sel", false); cSel.classed("hi", false);
+    sizePins(); renderDrawer();
+  }
+  document.getElementById("close").addEventListener("click", closePop);
+  pop.addEventListener("click", e => {
+    e.stopPropagation();
+    const t = e.target.closest("button"); if (!t) return;
+    if (t.dataset.go) return select(t.dataset.go, true);
+    if (t.dataset.step) step(+t.dataset.step);
+  });
+  function step(n) {
+    const list = DOGS.filter(visible); if (!list.length) return;
+    let i = list.findIndex(x => x.id === selected);
+    i = ((i < 0 ? 0 : i + n) + list.length) % list.length;
+    select(list[i].id, true);
+  }
+  document.addEventListener("keydown", e => {
+    if (e.target.tagName === "INPUT") return;
+    if (e.key === "Escape") closePop();
+    if (selected && e.key === "ArrowRight") step(1);
+    if (selected && e.key === "ArrowLeft") step(-1);
+  });
+  document.getElementById("rand").addEventListener("click", () => {
+    const list = DOGS.filter(visible); if (!list.length) return;
+    let n; do { n = list[Math.floor(Math.random() * list.length)]; } while (list.length > 1 && n.id === selected);
+    select(n.id, true);
+  });
+
+  // ── Drawer ──
+  const drawer = document.getElementById("drawer"), listbtn = document.getElementById("listbtn");
+  function renderDrawer() {
+    const html = REGIONS.map(r => {
+      const ds = DOGS.filter(d => d.region === r.id && visible(d));
+      if (!ds.length) return "";
+      return `<section><h3>${r.name}<small>${ds.length}</small></h3><div class="chips">${ds.map(d =>
+        `<button type="button" class="chip ${kind(d) === "local" ? "local" : ""} ${d.id === selected ? "on" : ""}" data-go="${d.id}">${esc(d.zh)}</button>`).join("")}</div></section>`;
+    }).join("");
+    drawer.innerHTML = (html || `<p class="empty">找不到符合「${esc(query)}」的狗，試試中文、日文或英文名稱。</p>`) +
+      `<p class="about">資料整理自 Wikipedia、美國犬業俱樂部（AKC）、大英百科全書、各犬種協會與博物館等公開資料；照片來自 Wikimedia Commons，作者與授權標在每張照片下方。犬種起源常有多種說法，有分歧的地方會特別標出。地圖圓點標的是大致的原產區域。</p>`;
+  }
+  function toggleDrawer(open) {
+    drawer.hidden = !open; listbtn.setAttribute("aria-expanded", open);
+    if (open && isPhone()) closePop();
+  }
+  listbtn.addEventListener("click", () => toggleDrawer(drawer.hidden));
+  drawer.addEventListener("click", e => {
+    const t = e.target.closest("[data-go]"); if (!t) return;
+    if (isPhone()) toggleDrawer(false);
+    select(t.dataset.go, true);
+  });
+
+  function select(id, fly, instant) {
+    const d = byId[id]; if (!d) return;
+    selected = id; tip.hidden = true;
+    pins.classed("sel", x => x.id === id);
+    pins.filter(x => x.id === id).raise();
+    cSel.classed("hi", f => d.country.includes(f.id));
+    sizePins(); renderDrawer(); openPop(d);
+    if (fly) flyTo(d, instant);
+  }
+
+  function applyFilter() {
+    pins.attr("hidden", d => visible(d) ? null : "");
+    const list = DOGS.filter(visible);
+    document.getElementById("count").textContent = `${list.length} 種狗`;
+    if (selected && !list.some(d => d.id === selected)) closePop();
+    renderDrawer();
+    if (query && list.length === 1) select(list[0].id, true);
+  }
+  document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => {
+    mode = b.dataset.mode;
+    document.querySelectorAll(".seg button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    applyFilter();
+  }));
+  document.getElementById("q").addEventListener("input", e => {
+    query = e.target.value.trim(); applyFilter();
+    if (query && drawer.hidden) toggleDrawer(true);
+  });
+
+  window.addEventListener("resize", layout);
+  layout(); applyFilter();
+  pop.classList.remove("enter");
+  select("labrador", true, true);
+  pop.classList.remove("enter");
+})();
+</script>
+</body>
+</html>
