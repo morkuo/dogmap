@@ -72,7 +72,13 @@ button:focus-visible, input:focus-visible, .pin:focus-visible, a:focus-visible {
 .pin circle.dot { stroke: var(--paper); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
 .pin.common circle.dot { fill: var(--accent); }
 .pin.local circle.dot { fill: var(--amber); }
-.pin.both circle.dot { fill: var(--accent); stroke: var(--amber); stroke-width: 2.5; }
+/* While one kind is filtered, every visible dot takes that kind's color. */
+.app.only-common .pin circle.dot { fill: var(--accent); }
+.app.only-local .pin circle.dot { fill: var(--amber); }
+.legend .kindbtn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid transparent; background: none; color: var(--ink-soft); font-size: 12px; padding: 2px 8px; border-radius: 999px; cursor: pointer; text-decoration: none; }
+.legend .kindbtn:hover { border-color: var(--rule); }
+.legend .kindbtn[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.legend .kindbtn[aria-pressed="true"] i { box-shadow: 0 0 0 1.5px var(--paper); }
 .pin .ring { fill: none; stroke: var(--ink); stroke-width: 1.5; vector-effect: non-scaling-stroke; opacity: 0; }
 .pin.sel .ring { opacity: 1; }
 .pin .hit { fill: transparent; }
@@ -361,12 +367,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
 
   <div class="bar">
     <div class="brand"><h1>狗狗從哪裡來</h1><span class="count" id="count"></span></div>
-    <div class="seg" role="group" aria-label="顯示哪些狗">
-      <button type="button" id="mode-all" data-mode="all" aria-pressed="true">全部</button>
-      <button type="button" id="mode-common" data-mode="common" aria-pressed="false">常見狗的老家</button>
-      <button type="button" id="mode-local" data-mode="local" aria-pressed="false">各地特色犬</button>
-      <button type="button" id="mode-myth" data-mode="myth" aria-pressed="false">名字的誤會</button>
-    </div>
+    <div class="seg"><button type="button" id="mode-myth" aria-pressed="false" title="只看名字和真正產地不一樣的狗">名字的誤會</button></div>
     <label class="worksel"><select id="work" aria-label="依原本的工作篩選"><option value="">所有工作</option></select></label>
     <label class="search"><input id="q" type="search" placeholder="搜尋：柴犬、プードル、Beagle…" aria-label="搜尋狗狗名稱"></label>
     <button type="button" class="listbtn" id="listbtn" aria-expanded="false" aria-controls="drawer">犬種列表</button>
@@ -377,9 +378,8 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   <aside class="drawer" id="drawer" hidden><div class="drawerctl" id="drawerctl"></div><div id="drawerlist" class="drawerlist"></div></aside>
 
   <div class="legend">
-    <span><i style="background:var(--accent)"></i>世界常見</span>
-    <span><i style="background:var(--amber)"></i>在地特色</span>
-    <span><i style="background:var(--accent);box-shadow:0 0 0 2px var(--amber)"></i>兩者都是</span>
+    <button type="button" class="kindbtn" data-kind="common" aria-pressed="false" title="只看世界常見的狗（再按一次顯示全部）"><i style="background:var(--accent)"></i>世界常見</button>
+    <button type="button" class="kindbtn" data-kind="local" aria-pressed="false" title="只看各地特色犬（再按一次顯示全部）"><i style="background:var(--amber)"></i>在地特色</button>
     <button type="button" class="famtoggle" id="famtoggle" aria-pressed="true" title="顯示或隱藏歷史上的名犬"><svg viewBox="-10 -10 20 20" aria-hidden="true"><path d="M0,-9L2.6,-3.2L8.8,-2.8L4.1,1.3L5.5,7.4L0,4.1L-5.5,7.4L-4.1,1.3L-8.8,-2.8L-2.6,-3.2Z"/></svg>名犬</button>
     <button type="button" id="rand">隨機一隻</button>
   </div>
@@ -430,11 +430,12 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   const regionName = Object.fromEntries(REGIONS.map(r => [r.id, r.name]));
   const WORKS = window.WORKS || [];
   const workName = Object.fromEntries(WORKS.map(w => [w.id, w.name]));
-  let mode = "all", work = "", query = "", selected = null, T = d3.zoomIdentity;
+  let kindF = "all", mythOnly = false, work = "", query = "", selected = null, T = d3.zoomIdentity;
 
-  const kind = d => d.tags.includes("common") && d.tags.includes("local") ? "both" : d.tags.includes("common") ? "common" : "local";
+  const kind = d => d.tags.includes("common") ? "common" : "local";
   const visible = d => {
-    if (mode === "myth" ? !d.myth : (mode !== "all" && !d.tags.includes(mode))) return false;
+    if (mythOnly && !d.myth) return false;
+    if (kindF !== "all" && !d.tags.includes(kindF)) return false;
     if (work && !(d.work || []).includes(work)) return false;
     if (!query) return true;
     const q = query.toLowerCase();
@@ -849,7 +850,8 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
       return `<section><h3>${r.name}<small>${got}／${all.length}</small>${got === all.length ? '<span class="badge">集滿了</span>' : ""}</h3><div class="chips">${ds.map(d =>
         `<button type="button" class="chip ${kind(d) === "local" ? "local" : ""} ${d.id === selected ? "on" : ""} ${seen.has(d.id) ? "seen" : ""}" data-go="${d.id}">${esc(d.zh)}</button>`).join("")}</div></section>`;
     }).join("");
-    drawerList.innerHTML = (html || `<p class="empty">找不到符合「${esc(query)}」的狗，試試中文、日文或英文名稱。</p>`) +
+    const empty = query ? `找不到符合「${esc(query)}」的狗，試試中文、日文或英文名稱。` : "沒有同時符合這些條件的狗，試著取消一些篩選。";
+    drawerList.innerHTML = (html || `<p class="empty">${empty}</p>`) +
       `<p class="about">資料整理自 Wikipedia、美國犬業俱樂部（AKC）、大英百科全書、各犬種協會與博物館等公開資料；照片來自 Wikimedia Commons，作者與授權標在每張照片下方。犬種起源常有多種說法，有分歧的地方會特別標出。地圖圓點標的是大致的原產區域。</p>
       <p class="about" style="border:0;padding:0">打勾的是你打開過的狗（只記在這個瀏覽器裡）。<button type="button" class="resetseen" data-reset="1">清除紀錄</button></p>`;
   }
@@ -934,10 +936,17 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     else if (selected) drawRelations(byId[selected]);
     renderDrawer();
     if (query && list.length === 1) select(list[0].id);
+    if (!list.length && drawer.hidden && (mythOnly || kindF !== "all" || work)) say("沒有同時符合這些條件的狗，換個篩選試試");
   }
-  document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => {
-    mode = b.dataset.mode;
-    document.querySelectorAll(".seg button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  document.getElementById("mode-myth").addEventListener("click", e => {
+    mythOnly = !mythOnly; e.currentTarget.setAttribute("aria-pressed", mythOnly); applyFilter();
+  });
+  // Legend chips filter by kind; pressing the active one again shows everything.
+  document.querySelectorAll(".kindbtn").forEach(b => b.addEventListener("click", () => {
+    kindF = kindF === b.dataset.kind ? "all" : b.dataset.kind;
+    document.querySelectorAll(".kindbtn").forEach(x => x.setAttribute("aria-pressed", x.dataset.kind === kindF));
+    app.classList.toggle("only-common", kindF === "common");
+    app.classList.toggle("only-local", kindF === "local");
     applyFilter();
   }));
   document.getElementById("q").addEventListener("input", e => {
