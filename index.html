@@ -191,7 +191,11 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
 .chip:hover { border-color: var(--ink-soft); }
 .chip.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 .chip.local { border-color: color-mix(in srgb, var(--amber) 45%, var(--rule)); }
-.sources { margin: 0; padding-left: 18px; font-size: 13px; }
+.sources { margin: 6px 0 0; padding-left: 18px; font-size: 13px; }
+.srcbox summary { font-size: 12px; letter-spacing: .08em; color: var(--ink-soft); cursor: pointer; padding-block: 4px; list-style-position: inside; }
+.srcbox summary:hover { color: var(--ink); }
+.drawer .progress { font-family: var(--font-display); font-size: 15px; margin: 0; display: flex; justify-content: space-between; align-items: baseline; }
+.drawer .progress small { font-family: var(--font-body); font-size: 12px; color: var(--ink-soft); }
 .sources a { color: var(--accent); text-underline-offset: 2px; }
 .nav { display: flex; justify-content: space-between; gap: 8px; padding: 10px 18px; border-top: 1px solid var(--rule); background: var(--paper); position: relative; z-index: 2; flex: none; border-radius: 0 0 var(--r) var(--r); }
 .nav button { font-size: 13.5px; border: 1px solid var(--rule); background: var(--paper); padding: 4px 12px; border-radius: 8px; cursor: pointer; }
@@ -693,8 +697,8 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
         <p class="story">${esc(f.text)}</p>
         ${f.note ? `<div class="note"><b>說法不一</b>${esc(f.note)}</div>` : ""}
         ${b ? `<div><p class="sub">認識這個犬種</p><div class="chips"><button type="button" class="chip" data-go="${b.id}">${esc(b.zh)}</button></div></div>` : ""}
-        <div><p class="sub">資料來源</p><ul class="sources">${f.sources.map(([t, u]) =>
-          `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("")}</ul></div>
+        <details class="srcbox"><summary>資料來源（${f.sources.length}）</summary><ul class="sources">${f.sources.map(([t, u]) =>
+          `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("")}</ul></details>
       </div>`;
     scroll.scrollTop = 0;
   }
@@ -730,8 +734,8 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
         ${famOf(d.id).length ? `<div><p class="sub">這個犬種的名犬</p><div class="chips">${famOf(d.id).map(f =>
           `<button type="button" class="chip fam-chip" data-fam="${f.id}">${esc(f.name)}</button>`).join("")}</div></div>` : ""}
         ${related ? `<div><p class="sub">相關的狗（地圖上的藍色虛線）</p><ul class="rellist">${related}</ul></div>` : ""}
-        <div><p class="sub">資料來源</p><ul class="sources">${d.sources.map(([t, u]) =>
-          `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("")}</ul></div>
+        <details class="srcbox"><summary>資料來源（${d.sources.length}）</summary><ul class="sources">${d.sources.map(([t, u]) =>
+          `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("")}</ul></details>
         <button type="button" class="share" data-share="${d.id}">複製這隻狗的連結</button>
       </div>`;
     scroll.scrollTop = 0;
@@ -881,7 +885,8 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
         `<button type="button" class="chip ${kind(d) === "local" ? "local" : ""} ${d.id === selected ? "on" : ""} ${seen.has(d.id) ? "seen" : ""}" data-go="${d.id}">${esc(d.zh)}</button>`).join("")}</div></section>`;
     }).join("");
     const empty = query ? `找不到符合「${esc(query)}」的狗，試試中文、日文或英文名稱。` : "沒有同時符合這些條件的狗，試著取消一些篩選。";
-    drawerList.innerHTML = (html || `<p class="empty">${empty}</p>`) +
+    drawerList.innerHTML = `<p class="progress">已認識 ${seen.size}／${DOGS.length} 種狗<small>打開過的會打勾</small></p>` +
+      (html || `<p class="empty">${empty}</p>`) +
       `<p class="about">資料整理自 Wikipedia、美國犬業俱樂部（AKC）、大英百科全書、各犬種協會與博物館等公開資料；照片來自 Wikimedia Commons，作者與授權標在每張照片下方。犬種起源常有多種說法，有分歧的地方會特別標出。地圖圓點標的是大致的原產區域。</p>
       <p class="about" style="border:0;padding:0">打勾的是你打開過的狗（只記在這個瀏覽器裡）。<button type="button" class="resetseen" data-reset="1">清除紀錄</button></p>`;
   }
