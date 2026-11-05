@@ -1,6 +1,9 @@
 {
   "id": "husky",
   "zh": "西伯利亞哈士奇",
+  "aliases": [
+    "哈士奇"
+  ],
   "ja": "シベリアン・ハスキー",
   "en": "Siberian Husky",
   "region": "ea",

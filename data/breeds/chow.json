@@ -1,6 +1,9 @@
 {
   "id": "chow",
   "zh": "鬆獅犬",
+  "aliases": [
+    "鬆獅"
+  ],
   "ja": "チャウ・チャウ",
   "en": "Chow Chow",
   "region": "ea",

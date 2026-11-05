@@ -1,6 +1,10 @@
 {
   "id": "taiwandog",
   "zh": "台灣犬",
+  "aliases": [
+    "台灣土狗",
+    "Formosan"
+  ],
   "ja": "台湾犬（タイワンケン）",
   "en": "Taiwan Dog（Formosan Mountain Dog）",
   "region": "ea",

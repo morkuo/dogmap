@@ -1,6 +1,10 @@
 {
   "id": "cattledog",
   "zh": "澳洲牧牛犬",
+  "aliases": [
+    "藍色赫勒犬",
+    "Blue Heeler"
+  ],
   "ja": "オーストラリアン・キャトル・ドッグ",
   "en": "Australian Cattle Dog",
   "region": "oc",

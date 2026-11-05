@@ -1,6 +1,9 @@
 {
   "id": "pomeranian",
   "zh": "博美犬",
+  "aliases": [
+    "博美"
+  ],
   "ja": "ポメラニアン",
   "en": "Pomeranian",
   "region": "eu",

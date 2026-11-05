@@ -1,6 +1,10 @@
 {
   "id": "dachshund",
   "zh": "臘腸狗",
+  "aliases": [
+    "臘腸犬",
+    "香腸狗"
+  ],
   "ja": "ダックスフンド",
   "en": "Dachshund",
   "region": "eu",

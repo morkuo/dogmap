@@ -1,6 +1,9 @@
 {
   "id": "beagle",
   "zh": "米格魯",
+  "aliases": [
+    "比格犬"
+  ],
   "ja": "ビーグル",
   "en": "Beagle",
   "region": "eu",

@@ -1,6 +1,9 @@
 {
   "id": "frenchie",
   "zh": "法國鬥牛犬",
+  "aliases": [
+    "法鬥"
+  ],
   "ja": "フレンチ・ブルドッグ",
   "en": "French Bulldog",
   "region": "eu",

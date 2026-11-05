@@ -1,6 +1,9 @@
 {
   "id": "pug",
   "zh": "巴哥犬",
+  "aliases": [
+    "巴哥"
+  ],
   "ja": "パグ",
   "en": "Pug",
   "region": "ea",

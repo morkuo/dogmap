@@ -1,6 +1,9 @@
 {
   "id": "malamute",
   "zh": "阿拉斯加雪橇犬",
+  "aliases": [
+    "阿拉斯加"
+  ],
   "ja": "アラスカン・マラミュート",
   "en": "Alaskan Malamute",
   "region": "na",

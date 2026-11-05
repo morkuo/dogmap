@@ -1,6 +1,9 @@
 {
   "id": "maltese",
   "zh": "馬爾濟斯",
+  "aliases": [
+    "瑪爾濟斯"
+  ],
   "ja": "マルチーズ",
   "en": "Maltese",
   "region": "eu",

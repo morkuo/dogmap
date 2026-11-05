@@ -1,6 +1,9 @@
 {
   "id": "samoyed",
   "zh": "薩摩耶犬",
+  "aliases": [
+    "薩摩耶"
+  ],
   "ja": "サモエド",
   "en": "Samoyed",
   "region": "eu",

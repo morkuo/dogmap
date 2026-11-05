@@ -1,6 +1,9 @@
 {
   "id": "greatdane",
   "zh": "大丹犬",
+  "aliases": [
+    "丹麥大狗"
+  ],
   "ja": "グレート・デーン",
   "en": "Great Dane",
   "region": "eu",

@@ -185,6 +185,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
 .names .row { display: grid; grid-template-columns: 26px 1fr; gap: 6px; align-items: baseline; }
 .names .lab { font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft); letter-spacing: .06em; }
 .names .ja { font-family: var(--font-display); font-size: 17px; }
+.names .aka { font-size: 13px; color: var(--ink-soft); margin: -2px 0 4px; }
 .names .en { font-size: 15px; font-weight: 500; }
 .meta { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; font-size: 13.5px; border-block: 1px solid var(--rule); padding-block: 8px; margin: 0; }
 .meta dt { color: var(--ink-soft); }
@@ -428,7 +429,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     <div class="brand"><h1>狗狗從哪裡來</h1><span class="count" id="count"></span></div>
     <div class="seg"><button type="button" id="mode-myth" aria-pressed="false" title="只看名字和真正產地不一樣的狗">名字的誤會</button></div>
     <label class="worksel"><select id="work" aria-label="依原本的工作篩選"><option value="">所有工作</option></select></label>
-    <label class="search"><input id="q" type="search" placeholder="搜尋：柴犬、プードル、Beagle…" aria-label="搜尋狗狗名稱"></label>
+    <label class="search"><input id="q" type="search" placeholder="搜尋：柴犬、拉不拉多、プードル、Beagle…" aria-label="搜尋狗狗名稱"></label>
     <button type="button" class="listbtn" id="listbtn" aria-expanded="false" aria-controls="drawer">犬種列表</button>
     <button type="button" class="quizbtn" id="quizbtn">猜猜看</button>
     <button type="button" class="timebtn" id="timebtn">年表</button>
@@ -502,7 +503,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     if (work && !(d.work || []).includes(work)) return false;
     if (!query) return true;
     const q = query.toLowerCase();
-    return [d.zh, d.ja, d.en, d.place, d.etym || ""].some(s => s.toLowerCase().includes(q));
+    return [d.zh, d.ja, d.en, d.place, d.etym || "", ...(d.aliases || [])].some(s => s.toLowerCase().includes(q));
   };
   const MILE = window.MILESTONES || {}, ANCIENT = window.ANCIENT || {};
   const shownNow = d => visible(d) && !(timeMode && MILE[d.id] && MILE[d.id].year > tlYear);
@@ -751,6 +752,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
         <div class="eyebrow"><span>${esc(regionName[d.region])}</span>${tags}</div>
         <div class="names">
           <h2>${esc(d.zh)}</h2>
+          ${d.aliases && d.aliases.length ? `<div class="aka">也叫：${d.aliases.map(esc).join("、")}</div>` : ""}
           <div class="row"><span class="lab">日</span><span class="ja" lang="ja">${esc(d.ja)}</span></div>
           <div class="row"><span class="lab">EN</span><span class="en" lang="en">${esc(d.en)}</span></div>
         </div>

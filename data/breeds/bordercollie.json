@@ -1,6 +1,10 @@
 {
   "id": "bordercollie",
   "zh": "邊境牧羊犬",
+  "aliases": [
+    "邊牧",
+    "邊境柯利"
+  ],
   "ja": "ボーダー・コリー",
   "en": "Border Collie",
   "region": "eu",

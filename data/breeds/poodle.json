@@ -1,6 +1,10 @@
 {
   "id": "poodle",
   "zh": "貴賓狗",
+  "aliases": [
+    "貴婦犬",
+    "捲毛狗"
+  ],
   "ja": "プードル",
   "en": "Poodle",
   "region": "eu",

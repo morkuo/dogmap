@@ -47,13 +47,14 @@ function checkLatLon(where, o) {
 const breedFiles = loadDir("breeds");
 const breedIds = new Set(breedFiles.map(b => b.data.id));
 const orders = new Map();
-const allowedBreedKeys = new Set(["id", "zh", "ja", "en", "region", "country", "place", "lat", "lon", "tags", "work",
+const allowedBreedKeys = new Set(["id", "zh", "aliases", "ja", "en", "region", "country", "place", "lat", "lon", "tags", "work",
   "myth", "etym", "job", "story", "note", "milestone", "ancient", "trip", "sources", "order"]);
 for (const { file, base, data: b } of breedFiles) {
   for (const k of Object.keys(b)) if (!allowedBreedKeys.has(k)) err(file, `不認得的欄位「${k}」（打錯字了嗎？）`);
   if (b.id !== base) err(file, `id「${b.id}」要和檔名「${base}」一樣`);
   for (const k of ["zh", "ja", "en", "place", "job", "story"]) if (!isStr(b[k])) err(file, `缺少「${k}」`);
   for (const k of ["myth", "etym", "note", "ancient"]) if (b[k] !== undefined && !isStr(b[k])) err(file, `「${k}」要是文字`);
+  if (b.aliases !== undefined && (!Array.isArray(b.aliases) || !b.aliases.every(isStr))) err(file, "aliases 要是文字陣列，例如 [\"拉不拉多\"]");
   if (!regionIds.has(b.region)) err(file, `region「${b.region}」不存在，可用：${[...regionIds].join("、")}`);
   if (!Array.isArray(b.country)) err(file, "country 要是陣列，例如 [\"392\"]");
   else b.country.forEach(c => { if (!countryIds.has(c)) err(file, `country「${c}」不是地圖上的國家代碼`); });

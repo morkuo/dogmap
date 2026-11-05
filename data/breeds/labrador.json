@@ -1,6 +1,10 @@
 {
   "id": "labrador",
   "zh": "拉布拉多犬",
+  "aliases": [
+    "拉不拉多",
+    "Lab"
+  ],
   "ja": "ラブラドール・レトリーバー",
   "en": "Labrador Retriever",
   "region": "na",

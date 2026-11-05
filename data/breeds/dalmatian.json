@@ -1,6 +1,9 @@
 {
   "id": "dalmatian",
   "zh": "大麥町",
+  "aliases": [
+    "斑點狗"
+  ],
   "ja": "ダルメシアン",
   "en": "Dalmatian",
   "region": "eu",

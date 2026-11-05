@@ -1,6 +1,9 @@
 {
   "id": "aussie",
   "zh": "澳洲牧羊犬",
+  "aliases": [
+    "澳牧"
+  ],
   "ja": "オーストラリアン・シェパード",
   "en": "Australian Shepherd",
   "region": "na",

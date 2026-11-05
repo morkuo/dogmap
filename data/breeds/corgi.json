@@ -1,6 +1,9 @@
 {
   "id": "corgi",
   "zh": "柯基犬（彭布羅克）",
+  "aliases": [
+    "柯基"
+  ],
   "ja": "ウェルシュ・コーギー・ペンブローク",
   "en": "Pembroke Welsh Corgi",
   "region": "eu",

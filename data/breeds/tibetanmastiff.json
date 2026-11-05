@@ -1,6 +1,9 @@
 {
   "id": "tibetanmastiff",
   "zh": "藏獒",
+  "aliases": [
+    "獒犬"
+  ],
   "ja": "チベタン・マスティフ",
   "en": "Tibetan Mastiff",
   "region": "ea",

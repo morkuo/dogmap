@@ -1,6 +1,10 @@
 {
   "id": "gsd",
   "zh": "德國牧羊犬",
+  "aliases": [
+    "狼犬",
+    "德牧"
+  ],
   "ja": "ジャーマン・シェパード・ドッグ",
   "en": "German Shepherd Dog",
   "region": "eu",

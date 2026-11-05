@@ -1,6 +1,10 @@
 {
   "id": "golden",
   "zh": "黃金獵犬",
+  "aliases": [
+    "黃金",
+    "Golden"
+  ],
   "ja": "ゴールデン・レトリーバー",
   "en": "Golden Retriever",
   "region": "eu",

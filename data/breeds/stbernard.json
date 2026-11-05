@@ -1,6 +1,9 @@
 {
   "id": "stbernard",
   "zh": "聖伯納犬",
+  "aliases": [
+    "聖伯納"
+  ],
   "ja": "セント・バーナード",
   "en": "St. Bernard",
   "region": "eu",

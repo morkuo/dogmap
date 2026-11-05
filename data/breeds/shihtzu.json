@@ -1,6 +1,9 @@
 {
   "id": "shihtzu",
   "zh": "西施犬",
+  "aliases": [
+    "西施"
+  ],
   "ja": "シー・ズー",
   "en": "Shih Tzu",
   "region": "ea",
