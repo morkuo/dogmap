@@ -513,6 +513,10 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
         const [x, y] = T.apply(projection([d.lon, d.lat])), r = (d.id === selected ? 9 : 7) / Math.sqrt(s);
         boxes.push({ x0: x - r, x1: x + r, y0: y - r, y1: y + r, dot: true });
       }
+      if (!app.classList.contains("nofam")) for (const f of FAMOUS) {
+        const [x, y] = T.apply(projection([f.lon, f.lat])), r = 8;
+        boxes.push({ x0: x - r, x1: x + r, y0: y - r, y1: y + r, dot: true });
+      }
       const order = DOGS.filter(d => visible(d) && d.id !== selected)
         .sort((a, b) => (b.id === hoverId) - (a.id === hoverId) || (b.tags.includes("common")) - (a.tags.includes("common")));
       for (const d of order) {
@@ -558,6 +562,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     const on = e.currentTarget.getAttribute("aria-pressed") !== "true";
     e.currentTarget.setAttribute("aria-pressed", on);
     app.classList.toggle("nofam", !on);
+    placeLabels();
     if (!on && selFam) closePop();
   });
 
