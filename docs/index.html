@@ -138,6 +138,14 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
 }
 .pop[hidden] { display: none !important; }
 .pop.enter { opacity: 0; transform: translateY(6px) scale(.98); }
+.grip {
+  position: absolute; z-index: 4; top: 0; left: 50%; transform: translateX(-50%);
+  width: 120px; height: 22px; display: grid; place-items: center; cursor: grab; touch-action: none;
+  border: 0; background: transparent; padding: 0;
+}
+.grip::before { content: ""; width: 40px; height: 5px; border-radius: 3px; background: rgba(255,255,255,.85); box-shadow: 0 0 0 1px rgba(0,0,0,.25); }
+.pop .photo { cursor: grab; touch-action: none; }
+.pop.dragging, .pop.dragging .photo, .pop.dragging .grip { cursor: grabbing; user-select: none; transition: none; }
 .pop .arrow { position: absolute; z-index: 0; width: 14px; height: 14px; background: var(--paper); border: 1px solid var(--rule); transform: rotate(45deg); top: var(--ay, 40px); }
 .pop.right .arrow { left: -8px; border-right: 0; border-top: 0; }
 .pop.left .arrow { right: -8px; border-left: 0; border-bottom: 0; }
@@ -231,6 +239,8 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
 .quizbtn { border: 0; background: var(--accent); color: var(--paper); border-radius: 999px; padding: 6px 16px; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: var(--shadow); }
 .myth { background: var(--accent-soft); border-radius: 8px; padding: 8px 12px; font-size: 14px; line-height: 1.7; }
 .myth b { color: var(--accent); margin-right: 4px; }
+.etym { background: var(--amber-soft); border-radius: 8px; padding: 8px 12px; font-size: 14px; line-height: 1.7; }
+.etym b { color: var(--amber); margin-right: 4px; }
 .wtag { font-size: 12px; padding: 0 9px; border-radius: 999px; border: 1px solid var(--rule); color: var(--ink-soft); letter-spacing: .04em; }
 .share { align-self: flex-start; font-size: 13px; border: 1px solid var(--rule); background: var(--paper); padding: 3px 12px; border-radius: 8px; cursor: pointer; color: var(--ink-soft); }
 
@@ -312,6 +322,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
 
   <article class="pop" id="pop" hidden aria-live="polite">
     <span class="arrow"></span>
+    <button type="button" class="grip" id="grip" aria-label="拖曳來移動卡片（手機上可以調整高度）" title="拖曳來移動卡片"></button>
     <button type="button" class="close" id="close" aria-label="關閉">×</button>
     <div class="scroll" id="popscroll"></div>
     <div class="nav">
@@ -341,7 +352,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     if (work && !(d.work || []).includes(work)) return false;
     if (!query) return true;
     const q = query.toLowerCase();
-    return [d.zh, d.ja, d.en, d.place].some(s => s.toLowerCase().includes(q));
+    return [d.zh, d.ja, d.en, d.place, d.etym || ""].some(s => s.toLowerCase().includes(q));
   };
   const fmtCoord = (lat, lon) => `${Math.abs(lat).toFixed(1)}°${lat >= 0 ? "N" : "S"}  ${Math.abs(lon).toFixed(1)}°${lon >= 0 ? "E" : "W"}`;
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -400,6 +411,8 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   }
   function layout() {
     placeControls();
+    if (!isPhone()) pop.style.height = "";
+    else if (sheetH) pop.style.height = sheetH + "px";
     W = app.clientWidth; H = app.clientHeight;
     svg.attr("viewBox", `0 0 ${W} ${H}`);
     const top = barBottom() + 8;
@@ -466,6 +479,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
           <div class="row"><span class="lab">EN</span><span class="en" lang="en">${esc(d.en)}</span></div>
         </div>
         ${d.myth ? `<div class="myth"><b>名字的誤會</b>${esc(d.myth)}</div>` : ""}
+        ${d.etym ? `<div class="etym"><b>名字的由來</b>${esc(d.etym)}</div>` : ""}
         <dl class="meta">
           <dt>原產地</dt><dd>${esc(d.place)}</dd>
           <dt>大致位置</dt><dd class="coord">${fmtCoord(d.lat, d.lon)}</dd>
@@ -481,6 +495,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     scroll.scrollTop = 0;
   }
 
+  let userPos = null, sheetH = null;
   function placePop() {
     if (pop.hidden || !selected || isPhone()) return;
     const d = byId[selected];
@@ -490,6 +505,15 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     const x = Math.max(0, Math.min(px, W)), y = Math.max(64, Math.min(py, H));
     const pw = pop.offsetWidth, gap = 22;
     scroll.style.maxHeight = (Math.min(H - 90, 660) - 52) + "px";
+    if (userPos) {
+      // The reader dragged the card somewhere: keep it there (inside the window) and drop the arrow.
+      const ph0 = pop.offsetHeight;
+      userPos.left = Math.max(8, Math.min(userPos.left, W - pw - 8));
+      userPos.top = Math.max(8, Math.min(userPos.top, H - ph0 - 8));
+      pop.style.left = userPos.left + "px"; pop.style.top = userPos.top + "px";
+      pop.querySelector(".arrow").style.visibility = "hidden";
+      return;
+    }
     const ph = pop.offsetHeight;
     const top = Math.max(64, Math.min(y - 70, H - ph - 12));
     // Pick the side that fits and hides the fewest related dogs (so their connecting lines stay visible).
@@ -516,17 +540,54 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   }
   function closePop() {
     if (pop.hidden) return;
-    pop.hidden = true; selected = null;
+    pop.hidden = true; selected = null; userPos = null;
     pins.classed("sel", false); cSel.classed("hi", false);
     drawRelations(null);
     sizePins(); renderDrawer(); setHash("");
   }
   document.getElementById("close").addEventListener("click", closePop);
+
+  // Drag the card: on desktop by its photo or the grip bar (moves it); on phones by the grip (resizes the sheet, drag down to close).
+  let drag = null, dragEndedAt = 0;
+  pop.addEventListener("pointerdown", e => {
+    const handle = e.target.closest(".grip, .photo");
+    if (!handle || e.target.closest("a") || e.button > 0) return;
+    if (isPhone() && !e.target.closest(".grip") && !e.target.closest(".photo")) return;
+    const r = pop.getBoundingClientRect(), a = app.getBoundingClientRect();
+    drag = { id: e.pointerId, x: e.clientX, y: e.clientY, left: r.left - a.left, top: r.top - a.top, h: r.height, moved: false };
+    pop.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  });
+  pop.addEventListener("pointermove", e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (!drag.moved && Math.hypot(dx, dy) < 4) return;
+    drag.moved = true; pop.classList.add("dragging");
+    if (isPhone()) {
+      sheetH = Math.max(120, Math.min(drag.h - dy, H - 70));
+      pop.style.height = sheetH + "px";
+    } else {
+      userPos = { left: drag.left + dx, top: drag.top + dy };
+      placePop();
+    }
+  });
+  const endDrag = e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    pop.classList.remove("dragging");
+    if (isPhone() && drag.moved && sheetH !== null && sheetH < 180) {
+      sheetH = null; pop.style.height = ""; drag = null; closePop(); return;
+    }
+    if (drag.moved) dragEndedAt = Date.now();
+    drag = null;
+  };
+  pop.addEventListener("pointerup", endDrag);
+  pop.addEventListener("pointercancel", endDrag);
   const hiRel = (id, on) => relG.selectAll("path").classed("on", r => on && r === id);
   pop.addEventListener("mouseover", e => { const t = e.target.closest("[data-go]"); if (t) hiRel(t.dataset.go, true); });
   pop.addEventListener("mouseout", e => { const t = e.target.closest("[data-go]"); if (t) hiRel(t.dataset.go, false); });
   pop.addEventListener("click", e => {
     e.stopPropagation();
+    if (Date.now() - dragEndedAt < 300) return; // the click that ends a drag is not a button press
     const t = e.target.closest("button"); if (!t) return;
     if (t.dataset.go) return select(t.dataset.go);
     if (t.dataset.step) step(+t.dataset.step);
@@ -688,7 +749,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     const last = quiz.i === ROUNDS - 1;
     quizEl.innerHTML = `${qHead()}
       <p class="qbig">${msg}<small>差了 ${km(dist)} 公里，得 ${pts} 分${quiz.hint ? "（用了提示）" : ""}</small></p>
-      <p class="qfact"><b>${esc(d.zh)}</b>來自${esc(d.place)}。${esc(d.myth || ("原本的工作是" + d.job + "。"))}</p>
+      <p class="qfact"><b>${esc(d.zh)}</b>來自${esc(d.place)}。${esc(d.myth || (d.etym ? "名字的由來：" + d.etym : "原本的工作是" + d.job + "。"))}</p>
       <div class="qbtns">
         <button type="button" class="primary" data-q="next">${last ? "看總成績" : "下一題 →"}</button>
         <button type="button" data-q="quit">結束遊戲</button>

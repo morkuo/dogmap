@@ -24,13 +24,14 @@ window.WORKS = [
 ];
 
 // myth: 名字跟真正產地或由來不一樣的「名字的誤會」
+// etym: 名字本身是什麼意思（只收來源明確的，有爭議的會註明「一說」）
 window.DOGS = [
   // ───────── 北美洲 ─────────
   {
     id: "labrador",
     zh: "拉布拉多犬", ja: "ラブラドール・レトリーバー", en: "Labrador Retriever",
     region: "na", country: ["124"], place: "加拿大・紐芬蘭島（聖約翰斯一帶）",
-    lat: 47.56, lon: -52.71, tags: ["common"], work: ["fish", "hunt"], myth: "名字叫拉布拉多，老家卻是隔壁的紐芬蘭島。",
+    lat: 47.56, lon: -52.71, tags: ["common"], work: ["fish", "hunt"], myth: "名字叫拉布拉多，老家卻是隔壁的紐芬蘭島。", etym: "Retriever 是「把東西撿回來的狗」，黃金獵犬的英文名字也有這個字。",
     job: "幫漁夫叼回漁獲與繩網，後來成為撿水鳥的獵犬",
     story: "你知道拉布拉多其實不是從拉布拉多來的嗎？牠的祖先是紐芬蘭島上的「聖約翰斯水犬」（St. John's water dog），跟著漁夫工作，在冰冷的海水裡把脫鉤的魚、漁網和繩子叼回船上，所以非常會游泳。19 世紀，往來紐芬蘭和英國普爾港的貿易船把這些狗帶到英國，馬姆斯伯里伯爵等貴族看上牠們下水叼物的本事，把牠們培育成撿回水鳥的獵犬。牠跟黃金獵犬的英文名字都有 Retriever（尋回犬），意思就是「把東西撿回來的狗」。",
     note: "「拉布拉多」這個名字怎麼來的沒有定論。常見說法是借用當時同屬紐芬蘭殖民地的拉布拉多地區之名；也有人認為和葡萄牙語 lavrador（勞動者）有關。",
@@ -71,13 +72,14 @@ window.DOGS = [
     id: "malamute",
     zh: "阿拉斯加雪橇犬", ja: "アラスカン・マラミュート", en: "Alaskan Malamute",
     region: "na", country: ["840"], place: "美國・阿拉斯加西北（科策布灣）",
-    lat: 66.9, lon: -162.6, tags: ["local"], work: ["sled"],
+    lat: 66.9, lon: -162.6, tags: ["local"], work: ["sled"], etym: "來自阿拉斯加西北部的因紐皮雅特族群 Malimiut（馬勒穆特人）。",
     job: "拉重物的雪橇犬",
     story: "常被誤認成哈士奇，但牠比較大隻、骨架更粗。名字來自阿拉斯加西北部的因紐皮雅特族群 Mahlemiut（馬勒穆特人），他們用這種狗在極地拉重物、幫忙獵海豹。哈士奇是長跑選手，馬拉穆是舉重選手：跑得不快，但力氣很大。牠也是阿拉斯加州的州犬。",
     related: ["husky"],
     sources: [
       ["Wikipedia", "https://en.wikipedia.org/wiki/Alaskan_Malamute"],
-      ["AKC 犬種介紹", "https://www.akc.org/dog-breeds/alaskan-malamute/"]
+      ["AKC 犬種介紹", "https://www.akc.org/dog-breeds/alaskan-malamute/"],
+      ["Merriam-Webster：malamute", "https://www.merriam-webster.com/dictionary/malamute"]
     ]
   },
   {
@@ -127,7 +129,7 @@ window.DOGS = [
     id: "xolo",
     zh: "墨西哥無毛犬", ja: "ショロイツクインツレ", en: "Xoloitzcuintli",
     region: "la", country: ["484"], place: "墨西哥中部",
-    lat: 19.4, lon: -99.1, tags: ["local"], work: ["guard"],
+    lat: 19.4, lon: -99.1, tags: ["local"], work: ["guard"], etym: "阿茲特克人的納瓦特爾語：Xolotl（掌管閃電與死亡的神）＋ itzcuintli（狗）。",
     job: "看家犬，傳說中引導亡魂的狗",
     story: "牠的名字唸作「修洛伊茲昆特利」，是阿茲特克人的納瓦特爾語：Xolotl 是掌管閃電與死亡的神，itzcuintli 是狗。阿茲特克人相信，人死後要穿越冥界 Mictlán，這種狗會帶著亡魂渡河。這個品種的歷史至少有 3,500 年。皮克斯動畫《可可夜總會》裡那隻傻呼呼的狗 Dante，就是墨西哥無毛犬。",
     related: ["chihuahua", "peruvian"],
@@ -181,7 +183,7 @@ window.DOGS = [
     id: "golden",
     zh: "黃金獵犬", ja: "ゴールデン・レトリーバー", en: "Golden Retriever",
     region: "eu", country: ["826"], place: "英國・蘇格蘭高地（Guisachan 莊園）",
-    lat: 57.27, lon: -4.86, tags: ["common"], work: ["hunt"],
+    lat: 57.27, lon: -4.86, tags: ["common"], work: ["hunt"], etym: "Retriever 是「把東西撿回來的狗」，拉布拉多的英文名字也有這個字。",
     job: "撿回獵人打下的鳥",
     story: "黃金獵犬的生日可以精準到 1868 年。蘇格蘭高地的莊園主人 Dudley Marjoribanks（後來的特威德茅斯男爵）把一隻黃色的波浪毛尋回犬 Nous，和一隻現在已經滅絕的特威德水獵犬 Belle 配種，生下的小狗就是黃金獵犬的源頭。高地多雨、湖泊沼澤多，他想要一隻能在陸上、也能下水把打下的鳥撿回來的狗。拉布拉多是幫漁夫撿東西起家的，黃金獵犬則是為了打獵撿鳥。",
     note: "早期紀錄對 Nous 是波浪毛還是平毛尋回犬、以及配種年份的細節有些出入。",
@@ -208,7 +210,7 @@ window.DOGS = [
     id: "corgi",
     zh: "柯基犬（彭布羅克）", ja: "ウェルシュ・コーギー・ペンブローク", en: "Pembroke Welsh Corgi",
     region: "eu", country: ["826"], place: "英國・威爾斯彭布羅克郡",
-    lat: 51.8, lon: -4.97, tags: ["common"], work: ["herd"],
+    lat: 51.8, lon: -4.97, tags: ["common"], work: ["herd"], etym: "常見的解釋是威爾斯語 cor（矮小）＋ ci（狗），但這個說法沒有定論。",
     job: "趕牛（咬牛的腳跟）",
     story: "柯基的腿那麼短是有原因的：牠以前在威爾斯負責趕牛，方法是去輕咬牛的腳跟，腿短、身子低，牛往後踢時比較踢不到。舊名之一 Ci Sawdlo 就是「咬腳跟的狗」。威爾斯民間傳說，柯基是精靈的坐騎，所以牠肩膀上那塊顏色較淺的毛被叫做「精靈的馬鞍」。英國女王伊莉莎白二世一生養過三十多隻柯基。",
     note: "「corgi」常被解釋為威爾斯語的「矮小的狗」（cor + ci），但這個詞源並沒有完全定論。",
@@ -248,7 +250,7 @@ window.DOGS = [
     id: "poodle",
     zh: "貴賓狗", ja: "プードル", en: "Poodle",
     region: "eu", country: ["276", "250"], place: "德國（一說法國）",
-    lat: 50.5, lon: 8.0, tags: ["common"], work: ["hunt"], myth: "常被當成法國狗，但多數學者認為牠起源於德國。",
+    lat: 50.5, lon: 8.0, tags: ["common"], work: ["hunt"], myth: "常被當成法國狗，但多數學者認為牠起源於德國。", etym: "英文 Poodle 來自德文 Pudel，和「潑水」有關；法文叫 Caniche，來自 cane（母鴨）。",
     job: "下水撿野鴨的獵犬",
     story: "貴賓狗看起來很貴氣，以前其實是下水撿鴨子的獵犬。英文 Poodle 來自德文 Pudel，和「在水裡潑水」有關；法文叫 Caniche，來自 cane（母鴨）。那個奇特的造型剪法原本也是為了工作：剪短的部分讓牠游泳輕快，保留的毛則保護關節和胸口不受冷水刺激。後來法國貴族非常喜愛牠，貴賓狗也成了法國的國犬。",
     note: "起源地有爭議：大多數學者認為是中世紀的德國，但國際畜犬聯盟（FCI）把原產地登記為法國。",
@@ -261,7 +263,7 @@ window.DOGS = [
     id: "dachshund",
     zh: "臘腸狗", ja: "ダックスフンド", en: "Dachshund",
     region: "eu", country: ["276"], place: "德國",
-    lat: 48.5, lon: 10.5, tags: ["common"], work: ["hunt"],
+    lat: 48.5, lon: 10.5, tags: ["common"], work: ["hunt"], etym: "德文 Dachs（獾）＋ Hund（狗），直翻就是「獾狗」。",
     job: "鑽進地洞獵獾",
     story: "德文 Dachshund 直翻就是「獾狗」：Dachs 是獾，Hund 是狗。牠又長又矮的身體是為了鑽進獾的地洞，大型的獵獾和野豬，小型的獵狐狸和兔子。18 世紀起，德國的林務員和獵人專門培育牠來打獵。1972 年慕尼黑奧運的吉祥物 Waldi，就是一隻彩色條紋的臘腸狗。",
     sources: [
@@ -339,7 +341,7 @@ window.DOGS = [
     id: "samoyed",
     zh: "薩摩耶犬", ja: "サモエド", en: "Samoyed",
     region: "eu", country: ["643"], place: "俄羅斯・西伯利亞西北（亞馬爾半島一帶）",
-    lat: 67.5, lon: 70.0, tags: ["common"], work: ["herd", "sled"],
+    lat: 67.5, lon: 70.0, tags: ["common"], work: ["herd", "sled"], etym: "來自西伯利亞涅涅茨人的舊稱「薩摩耶德人」（Samoyed），這個稱呼現在已經不用了。",
     job: "放牧馴鹿、拉雪橇",
     story: "薩摩耶的名字來自西伯利亞的涅涅茨人，他們以前被稱作「薩摩耶德人」（Samoyed）。涅涅茨人靠放牧馴鹿生活，這種白色的狗幫忙趕馴鹿、拉雪橇，晚上還會和主人擠在帳篷裡取暖。19 世紀末、20 世紀初，不少極地探險隊帶著這種狗出發，現在英美的薩摩耶很多都是那些探險犬的後代。",
     related: ["husky", "pomeranian"],
@@ -353,7 +355,7 @@ window.DOGS = [
     id: "lundehund",
     zh: "挪威海鸚犬", ja: "ノルウェジアン・ルンデフンド", en: "Norwegian Lundehund",
     region: "eu", country: ["578"], place: "挪威・羅弗敦群島的韋略島",
-    lat: 67.67, lon: 12.67, tags: ["local"], work: ["hunt"],
+    lat: 67.67, lon: 12.67, tags: ["local"], work: ["hunt"], etym: "挪威語 lunde（海鸚）＋ hund（狗）。",
     job: "在海邊懸崖上抓海鸚",
     story: "Lundehund 是挪威語的「海鸚狗」。以前挪威北方的島民靠海鸚當食物，這種狗就負責爬上懸崖、鑽進岩縫把海鸚叼出來。為了這份工作，牠長出一身奇特的構造：每隻腳通常有六根腳趾，頭可以往後仰到碰到背，前腳也能往兩側張得很開。最早的文字紀錄可以追溯到 1591 年。後來海鸚被列為保護動物，這種狗沒了工作，數量一度少到快要滅絕。",
     note: "犬瘟熱讓牠們幾乎滅絕的確切年份，各資料記載不同。",
@@ -381,19 +383,20 @@ window.DOGS = [
     id: "basenji",
     zh: "巴仙吉犬", ja: "バセンジー", en: "Basenji",
     region: "af", country: ["180"], place: "剛果盆地",
-    lat: -1.0, lon: 23.0, tags: ["local"], work: ["hunt"],
+    lat: -1.0, lon: 23.0, tags: ["local"], work: ["hunt"], etym: "來自剛果的林加拉語，原本的說法是「村民的狗」，後來「狗」字被省略，只留下 basenji。",
     job: "在森林裡幫獵人把獵物趕進網子",
     story: "巴仙吉被叫做「不會叫的狗」，但牠不是啞巴：因為喉頭構造特別，牠發不出一般的汪汪聲，興奮時會發出像唱山歌一樣的「約德爾」叫聲。牠來自中非剛果的森林，當地獵人很重視牠的速度和安靜。歐洲人最早在 1895 年記錄到這種狗。牠還有一個像貓的習慣：很愛用舌頭把自己舔乾淨。",
     sources: [
       ["Wikipedia", "https://en.wikipedia.org/wiki/Basenji"],
-      ["AKC 犬種介紹", "https://www.akc.org/dog-breeds/basenji/"]
+      ["AKC 犬種介紹", "https://www.akc.org/dog-breeds/basenji/"],
+      ["Wiktionary：Basenji 的字源", "https://en.wiktionary.org/wiki/Basenji"]
     ]
   },
   {
     id: "ridgeback",
     zh: "羅德西亞背脊犬", ja: "ローデシアン・リッジバック", en: "Rhodesian Ridgeback",
     region: "af", country: ["716"], place: "辛巴威（舊稱南羅德西亞）",
-    lat: -20.15, lon: 28.58, tags: ["local"], work: ["hunt"],
+    lat: -20.15, lon: 28.58, tags: ["local"], work: ["hunt"], etym: "Rhodesian 是辛巴威的舊稱羅德西亞；Ridgeback 是「背上有一條脊」。",
     job: "合力纏住獅子，等獵人趕到",
     story: "牠的背上有一條毛往反方向長的「背脊」，這個特徵一般認為來自南非原住民科伊科伊人養的狗。後來歐洲殖民者把這些狗和歐洲犬種混種，培育出能在非洲草原上獵獅的狗。牠們不負責殺獅子，而是一群輪流纏住獅子，讓牠動彈不得，直到獵人趕來。1922 年，品種標準在辛巴威的布拉瓦約訂定。",
     note: "背脊特徵來自科伊科伊犬是育種者普遍的看法，但沒辦法完全證實。",
@@ -408,7 +411,7 @@ window.DOGS = [
     id: "coton",
     zh: "棉花面紗犬", ja: "コトン・ド・テュレアール", en: "Coton de Tuléar",
     region: "af", country: ["450"], place: "馬達加斯加・圖利亞拉（Tuléar）",
-    lat: -23.35, lon: 43.67, tags: ["local"], work: ["companion"],
+    lat: -23.35, lon: 43.67, tags: ["local"], work: ["companion"], etym: "法文 coton 是「棉花」，形容牠的毛；Tuléar 是馬達加斯加的港口城市。",
     job: "貴族的伴侶犬",
     story: "名字的 Coton 是法文的「棉花」，形容牠一身蓬鬆柔軟的白毛；Tuléar 則是馬達加斯加西南部的港口城市（今天叫圖利亞拉）。牠被稱為「馬達加斯加的皇家犬」，當時統治馬達加斯加的梅里納王國貴族很喜歡牠，平民不能養。1974 年馬達加斯加還發行過印有牠的郵票。",
     note: "梅里納貴族是從 17 世紀還是 19 世紀開始養牠，資料說法不一；「平民養了會被處死」之類的故事也沒有可靠證據。",
@@ -422,7 +425,7 @@ window.DOGS = [
     id: "azawakh",
     zh: "阿札瓦克犬", ja: "アザワク", en: "Azawakh",
     region: "af", country: ["466", "562"], place: "馬利與尼日交界的阿札瓦克河谷",
-    lat: 16.5, lon: 3.5, tags: ["local"], work: ["hunt", "guard"],
+    lat: 16.5, lon: 3.5, tags: ["local"], work: ["hunt", "guard"], etym: "取自牠的家鄉：馬利與尼日交界的阿札瓦克河谷。",
     job: "追獵瞪羚和野兔，也幫忙看守營地",
     story: "阿札瓦克犬的名字來自撒哈拉南緣、馬利和尼日交界的阿札瓦克河谷。牠是當地圖瓦雷克人等遊牧民族的視覺獵犬，又高又瘦、腿非常長，能在沙漠裡高速追捕瞪羚和野兔，平常也幫忙看守營地。圖瓦雷克人稱牠為「自由之民的獵犬」。牠直到 1970 年代才被帶到歐洲。",
     related: ["saluki", "basenji"],
@@ -464,7 +467,7 @@ window.DOGS = [
     id: "canaan",
     zh: "迦南犬", ja: "カナーン・ドッグ", en: "Canaan Dog",
     region: "wa", country: ["376"], place: "以色列",
-    lat: 31.5, lon: 35.0, tags: ["local"], work: ["guard"],
+    lat: 31.5, lon: 35.0, tags: ["local"], work: ["guard"], etym: "迦南是這片地區在古代的名稱，《聖經》裡也常出現。",
     job: "看守營地，後來成為軍犬",
     story: "迦南犬是以色列的國犬，祖先是從古代就生活在這個地區的半野生狗。1930 年代，從維也納移居來的犬類學家 Rudolphina Menzel 受託為當地組織訓練工作犬，她發現從歐洲引進的犬種受不了這裡的炎熱和崎嶇地形，於是改用本地的流浪狗，從中培育出迦南犬。二戰期間，她訓練了將近 500 隻迦南犬投入軍事工作。",
     note: "Menzel 抵達的年份和品種標準制定的年份，不同資料寫法不一。",
@@ -521,7 +524,7 @@ window.DOGS = [
     id: "shiba",
     zh: "柴犬", ja: "柴犬（しばいぬ）", en: "Shiba Inu",
     region: "ea", country: ["392"], place: "日本・本州中部山區",
-    lat: 36.2, lon: 137.9, tags: ["common", "local"], work: ["hunt"],
+    lat: 36.2, lon: 137.9, tags: ["common", "local"], work: ["hunt"], etym: "一說「柴」是灌木叢，因為牠在灌木叢裡打獵；一說是紅棕毛色像枯柴；也有一說「柴」在古語裡是「小」。",
     job: "在山林灌木叢中打獵",
     story: "「柴」常被解釋為灌木叢，因為柴犬以前在山裡的灌木叢間幫忙打獵；也有人說是牠的紅棕毛色像枯掉的柴；還有一說，「柴」在古語裡是「小」的意思。1936 年柴犬被指定為日本的天然紀念物。網路迷因 Doge 的主角卡波醬（かぼす）也是柴犬，牠在 2024 年離世。",
     note: "「柴」的字源沒有定論，上面三種說法都有人支持。",
@@ -561,7 +564,7 @@ window.DOGS = [
     id: "shihtzu",
     zh: "西施犬", ja: "シー・ズー", en: "Shih Tzu",
     region: "ea", country: ["156"], place: "西藏起源，在北京清宮發展",
-    lat: 39.9, lon: 116.4, tags: ["common"], work: ["companion"], myth: "中文叫西施犬，卻跟美女西施無關：Shih Tzu 是「獅子」的舊式拼音。",
+    lat: 39.9, lon: 116.4, tags: ["common"], work: ["companion"], myth: "中文叫西施犬，卻跟美女西施無關：Shih Tzu 是「獅子」的舊式拼音。", etym: "Shih Tzu 是中文「獅子」的舊式拼音，因為牠長得像中國畫裡的獅子。",
     job: "宮廷伴侶犬",
     story: "「西施犬」這個中文名其實和美女西施沒有關係。英文 Shih Tzu 是「獅子」的舊式拼音，因為牠長得像中國傳統畫裡的獅子，所以也叫「獅子狗」。牠的祖先一般認為來自西藏，後來在清朝宮廷裡發展成形，慈禧太后就養了不少，還讓太監負責繁殖。1908 年慈禧過世後，宮廷養狗也跟著沒落了。",
     note: "西施犬應該算「西藏犬」還是「中國犬」一直有爭議。",
@@ -575,7 +578,7 @@ window.DOGS = [
     id: "pekingese",
     zh: "北京犬", ja: "ペキニーズ", en: "Pekingese",
     region: "ea", country: ["156"], place: "中國・北京",
-    lat: 40.3, lon: 116.0, tags: ["local"], work: ["companion"],
+    lat: 40.3, lon: 116.0, tags: ["local"], work: ["companion"], etym: "Peking 是北京的舊式拼音。",
     job: "宮廷伴侶犬",
     story: "北京犬以前是中國皇室的狗，一般人不能隨便養。1860 年英法聯軍攻進北京、火燒圓明園時，英軍從宮裡帶走了五隻北京犬，其中一隻被送給維多利亞女王，取名叫 Looty（意思是「戰利品」），北京犬就這樣傳進了西方。",
     related: ["shihtzu", "pug"],
@@ -659,14 +662,15 @@ window.DOGS = [
     id: "dingo",
     zh: "澳洲野犬（丁格犬）", ja: "ディンゴ", en: "Dingo",
     region: "oc", country: ["036"], place: "澳洲內陸",
-    lat: -24.5, lon: 133.0, tags: ["local"], work: ["wild"],
+    lat: -24.5, lon: 133.0, tags: ["local"], work: ["wild"], etym: "來自雪梨一帶原住民的達魯格語 din-gu，原本的意思是「被馴養的狗」；英國人卻拿它來稱呼野生的狗。",
     job: "野生，不是人類培育的犬種",
     story: "丁格不是人類刻意培育出來的犬種，而是幾千年前跟著人類來到澳洲、之後就在野外生活的犬科動物，是澳洲大陸上最大的陸地掠食者。為了不讓丁格進入南邊的牧羊區，澳洲蓋了一道長約 5,600 公里的「野犬圍籬」，是世界上最長的圍籬之一。",
     note: "丁格是什麼時候、從哪裡抵達澳洲還有爭議，常見的估計是 3,500 年前以上。",
     related: ["cattledog"],
     sources: [
       ["Wikipedia", "https://en.wikipedia.org/wiki/Dingo"],
-      ["Wikipedia：野犬圍籬", "https://en.wikipedia.org/wiki/Dingo_Fence"]
+      ["Wikipedia：野犬圍籬", "https://en.wikipedia.org/wiki/Dingo_Fence"],
+      ["Etymonline：dingo 的字源", "https://www.etymonline.com/word/dingo"]
     ]
   }
 ];
