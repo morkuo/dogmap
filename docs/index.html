@@ -59,8 +59,7 @@ button { font: inherit; color: inherit; }
 button:focus-visible, input:focus-visible, .pin:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .app { position: relative; height: 100%; overflow: hidden; }
-#map { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
-#map:active { cursor: grabbing; }
+#map { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
 .country { fill: var(--land); stroke: var(--border); stroke-width: .6; vector-effect: non-scaling-stroke; }
 .country.hi { fill: var(--land-hi); }
 .grat { fill: none; stroke: var(--border); stroke-opacity: .35; stroke-width: .5; vector-effect: non-scaling-stroke; }
@@ -289,7 +288,9 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   pins.append("circle").attr("class", "dot");
   pins.append("text").text(d => d.zh).attr("text-anchor", "middle");
 
+  // Zoom only: mouse wheel / trackpad, two-finger pinch, and the +/- buttons. No drag-to-pan, and the map never moves on its own.
   const zoom = d3.zoom().scaleExtent([1, 14])
+    .filter(e => e.type === "wheel" || (e.type.startsWith("touch") && e.touches && e.touches.length > 1))
     .on("zoom", e => { T = e.transform; g.attr("transform", T); sizePins(); placePop(); tip.hidden = true; });
 
   let W = 0, H = 0;
@@ -301,7 +302,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     grat.attr("d", path(d3.geoGraticule10()));
     cSel.attr("d", path);
     pins.attr("transform", d => `translate(${projection([d.lon, d.lat])})`);
-    zoom.translateExtent([[-W * 0.3, -H * 0.3], [W * 1.3, H * 1.3]]);
+    zoom.extent([[0, 0], [W, H]]).translateExtent([[0, 0], [W, H]]);
     sizePins(); placePop();
   }
 
@@ -321,24 +322,6 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   d3.select("#zout").on("click", () => svg.transition().duration(300).call(zoom.scaleBy, 1 / 1.8));
   d3.select("#zreset").on("click", () => { closePop(); svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity); });
 
-  // Fly so the pin lands where the popup has room beside (desktop) or above (phone) it.
-  function flyTo(d, instant) {
-    const [x, y] = projection([d.lon, d.lat]);
-    const k = Math.max(T.k, 3);
-    let tx, ty;
-    if (isPhone()) { tx = W / 2; ty = 110 + (H * 0.38 - 110) / 2; }
-    else { tx = Math.max(60, (W - 400) * 0.5); ty = H * 0.45; }
-    const t = d3.zoomIdentity.translate(tx - x * k, ty - y * k).scale(k);
-    if (instant) svg.call(zoom.transform, t); else svg.transition().duration(650).call(zoom.transform, t);
-  }
-  // On desktop, only move the map if the popup wouldn't fit next to the pin.
-  function needsFly(d) {
-    if (isPhone()) return true;
-    const [x, y] = T.apply(projection([d.lon, d.lat]));
-    const fits = x + 24 + 370 < W - 12 || x - 24 - 370 > 12;
-    return !fits || y < 80 || y > H - 60;
-  }
-
   // tooltip
   const tip = document.getElementById("tip");
   pins.on("mouseenter", (e, d) => {
@@ -347,8 +330,8 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     tip.textContent = d.zh; tip.hidden = false;
     tip.style.left = x + "px"; tip.style.top = y + "px";
   }).on("mouseleave", () => { tip.hidden = true; })
-    .on("click", (e, d) => { e.stopPropagation(); select(d.id, needsFly(d)); })
-    .on("keydown", (e, d) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(d.id, needsFly(d)); } });
+    .on("click", (e, d) => { e.stopPropagation(); select(d.id); })
+    .on("keydown", (e, d) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(d.id); } });
 
   // ── Popup ──
   const pop = document.getElementById("pop"), scroll = document.getElementById("popscroll");
@@ -386,7 +369,10 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   function placePop() {
     if (pop.hidden || !selected || isPhone()) return;
     const d = byId[selected];
-    const [x, y] = T.apply(projection([d.lon, d.lat]));
+    const [px, py] = T.apply(projection([d.lon, d.lat]));
+    // If the pin is zoomed out of view, keep the card on screen and drop the arrow.
+    const off = px < 0 || px > W || py < 0 || py > H;
+    const x = Math.max(0, Math.min(px, W)), y = Math.max(64, Math.min(py, H));
     const pw = pop.offsetWidth, gap = 22;
     scroll.style.maxHeight = (Math.min(H - 90, 660) - 52) + "px";
     const ph = pop.offsetHeight;
@@ -397,7 +383,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     pop.style.left = left + "px"; pop.style.top = top + "px";
     pop.classList.toggle("right", side === "right"); pop.classList.toggle("left", side === "left");
     pop.style.setProperty("--ay", Math.max(14, Math.min(y - top - 7, ph - 28)) + "px");
-    pop.style.visibility = (x < -20 || x > W + 20 || y < -20 || y > H + 20) ? "hidden" : "visible";
+    pop.querySelector(".arrow").style.visibility = off ? "hidden" : "visible";
   }
 
   function openPop(d) {
@@ -417,14 +403,14 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   pop.addEventListener("click", e => {
     e.stopPropagation();
     const t = e.target.closest("button"); if (!t) return;
-    if (t.dataset.go) return select(t.dataset.go, true);
+    if (t.dataset.go) return select(t.dataset.go);
     if (t.dataset.step) step(+t.dataset.step);
   });
   function step(n) {
     const list = DOGS.filter(visible); if (!list.length) return;
     let i = list.findIndex(x => x.id === selected);
     i = ((i < 0 ? 0 : i + n) + list.length) % list.length;
-    select(list[i].id, true);
+    select(list[i].id);
   }
   document.addEventListener("keydown", e => {
     if (e.target.tagName === "INPUT") return;
@@ -435,7 +421,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   document.getElementById("rand").addEventListener("click", () => {
     const list = DOGS.filter(visible); if (!list.length) return;
     let n; do { n = list[Math.floor(Math.random() * list.length)]; } while (list.length > 1 && n.id === selected);
-    select(n.id, true);
+    select(n.id);
   });
 
   // ── Drawer ──
@@ -458,17 +444,16 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   drawer.addEventListener("click", e => {
     const t = e.target.closest("[data-go]"); if (!t) return;
     if (isPhone()) toggleDrawer(false);
-    select(t.dataset.go, true);
+    select(t.dataset.go);
   });
 
-  function select(id, fly, instant) {
+  function select(id) {
     const d = byId[id]; if (!d) return;
     selected = id; tip.hidden = true;
     pins.classed("sel", x => x.id === id);
     pins.filter(x => x.id === id).raise();
     cSel.classed("hi", f => d.country.includes(f.id));
     sizePins(); renderDrawer(); openPop(d);
-    if (fly) flyTo(d, instant);
   }
 
   function applyFilter() {
@@ -477,7 +462,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     document.getElementById("count").textContent = `${list.length} 種狗`;
     if (selected && !list.some(d => d.id === selected)) closePop();
     renderDrawer();
-    if (query && list.length === 1) select(list[0].id, true);
+    if (query && list.length === 1) select(list[0].id);
   }
   document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => {
     mode = b.dataset.mode;
@@ -492,7 +477,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   window.addEventListener("resize", layout);
   layout(); applyFilter();
   pop.classList.remove("enter");
-  select("labrador", true, true);
+  select("labrador");
   pop.classList.remove("enter");
 })();
 </script>
