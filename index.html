@@ -406,6 +406,12 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
 .welcome button { flex: none; border: 0; background: var(--paper); color: var(--ink); font-weight: 700; border-radius: 8px; padding: 6px 14px; min-height: 40px; cursor: pointer; }
 .app.quizmode .welcome, .app.timemode .welcome { display: none; }
 @media (max-width: 640px) { .welcome { top: calc(env(safe-area-inset-top, 0px) + 64px); bottom: auto; } }
+/* Tap a country: list its dogs */
+.country.hasdogs { cursor: pointer; }
+.country.hasdogs:hover { fill: color-mix(in srgb, var(--land-hi) 60%, var(--land)); }
+.cpick { position: absolute; z-index: 9; background: var(--paper); border: 1px solid var(--rule); border-radius: var(--r); box-shadow: var(--shadow);
+  padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; max-width: min(320px, calc(100vw - 24px)); }
+.cpick p { margin: 0; font-size: 12px; letter-spacing: .06em; color: var(--ink-soft); }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } .pin.born .ring { animation: none; } }
 </style>
 
@@ -431,6 +437,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     <button type="button" id="rand">隨機一隻</button>
   </div>
   <div class="toast" id="toast" hidden></div>
+  <div class="cpick" id="cpick" hidden role="dialog" aria-label="這個國家的狗"></div>
   <div class="welcome" id="welcome" hidden role="dialog" aria-label="怎麼玩">
     <p><b>點地圖上的圓點</b>，認識每種狗的老家和小故事。★ 是歷史上的名犬；想玩遊戲就按「猜猜看」，想看犬種怎麼一路出現就按「年表」。</p>
     <button type="button" id="welcomeok">知道了</button>
@@ -507,7 +514,8 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   const path = d3.geoPath(projection);
   const g = svg.append("g");
   const grat = g.append("path").attr("class", "grat");
-  const cSel = g.append("g").selectAll("path").data(countries.features).join("path").attr("class", "country");
+  const cSel = g.append("g").selectAll("path").data(countries.features).join("path").attr("class", "country")
+    .classed("hasdogs", f => DOGS.some(d => d.country.includes(f.id)));
   const relG = g.append("g").attr("class", "rellayer");
   const tripG = g.append("g").attr("class", "trip");
   const pins = g.append("g").selectAll("g.pin").data(DOGS, d => d.id).join("g")
@@ -1257,6 +1265,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   });
   document.getElementById("quizbtn").addEventListener("click", () => startQuiz());
   svg.on("click", e => {
+    cpick.hidden = true;
     if (!quiz) return closePop();
     if (quiz.chooser || quiz.kind !== "map" || quiz.guessed || quiz.i >= ROUNDS) return;
     const pt = T.invert(d3.pointer(e, svg.node()));
@@ -1326,6 +1335,30 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   tlRange.addEventListener("input", () => { clearInterval(tlTimer); tlTimer = null; setYear(+tlRange.value); stopPlay(); });
   tl.addEventListener("click", e => { e.stopPropagation(); const t = e.target.closest("[data-go]"); if (t) { stopPlay(); select(t.dataset.go); } });
   document.addEventListener("keydown", e => { if (timeMode && e.key === "Escape" && pop.hidden) endTimeline(); });
+
+  // Tap a country to see its dogs: one dog opens directly, several show a small list where you tapped.
+  const cpick = document.getElementById("cpick");
+  cSel.on("click", (e, f) => {
+    if (quiz || timeMode) return; // let the quiz / timeline handle map clicks
+    const here = DOGS.filter(d => d.country.includes(f.id) && visible(d));
+    if (!here.length) return;
+    e.stopPropagation();
+    if (here.length === 1) { cpick.hidden = true; return select(here[0].id); }
+    const [x, y] = d3.pointer(e, app);
+    cpick.innerHTML = `<p>這個國家的狗（${here.length}）</p><div class="chips">${here.map(d =>
+      `<button type="button" class="chip ${kind(d) === "local" ? "local" : ""}" data-go="${d.id}">${esc(d.zh)}</button>`).join("")}</div>`;
+    cpick.hidden = false;
+    const w = cpick.offsetWidth, h = cpick.offsetHeight;
+    cpick.style.left = Math.max(12, Math.min(x - w / 2, W - w - 12)) + "px";
+    cpick.style.top = Math.max(barBottom() + 8, Math.min(y + 12, H - h - 12)) + "px";
+  });
+  cpick.addEventListener("click", e => {
+    e.stopPropagation();
+    const t = e.target.closest("[data-go]"); if (!t) return;
+    cpick.hidden = true; select(t.dataset.go);
+  });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") cpick.hidden = true; });
+  zoom.on("zoom.cpick", () => { cpick.hidden = true; });
 
   // First visit only: a one-line hint on how to use the map (remembered in this browser).
   const welcome = document.getElementById("welcome");
