@@ -1,0 +1,43 @@
+{
+  "id": "dobermann",
+  "zh": "杜賓犬",
+  "aliases": [
+    "杜賓",
+    "都賓犬"
+  ],
+  "ja": "ドーベルマン",
+  "en": "Dobermann (Doberman Pinscher)",
+  "region": "eu",
+  "country": [
+    "276"
+  ],
+  "place": "德國・圖林根的阿波爾達",
+  "lat": 51.02,
+  "lon": 11.51,
+  "tags": [
+    "common"
+  ],
+  "work": [
+    "guard"
+  ],
+  "etym": "取自培育牠的德國人 Louis Dobermann 的姓，是少數以人名命名的犬種。",
+  "job": "保護收稅員、看守",
+  "story": "杜賓犬是少數以人名命名的犬種。19 世紀末，德國阿波爾達的 Louis Dobermann 是一位收稅員，同時經營收容流浪狗的狗場。收稅的人常擔心自己的安全，他就從狗場裡挑出最強壯、最聰明的狗，培育出能保護他的護衛犬。他在 1894 年過世後，德國人用他的名字替這個犬種命名，叫 Dobermann-Pinscher；大約半世紀後，德國和英國把意思是「㹴」的 Pinscher 拿掉，美國則到現在還叫 Doberman Pinscher。二次大戰時，美國海軍陸戰隊把杜賓犬和德國牧羊犬一起用作軍犬。",
+  "note": "Dobermann 開始培育這種狗的時間，資料有寫 1880 年代，也有寫 1890 年左右。",
+  "milestone": {
+    "year": 1890,
+    "label": "1890 年左右",
+    "text": "收稅員 Louis Dobermann 在德國阿波爾達培育出杜賓犬"
+  },
+  "sources": [
+    [
+      "AKC：杜賓犬的歷史",
+      "https://www.akc.org/expert-advice/dog-breeds/doberman-pinscher-history/"
+    ],
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Dobermann"
+    ]
+  ],
+  "order": 65
+}

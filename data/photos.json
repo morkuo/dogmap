@@ -125,11 +125,20 @@
     "license": "CC BY-SA 4.0",
     "page": "https://commons.wikimedia.org/wiki/File:Dingo_(Canis_lupus_dingo)_Kakadu_2.jpg"
   },
+  "dobermann": {
+    "file": "images/dobermann.jpg",
+    "artist": "Miroslav Cacik",
+    "license": "Copyrighted free use",
+    "page": "https://commons.wikimedia.org/wiki/File:Dobermann_handling.jpg"
+  },
   "dogo": {
     "file": "images/dogo.jpg",
     "artist": "Ricardo Martins from Gent, Belgium",
     "license": "CC BY 2.0",
     "page": "https://commons.wikimedia.org/wiki/File:Argentine_Dogo_(535032632)_(cropped).jpg"
+  },
+  "f-baekgu": {
+    "file": null
   },
   "f-barry": {
     "file": "images/f-barry.jpg",
@@ -373,6 +382,12 @@
     "artist": "Bonnie van den Born",
     "license": "CC BY-SA 3.0",
     "page": "https://commons.wikimedia.org/wiki/File:Rhodesian_ridgeback.jpg"
+  },
+  "rottweiler": {
+    "file": "images/rottweiler.jpg",
+    "artist": "Dr. Manfred Herrmann（ADRK 德國羅威那俱樂部）",
+    "license": "CC BY-SA 3.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Rottweiler_standing_facing_left.jpg"
   },
   "saluki": {
     "file": "images/saluki.jpg",

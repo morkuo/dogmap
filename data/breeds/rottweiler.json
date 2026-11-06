@@ -1,0 +1,43 @@
+{
+  "id": "rottweiler",
+  "zh": "羅威那",
+  "aliases": [
+    "羅威納",
+    "羅威那犬",
+    "洛威拿"
+  ],
+  "ja": "ロットワイラー",
+  "en": "Rottweiler",
+  "region": "eu",
+  "country": [
+    "276"
+  ],
+  "place": "德國・羅特韋爾",
+  "lat": 48.17,
+  "lon": 8.63,
+  "tags": [
+    "common"
+  ],
+  "work": [
+    "herd",
+    "guard"
+  ],
+  "etym": "取自德國西南部的古城羅特韋爾（Rottweil）。",
+  "job": "幫屠夫趕牲畜、拉肉車",
+  "story": "羅威那的名字來自德國西南部的古城羅特韋爾。一般認為牠的祖先是羅馬帝國時代的獒犬，跟著羅馬軍團翻越阿爾卑斯山，一路保護士兵、幫忙趕牛。後來牠成了羅特韋爾屠夫的好幫手，德文叫 Rottweiler Metzgerhund（羅特韋爾的屠夫狗）：把牲畜趕到市場，再拉著裝滿肉的車；趕牲畜的人賣完牛，常把錢包掛在牠的脖子上。19 世紀鐵路取代了趕牛，牠的工作跟著消失，1882 年德國海爾布隆的犬展上只剩一隻羅威那。20 世紀初德國需要大量警犬，牠才又受到重視。",
+  "milestone": {
+    "year": 1882,
+    "text": "德國海爾布隆的犬展只剩一隻羅威那，這個犬種一度快要消失"
+  },
+  "sources": [
+    [
+      "AKC：羅威那的歷史",
+      "https://www.akc.org/expert-advice/dog-breeds/rottweiler-history/"
+    ],
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Rottweiler"
+    ]
+  ],
+  "order": 66
+}
