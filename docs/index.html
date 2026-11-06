@@ -1471,6 +1471,17 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     document.getElementById("mode-myth").click(); check(DOGS.filter(visible).length === DOGS.length, "取消篩選後沒有回到全部");
     // Both games
     tryStep("關閉卡片", () => closePop());
+    // Overlapping dots: tapping Pekingese either opens a picker (then picking Shih Tzu opens its card) or opens Pekingese.
+    tryStep("重疊的點", () => {
+      const pin = [...document.querySelectorAll("g.pin")].find(n => d3.select(n).datum().id === "pekingese");
+      pin.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      if (!cpick.hidden) {
+        const chip = cpick.querySelector('[data-go="shihtzu"]');
+        check(!!chip, "重疊的點沒有列出西施犬");
+        if (chip) { chip.click(); check(title() === "西施犬", "從重疊清單選西施犬沒有打開卡片"); }
+      } else check(title() === "北京犬", "按北京犬的點沒有反應");
+      cpick.hidden = true; closePop();
+    });
     const gameName = { photo: "看照片猜品種", etym: "猜名字由來", map: "猜老家" };
     for (const mode of ["photo", "etym", "map"]) tryStep(gameName[mode], () => {
       startQuiz(mode);
