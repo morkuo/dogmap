@@ -1094,12 +1094,31 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
       quizEl.hidden = false;
       return;
     }
-    const pool = shuffle(DOGS.filter(d => (kind !== "photo" || PHOTOS[d.id]) && (kind !== "etym" || d.etym)).slice());
+    // A name-origin clue needs enough left after masking to be answerable (otherwise it is just blanks).
+    const answerable = d => maskClue(d).replace(/＿＿/g, "").replace(/[\s。，；：、「」（）]/g, "").length >= 10;
+    const pool = shuffle(DOGS.filter(d => (kind !== "photo" || PHOTOS[d.id]) && (kind !== "etym" || (d.etym && answerable(d)))).slice());
     quiz = { kind, list: pool.slice(0, ROUNDS), i: 0, score: 0, results: [], hint: false, guessed: false };
     app.classList.add("quizmode");
     svg.call(zoom.transform, d3.zoomIdentity);
     layout();
     kind === "map" ? renderQuestion() : renderPhotoQuestion();
+  }
+  // Hide anything in a name-origin clue that would give the answer away:
+  // any 2+ character piece of the Chinese name or aliases, and the English name (plus close forms like Peking/Pekingese).
+  function maskClue(d) {
+    let clue = d.etym || "";
+    const pieces = new Set();
+    for (const n of [d.zh, ...(d.aliases || [])]) {
+      const core = n.replace(/[（(].*$/, "").replace(/(犬|狗)$/, "");
+      for (let len = core.length; len >= 2; len--)
+        for (let i = 0; i + len <= core.length; i++) pieces.add(core.slice(i, i + len));
+    }
+    [...pieces].sort((a, b) => b.length - a.length).forEach(p => { if (clue.includes(p)) clue = clue.split(p).join("＿＿"); });
+    const generic = new Set(["dog", "the", "of", "and"]);
+    const enWords = d.en.replace(/[（(].*$/, "").split(/[^A-Za-zÀ-ÿ]+/).filter(w => w.length >= 4 && !generic.has(w.toLowerCase()));
+    clue = clue.replace(/[A-Za-zÀ-ÿ]{4,}/g, w => enWords.some(e => w.toLowerCase() === e.toLowerCase() ||
+      (w.length >= 5 && e.length >= 5 && w.slice(0, 5).toLowerCase() === e.slice(0, 5).toLowerCase())) ? "＿＿" : w);
+    return clue.replace(/(＿＿)+/g, "＿＿");
   }
   // Photo quiz: four choices, wrong ones from the same region when possible so it is not too easy.
   function renderPhotoQuestion() {
@@ -1110,9 +1129,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     const other = shuffle(DOGS.filter(x => x.id !== d.id && x.region !== d.region));
     const opts = shuffle([d, ...same.slice(0, 2), ...other].slice(0, 4));
     const ph = PHOTOS[d.id];
-    let clue = d.etym || "";
-    for (const n of [d.zh, d.zh.replace(/[（(].*$/, ""), d.zh.replace(/犬$|狗$/, ""), ...(d.aliases || [])].filter(n => n && n.length > 1))
-      clue = clue.split(n).join("＿＿");
+    const clue = maskClue(d);
     const body = quiz.kind === "etym"
       ? `<blockquote class="qclue">${esc(clue)}</blockquote>`
       : `<div class="qphoto" style="--bg:url('${esc(ph.file)}')"><img src="${esc(ph.file)}" alt="猜猜這是哪一種狗"></div>`;
