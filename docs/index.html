@@ -772,7 +772,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
         ${related ? `<div><p class="sub">相關的狗（地圖上的藍色虛線）</p><ul class="rellist">${related}</ul></div>` : ""}
         <details class="srcbox"><summary>資料來源（${d.sources.length}）</summary><ul class="sources">${d.sources.map(([t, u]) =>
           `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("")}</ul></details>
-        <button type="button" class="share" data-share="${d.id}">複製這隻狗的連結</button>
+        <button type="button" class="share" data-share="${d.id}">${navigator.share && window.matchMedia("(pointer: coarse)").matches ? "分享這隻狗" : "複製這隻狗的連結"}</button>
       </div>`;
     scroll.scrollTop = 0;
   }
@@ -883,8 +883,13 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     if (t.dataset.step) step(+t.dataset.step);
     if (t.dataset.share) {
       const url = location.href.split("#")[0] + "#" + t.dataset.share;
+      const d = byId[t.dataset.share];
       const done = ok => { t.textContent = ok ? "已複製連結" : url; };
-      try { navigator.clipboard.writeText(url).then(() => done(true), () => done(false)); } catch (_) { done(false); }
+      const copy = () => { try { navigator.clipboard.writeText(url).then(() => done(true), () => done(false)); } catch (_) { done(false); } };
+      // Phones: open the system share sheet (LINE, Messages…); elsewhere copy the link.
+      if (navigator.share && window.matchMedia("(pointer: coarse)").matches) {
+        navigator.share({ title: `${d.zh}｜狗狗從哪裡來`, text: `${d.zh}來自${d.place}`, url }).catch(err => { if (err && err.name !== "AbortError") copy(); });
+      } else copy();
     }
   });
   function step(n) {
@@ -904,9 +909,12 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     if (selected && e.key === "ArrowRight") step(1);
     if (selected && e.key === "ArrowLeft") step(-1);
   });
+  // Random dog: prefer ones this viewer has not opened yet, so it helps fill the collection.
   document.getElementById("rand").addEventListener("click", () => {
     const list = DOGS.filter(visible); if (!list.length) return;
-    let n; do { n = list[Math.floor(Math.random() * list.length)]; } while (list.length > 1 && n.id === selected);
+    const unseen = list.filter(d => !seen.has(d.id) && d.id !== selected);
+    const pool = unseen.length ? unseen : list.filter(d => d.id !== selected);
+    const n = (pool.length ? pool : list)[Math.floor(Math.random() * (pool.length || list.length))];
     select(n.id);
   });
 
@@ -945,6 +953,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   function select(id, opts) {
     const d = byId[id]; if (!d) return;
     selected = id; selFam = null; tip.hidden = true;
+    tripG.selectAll("*").remove();
     fams.classed("sel", false);
     pins.classed("sel", x => x.id === id);
     pins.filter(x => x.id === id).raise();
@@ -970,9 +979,10 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   // nudge a marker that would cover an earlier one, and put each place name on the right, the left, or hide it.
   function layoutStops() {
     const k = T.k, s = Math.sqrt(k), placed = [], boxes = [];
-    tripG.selectAll("g.stop").each(function (_, i) {
+    tripG.selectAll("g.stop").each(function () {
       const g0 = d3.select(this);
-      const [lat, lon] = TRIPS[selected][i];
+      const [lat, lon] = g0.datum() || [];
+      if (lat === undefined) return;
       let [x, y] = T.apply(projection([lon, lat]));
       let dy = 0;
       while (placed.some(([px, py]) => Math.hypot(px - x, py - (y + dy)) < 20)) dy -= 20;
@@ -1012,7 +1022,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
         .attr("data-x", m.x).attr("data-y", m.y).attr("data-a", ang);
     });
     stops.forEach(([la, lo, , where], i) => {
-      const gg = tripG.append("g").attr("class", "stop").attr("transform", `translate(${projection([lo, la])})`);
+      const gg = tripG.append("g").attr("class", "stop").datum([la, lo]).attr("transform", `translate(${projection([lo, la])})`);
       gg.append("circle");
       gg.append("text").attr("class", "num").attr("text-anchor", "middle").text(i + 1);
       gg.append("text").attr("class", "where").attr("text-anchor", "start").text(where);
