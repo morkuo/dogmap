@@ -9,7 +9,7 @@ rm -rf docs
 mkdir -p docs/images docs/icons
 cp world.js data.js docs/
 cp images/*.jpg docs/images/
-cp icons/icon-*.png docs/icons/
+cp icons/icon-*.png icons/og.jpg docs/icons/
 cp pwa/manifest.webmanifest docs/
 
 # 每次建置用不同的版本號，讓已安裝的 App 會換成新內容
@@ -31,6 +31,15 @@ sed -e "s/__VERSION__/$VERSION/" -e "s#__IMAGES__#$IMAGES#" pwa/sw.js > docs/sw.
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="狗狗地圖">
 <meta name="description" content="互動式世界犬種地圖：認識各種狗的原產地、名字由來、歷史名犬與犬種年表，還有猜猜看遊戲。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="狗狗從哪裡來：互動式世界犬種地圖">
+<meta property="og:description" content="60 多種狗的老家、名字由來和小故事，還有歷史名犬、犬種年表和猜猜看遊戲。">
+<meta property="og:url" content="https://morkuo.github.io/dogmap/">
+<meta property="og:image" content="https://morkuo.github.io/dogmap/icons/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
 HEAD
   printf '</head>\n<body>\n'
   awk 'f{print} /^<div class="app"/{f=1; print}' index.html
