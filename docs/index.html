@@ -660,13 +660,17 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
         if (x < -40 || x > W + 40 || y < -20 || y > H + 20) continue;
         const w = d.zh.length * 13 + 6, r = 10 * s / 1;
         const cands = [["above", { x0: x - w / 2, x1: x + w / 2, y0: y - r - 18, y1: y - r + 1 }],
-                       ["below", { x0: x - w / 2, x1: x + w / 2, y0: y + r - 1, y1: y + r + 18 }]];
+                       ["below", { x0: x - w / 2, x1: x + w / 2, y0: y + r - 1, y1: y + r + 18 }],
+                       ["right", { x0: x + r + 1, x1: x + r + 3 + w, y0: y - 9, y1: y + 9 }],
+                       ["left", { x0: x - r - 3 - w, x1: x - r - 1, y0: y - 9, y1: y + 9 }]];
         for (const [pos, b] of cands) { if (!hit(b)) { boxes.push(b); show.set(d.id, pos); break; } }
       }
     }
     pins.select("text")
       .attr("display", d => show.has(d.id) ? null : "none")
-      .attr("y", d => show.get(d.id) === "below" ? (10 / s + 13 / k) : (-10 / s - 3 / k));
+      .attr("text-anchor", d => ({ right: "start", left: "end" })[show.get(d.id)] || "middle")
+      .attr("x", d => { const p = show.get(d.id); return p === "right" ? 10 / s + 2 / k : p === "left" ? -10 / s - 2 / k : 0; })
+      .attr("y", d => { const p = show.get(d.id); return p === "below" ? (10 / s + 13 / k) : p === "above" ? (-10 / s - 3 / k) : 4.5 / k; });
   }
 
   svg.call(zoom).on("dblclick.zoom", null);
