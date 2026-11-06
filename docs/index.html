@@ -460,7 +460,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     <button type="button" id="rand">隨機一隻</button>
   </div>
   <div class="toast" id="toast" hidden></div>
-  <div class="cpick" id="cpick" hidden role="dialog" aria-label="這個國家的狗"></div>
+  <div class="cpick" id="cpick" hidden role="dialog" aria-label="選一隻狗"></div>
   <div class="welcome" id="welcome" hidden role="dialog" aria-label="怎麼玩">
     <p><b>點地圖上的圓點</b>，認識每種狗的老家和小故事。★ 是歷史上的名犬；想玩遊戲就按「猜猜看」，想看犬種怎麼一路出現就按「年表」。</p>
     <button type="button" id="welcomeok">知道了</button>
@@ -697,7 +697,16 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     tip.textContent = d.zh; tip.hidden = false;
     tip.style.left = x + "px"; tip.style.top = y + "px";
   }).on("mouseleave", () => { tip.hidden = true; })
-    .on("click", (e, d) => { e.stopPropagation(); select(d.id); })
+    .on("click", (e, d) => {
+      e.stopPropagation();
+      // Dots that sit on top of each other (e.g. Pekingese and Shih Tzu at world zoom): let the reader pick.
+      if (!quiz && !timeMode) {
+        const [x, y] = T.apply(projection([d.lon, d.lat]));
+        const near = DOGS.filter(o => shownNow(o) && (o.id === d.id || Math.hypot(...T.apply(projection([o.lon, o.lat])).map((v, i) => v - [x, y][i])) < 12));
+        if (near.length > 1) return showPick(e, `這裡有 ${near.length} 種狗`, near);
+      }
+      select(d.id);
+    })
     .on("keydown", (e, d) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(d.id); } });
 
   fams.on("mouseenter", (e, f) => {
@@ -1371,14 +1380,17 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     if (!here.length) return;
     e.stopPropagation();
     if (here.length === 1) { cpick.hidden = true; return select(here[0].id); }
+    showPick(e, `這個國家的狗（${here.length}）`, here);
+  });
+  function showPick(e, title, list) {
     const [x, y] = d3.pointer(e, app);
-    cpick.innerHTML = `<p>這個國家的狗（${here.length}）</p><div class="chips">${here.map(d =>
+    cpick.innerHTML = `<p>${esc(title)}</p><div class="chips">${list.map(d =>
       `<button type="button" class="chip ${kind(d) === "local" ? "local" : ""}" data-go="${d.id}">${esc(d.zh)}</button>`).join("")}</div>`;
     cpick.hidden = false;
     const w = cpick.offsetWidth, h = cpick.offsetHeight;
     cpick.style.left = Math.max(12, Math.min(x - w / 2, W - w - 12)) + "px";
     cpick.style.top = Math.max(barBottom() + 8, Math.min(y + 12, H - h - 12)) + "px";
-  });
+  }
   cpick.addEventListener("click", e => {
     e.stopPropagation();
     const t = e.target.closest("[data-go]"); if (!t) return;
