@@ -1,0 +1,40 @@
+{
+  "id": "cimarron",
+  "zh": "烏拉圭西馬倫犬",
+  "ja": "シマロン・ウルグアージョ",
+  "en": "Cimarrón Uruguayo",
+  "region": "la",
+  "country": [
+    "858"
+  ],
+  "place": "烏拉圭",
+  "lat": -32.8,
+  "lon": -56.0,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "herd",
+    "hunt",
+    "guard"
+  ],
+  "etym": "cimarrón 是西班牙語「野生的、逃到野外的」，說的就是牠祖先的身世。",
+  "job": "幫牧人趕牛、打獵和看守",
+  "story": "西馬倫犬的祖先是歐洲殖民者帶到南美洲的狗，後來被放生或遺棄，在烏拉圭的原野上變成野狗。再後來，草原上的牧人（高喬人）把牠們馴養回來，用來趕牛、打獵和看守。牠是烏拉圭最具代表性的本土犬種，也是烏拉圭陸軍的吉祥物，會出現在憲法紀念日的遊行裡。",
+  "note": "牠的早期歷史大多沒有文字紀錄；各機構正式承認的年份，不同資料寫法不一。",
+  "milestone": {
+    "year": 1989,
+    "text": "烏拉圭本國的育犬協會正式承認西馬倫犬"
+  },
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Cimarr%C3%B3n_Uruguayo"
+    ],
+    [
+      "Canine Chronicle：FCI 新承認的犬種",
+      "https://caninechronicle.com/current-articles/new-dog-breeds-recognized-by-the-fci-cimarron-uruguayo/"
+    ]
+  ],
+  "order": 60
+}

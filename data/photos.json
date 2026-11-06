@@ -83,6 +83,12 @@
     "license": "CC BY-SA 3.0",
     "page": "https://commons.wikimedia.org/wiki/File:Chow-chow_in_Tallinn.JPG"
   },
+  "cimarron": {
+    "file": "images/cimarron.jpg",
+    "artist": "Los atigrados",
+    "license": "CC BY-SA 4.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Inti_de_Los_Atigrados_et_Gardel_de_Las_Pitangas_etwas_verkleinert.jpg"
+  },
   "corgi": {
     "file": "images/corgi.jpg",
     "artist": "Wikimedia Commons",
