@@ -1245,8 +1245,18 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
       ${photo ? "" : `<p class="qsub">距離是用每種狗的大致原產區域計算的，不是精確地點。</p>`}
       <div class="qbtns">
         <button type="button" class="primary" data-q="again">再玩一次</button>
+        <button type="button" data-q="share">${navigator.share && matchMedia("(pointer: coarse)").matches ? "分享成績" : "複製成績"}</button>
         <button type="button" data-q="quit">回到地圖</button>
       </div>`;
+  }
+  // Share the score with friends: the phone's share sheet (LINE, Messages…), or copy a ready-to-paste line.
+  function shareScore(btn) {
+    const game = { map: "猜老家", photo: "看照片猜品種", etym: "猜名字由來" }[quiz.kind];
+    const url = location.origin + location.pathname;
+    const text = `我在「狗狗從哪裡來」玩${game}，拿到 ${quiz.score}／${ROUNDS * 100} 分（${rank(quiz.score)}），你也來試試！`;
+    const copy = () => { try { navigator.clipboard.writeText(text + " " + url).then(() => { btn.textContent = "已複製，可以貼給朋友"; }, () => { btn.textContent = "複製失敗"; }); } catch (_) { btn.textContent = "複製失敗"; } };
+    if (navigator.share && matchMedia("(pointer: coarse)").matches) navigator.share({ title: "狗狗從哪裡來", text, url }).catch(err => { if (err && err.name !== "AbortError") copy(); });
+    else copy();
   }
   function sizeQuiz() {
     const k = T.k, s = Math.sqrt(k);
@@ -1263,6 +1273,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     const a = t.dataset.q;
     if (a === "quit") return endQuiz();
     if (a === "again") return startQuiz(quiz.kind);
+    if (a === "share") return shareScore(t);
     if (a === "mode-map") return startQuiz("map");
     if (a === "mode-photo") return startQuiz("photo");
     if (a === "mode-etym") return startQuiz("etym");
