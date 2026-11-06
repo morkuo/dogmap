@@ -6,6 +6,8 @@ const RUNTIME = `dogmap-runtime-${VERSION}`;
 const CORE_FILES = ["./", "index.html", "data.js", "world.js", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png"];
 
 // The map needs these libraries, so save them at install time rather than waiting to see them requested.
+// All photos (filled in by build-pages.sh). Saved in the background after install so the app works fully offline.
+const IMAGES = __IMAGES__;
 const LIBS = [
   "https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js",
   "https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"
@@ -25,6 +27,13 @@ self.addEventListener("activate", event => {
       .then(keys => Promise.all(keys.filter(k => k.startsWith("dogmap-") && k !== CORE && k !== RUNTIME).map(k => caches.delete(k))))
       .then(() => self.clients.claim())
   );
+  // Photos one by one, without blocking: a failed photo is simply fetched later when someone opens that dog.
+  event.waitUntil((async () => {
+    const c = await caches.open(RUNTIME);
+    for (const url of IMAGES) {
+      try { if (!(await c.match(url))) { const res = await fetch(url); if (res.ok) await c.put(url, res); } } catch (_) {}
+    }
+  })());
 });
 
 self.addEventListener("fetch", event => {

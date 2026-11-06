@@ -14,7 +14,8 @@ cp pwa/manifest.webmanifest docs/
 
 # 每次建置用不同的版本號，讓已安裝的 App 會換成新內容
 VERSION="$(git rev-parse --short HEAD 2>/dev/null || echo dev)-$(date +%Y%m%d%H%M%S)"
-sed "s/__VERSION__/$VERSION/" pwa/sw.js > docs/sw.js
+IMAGES="[$(cd docs && ls images/*.jpg | sed 's/.*/"&"/' | paste -sd, -)]"
+sed -e "s/__VERSION__/$VERSION/" -e "s#__IMAGES__#$IMAGES#" pwa/sw.js > docs/sw.js
 
 {
   printf '<!doctype html>\n<html lang="zh-Hant">\n<head>\n'
