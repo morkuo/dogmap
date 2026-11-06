@@ -22,6 +22,10 @@
   "etym": "來自阿拉斯加西北部的因紐皮雅特族群 Malimiut（馬勒穆特人）。",
   "job": "拉重物的雪橇犬",
   "story": "常被誤認成哈士奇，但牠比較大隻、骨架更粗。名字來自阿拉斯加西北部的因紐皮雅特族群 Mahlemiut（馬勒穆特人），他們用這種狗在極地拉重物、幫忙獵海豹。哈士奇是長跑選手，馬拉穆是舉重選手：跑得不快，但力氣很大。牠也是阿拉斯加州的州犬。",
+  "milestone": {
+    "year": 2010,
+    "text": "阿拉斯加雪橇犬成為阿拉斯加州的州犬"
+  },
   "sources": [
     [
       "Wikipedia",
@@ -34,6 +38,10 @@
     [
       "Merriam-Webster：malamute",
       "https://www.merriam-webster.com/dictionary/malamute"
+    ],
+    [
+      "Wikipedia：美國各州的州犬",
+      "https://en.wikipedia.org/wiki/List_of_U.S._state_dogs"
     ]
   ],
   "order": 4
