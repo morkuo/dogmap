@@ -1324,5 +1324,64 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     const h = decodeURIComponent(location.hash.slice(1)); if (quiz) return;
     if (byId[h]) select(h); else if (h.startsWith("f-") && famById[h.slice(2)]) selectFamous(h.slice(2));
   });
+
+  // ── Self-test: open the page with ?selftest to click through everything and report errors ──
+  if (/[?&]selftest\b/.test(location.search)) runSelfTest();
+  async function runSelfTest() {
+    const problems = [], wait = ms => new Promise(r => setTimeout(r, ms));
+    window.addEventListener("error", e => problems.push("程式錯誤：" + e.message));
+    const check = (ok, msg) => { if (!ok) problems.push(msg); };
+    const savedSeen = new Set(seen); // the test opens every dog; put the viewer's collection back afterwards
+    // Run one step; an exception is recorded as a problem instead of stopping the whole test.
+    const tryStep = (label, fn) => { try { fn(); } catch (e) { problems.push(`${label}時出錯：${e.message}`); } };
+    const title = () => (document.querySelector(".pop h2") || {}).textContent;
+    await wait(300);
+    // Every breed and famous dog opens its own card (also in reverse, to switch between routes and no routes).
+    for (const d of DOGS.concat(DOGS.slice().reverse())) tryStep(`打開「${d.zh}」`, () => { select(d.id); check(title() === d.zh, `打不開「${d.zh}」的卡片`); });
+    for (const f of FAMOUS) tryStep(`打開名犬「${f.name}」`, () => { selectFamous(f.id); check(title() === f.name, `打不開名犬「${f.name}」`); });
+    for (const d of DOGS) { const ph = PHOTOS[d.id]; check(ph && ph.file, `「${d.zh}」沒有照片資料`); }
+    // Next / previous and random
+    tryStep("上一隻／下一隻", () => {
+      select(DOGS[0].id); step(1); check(title() === DOGS[1].zh, "「下一隻」沒有換到下一隻");
+      step(-1); check(title() === DOGS[0].zh, "「上一隻」沒有換回上一隻");
+    });
+    tryStep("隨機一隻", () => { document.getElementById("rand").click(); check(!!title(), "「隨機一隻」沒有打開卡片"); });
+    // Filters
+    for (const b of document.querySelectorAll(".kindbtn")) { b.click(); check(DOGS.filter(visible).length > 0, "種類篩選後沒有狗"); b.click(); }
+    document.getElementById("mode-myth").click(); check(DOGS.filter(visible).every(d => d.myth), "名字的誤會篩選不正確");
+    document.getElementById("mode-myth").click(); check(DOGS.filter(visible).length === DOGS.length, "取消篩選後沒有回到全部");
+    // Both games
+    tryStep("關閉卡片", () => closePop());
+    for (const mode of ["photo", "map"]) tryStep(mode === "photo" ? "看照片猜品種" : "猜老家", () => {
+      startQuiz(mode);
+      for (let i = 0; i < 10; i++) {
+        if (mode === "photo") { const b = quizEl.querySelector("[data-pick]"); if (!b) break; b.click(); }
+        else { const d = quiz.list[quiz.i]; guess([d.lon + 1, d.lat]); }
+        const n = quizEl.querySelector('[data-q="next"]'); if (n) n.click();
+      }
+      check(quizEl.textContent.includes("遊戲結束"), `「${mode === "photo" ? "看照片猜品種" : "猜老家"}」沒有跑到總成績`);
+      endQuiz();
+    });
+    // Timeline
+    tryStep("年表", () => {
+      startTimeline(); stopPlay();
+      for (const y of [1550, 1700, 1868, 1931, 2026]) { tlRange.value = y; tlRange.dispatchEvent(new Event("input")); }
+      check(!document.querySelector(".pin.future"), "年表拉到 2026 年時，還有狗沒出現");
+      endTimeline();
+    });
+    seen = savedSeen;
+    try { localStorage.setItem(SEEN_KEY, JSON.stringify([...seen])); } catch (_) {}
+    updateCount(); renderDrawer();
+    // Report
+    const box = document.createElement("div");
+    box.setAttribute("role", "status");
+    box.style.cssText = "position:absolute;z-index:20;left:50%;top:50%;transform:translate(-50%,-50%);max-width:90vw;padding:16px 20px;border-radius:12px;font:15px/1.7 var(--font-body);box-shadow:var(--shadow);" +
+      (problems.length ? "background:#b3261e;color:#fff" : "background:#1f7a3f;color:#fff");
+    box.innerHTML = problems.length
+      ? `<b>自我檢查發現 ${problems.length} 個問題</b><br>${problems.slice(0, 12).map(esc).join("<br>")}`
+      : `<b>自我檢查通過</b><br>${DOGS.length} 種狗、${FAMOUS.length} 隻名犬、兩種遊戲和年表都正常。`;
+    app.appendChild(box);
+    console.log(problems.length ? "SELFTEST FAIL\n" + problems.join("\n") : "SELFTEST PASS");
+  }
 })();
 </script>
