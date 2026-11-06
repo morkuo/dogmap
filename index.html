@@ -677,11 +677,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     .on("click", (e, d) => {
       e.stopPropagation();
       // Dots that sit on top of each other (e.g. Pekingese and Shih Tzu at world zoom): let the reader pick.
-      if (!quiz && !timeMode) {
-        const [x, y] = T.apply(projection([d.lon, d.lat]));
-        const near = DOGS.filter(o => shownNow(o) && (o.id === d.id || Math.hypot(...T.apply(projection([o.lon, o.lat])).map((v, i) => v - [x, y][i])) < 12));
-        if (near.length > 1) return showPick(e, `這裡有 ${near.length} 種狗`, near);
-      }
+      if (!quiz && !timeMode && pickNear(e, d)) return;
       select(d.id);
     })
     .on("keydown", (e, d) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(d.id); } });
@@ -693,11 +689,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   }).on("mouseleave", () => { tip.hidden = true; })
     .on("click", (e, f) => {
       e.stopPropagation();
-      if (!quiz && !timeMode) {
-        const [x, y] = T.apply(projection([f.lon, f.lat]));
-        const near = FAMOUS.filter(o => o.id === f.id || Math.hypot(...T.apply(projection([o.lon, o.lat])).map((v, i) => v - [x, y][i])) < 12);
-        if (near.length > 1) return showPick(e, `這裡有 ${near.length} 隻名犬`, near.map(o => ({ fam: o.id, zh: "★ " + o.name })));
-      }
+      if (!quiz && !timeMode && pickNear(e, f)) return;
       selectFamous(f.id);
     })
     .on("keydown", (e, f) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selectFamous(f.id); } });
@@ -1367,6 +1359,20 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     if (here.length === 1) { cpick.hidden = true; return select(here[0].id); }
     showPick(e, `這個國家的狗（${here.length}）`, here);
   });
+  // Dots and stars that sit on top of each other (Pekingese and Shih Tzu, Hachiko and Kabosu, Barry on the
+  // St. Bernard dot): list everything within a fingertip of the tapped one and let the reader pick.
+  function pickNear(e, p) {
+    const [x, y] = T.apply(projection([p.lon, p.lat]));
+    const reach = matchMedia("(pointer: coarse)").matches ? 10 : 5; // a fingertip is less precise than a mouse
+    const close = o => Math.hypot(...T.apply(projection([o.lon, o.lat])).map((v, i) => v - [x, y][i])) < reach;
+    const dogs = DOGS.filter(o => shownNow(o) && close(o));
+    const stars = app.classList.contains("nofam") ? [] : FAMOUS.filter(close).map(o => ({ fam: o.id, zh: "★ " + o.name }));
+    const n = dogs.length + stars.length;
+    if (n < 2) return false;
+    const parts = [dogs.length && `${dogs.length} 種狗`, stars.length && `${stars.length} 隻名犬`].filter(Boolean);
+    showPick(e, `這裡有 ${parts.join("、")}`, dogs.concat(stars));
+    return true;
+  }
   function showPick(e, title, list) {
     const [x, y] = d3.pointer(e, app);
     cpick.innerHTML = `<p>${esc(title)}</p><div class="chips">${list.map(d => d.fam
