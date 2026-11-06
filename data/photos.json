@@ -269,6 +269,12 @@
     "license": "CC BY-SA 3.0",
     "page": "https://commons.wikimedia.org/wiki/File:Dog_00154.JPG"
   },
+  "jackrussell": {
+    "file": "images/jackrussell.jpg",
+    "artist": "Plank",
+    "license": "CC BY 3.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Jack_Russell_Terrier_1.jpg"
+  },
   "jindo": {
     "file": "images/jindo.jpg",
     "artist": "Herocosmos",
@@ -412,6 +418,12 @@
     "artist": "Yan Mis/&Den Rakov",
     "license": "CC BY-SA 4.0",
     "page": "https://commons.wikimedia.org/wiki/File:Adult_sharpei.jpg"
+  },
+  "sheltie": {
+    "file": "images/sheltie.jpg",
+    "artist": "Nick Cowie（Flickr：nickobec）",
+    "license": "CC BY-SA 2.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Shetland_Sheepdog_sable.jpg"
   },
   "shiba": {
     "file": "images/shiba.jpg",

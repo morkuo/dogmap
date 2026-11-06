@@ -1,0 +1,45 @@
+{
+  "id": "sheltie",
+  "zh": "喜樂蒂牧羊犬",
+  "aliases": [
+    "喜樂蒂",
+    "雪特蘭牧羊犬",
+    "Sheltie"
+  ],
+  "ja": "シェットランド・シープドッグ",
+  "en": "Shetland Sheepdog",
+  "region": "eu",
+  "country": [
+    "826"
+  ],
+  "place": "英國・蘇格蘭的雪特蘭群島",
+  "lat": 60.3,
+  "lon": -1.25,
+  "tags": [
+    "common"
+  ],
+  "work": [
+    "herd",
+    "guard"
+  ],
+  "myth": "長得像縮小版的柯利牧羊犬，但牠不是單純把柯利一代代養小而來的。",
+  "etym": "取自蘇格蘭北方的雪特蘭群島；Sheltie 是 Shetland 的暱稱。",
+  "job": "在小島農場趕羊、把鳥和羊趕出菜園",
+  "story": "喜樂蒂來自蘇格蘭北方、風大又貧瘠的雪特蘭群島。島上的人用這種小型狗做各種農場工作，像是把來偷吃的鳥和到處亂跑的小型雪特蘭羊趕出菜園；有些偏遠小島上，牠還被留下來陪著羊群，防範會攻擊羊的猛禽。一般認為牠的祖先是島上的尖嘴狐狸犬型狗，和英國本島來的柯利牧羊犬混種。牠原本叫「雪特蘭柯利」，但當時的長毛柯利育犬者反對，英國育犬協會也要求改名，1909 年才以「雪特蘭牧羊犬」的名字被承認。",
+  "note": "混入過哪些犬種，各資料說法不同，常被提到的有柯利、查理士王小獵犬、博美等。",
+  "milestone": {
+    "year": 1909,
+    "text": "英國育犬協會承認喜樂蒂，條件是不能再叫「雪特蘭柯利」"
+  },
+  "sources": [
+    [
+      "AKC：喜樂蒂的歷史",
+      "https://www.akc.org/expert-advice/dog-breeds/shetland-sheepdog-history/"
+    ],
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Shetland_Sheepdog"
+    ]
+  ],
+  "order": 67
+}

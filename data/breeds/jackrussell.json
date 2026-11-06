@@ -1,0 +1,43 @@
+{
+  "id": "jackrussell",
+  "zh": "傑克羅素㹴",
+  "aliases": [
+    "傑克羅素",
+    "傑克羅素梗"
+  ],
+  "ja": "ジャック・ラッセル・テリア",
+  "en": "Jack Russell Terrier",
+  "region": "eu",
+  "country": [
+    "826"
+  ],
+  "place": "英國・英格蘭的北德文郡",
+  "lat": 51.05,
+  "lon": -3.95,
+  "tags": [
+    "common"
+  ],
+  "work": [
+    "hunt"
+  ],
+  "etym": "取自 19 世紀培育牠的英國牧師 Jack Russell。",
+  "job": "獵狐時把狐狸從地洞裡趕出來",
+  "story": "傑克羅素㹴的名字來自英國的鄉村牧師 John「Jack」Russell，他非常熱愛獵狐。據說他還在牛津念書時，向一位送牛奶的人買下一隻白底帶褐色斑的小母㹴，取名 Trump，就成了這個品種的起點。後來他在英格蘭西南部的北德文郡當了近五十年的牧師，持續培育獵狐用的㹴犬：腿短又有力，能鑽進地洞把躲起來的狐狸趕出來。牠的毛大多是白色，是為了在獵場上不會被誤認成牠追的狐狸。",
+  "note": "買下 Trump 的年份，有資料寫 1819 年，也有資料沒有寫明。另外，各國育犬協會對「傑克羅素㹴」和腿較長的「帕森羅素㹴」怎麼區分，說法也不一致。",
+  "milestone": {
+    "year": 1819,
+    "label": "1819 年左右",
+    "text": "牧師 Jack Russell 買下小母㹴 Trump，傑克羅素㹴的起點"
+  },
+  "sources": [
+    [
+      "Wikipedia：Jack Russell Terrier",
+      "https://en.wikipedia.org/wiki/Jack_Russell_Terrier"
+    ],
+    [
+      "Wikipedia：Jack Russell (priest)",
+      "https://en.wikipedia.org/wiki/John_Russell_(parson)"
+    ]
+  ],
+  "order": 68
+}
