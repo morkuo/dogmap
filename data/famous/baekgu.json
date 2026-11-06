@@ -8,11 +8,15 @@
   "place": "韓國・全羅南道珍島",
   "lat": 34.4,
   "lon": 126.4,
-  "text": "這隻珍島犬被賣到約 300 公里外的大田後，自己逃出來，花了大約七個月走回珍島的老主人家。故事被拍成紀錄片和卡通，珍島郡還為牠立了雕像。",
+  "text": "這隻珍島犬被賣到約 300 公里外的大田後，自己逃出來，花了大約七個月走回珍島的老主人家。",
   "sources": [
     [
       "珍島郡官網",
       "https://www.jindo.go.kr/eng/sub.cs?m=32"
+    ],
+    [
+      "Wikipedia: Korean Jindo",
+      "https://en.wikipedia.org/wiki/Korean_Jindo"
     ]
   ],
   "order": 8
