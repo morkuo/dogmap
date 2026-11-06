@@ -1,0 +1,23 @@
+{
+  "id": "pickles",
+  "name": "Pickles",
+  "ja": "ピクルス",
+  "en": "Pickles",
+  "breed": "",
+  "year": "1966",
+  "place": "英國・倫敦南部的比尤拉山",
+  "lat": 51.42,
+  "lon": -0.1,
+  "text": "1966 年世界盃在英國舉行前，冠軍獎盃（雷米金盃）在倫敦展覽時被偷走。一個禮拜後的 3 月 27 日，主人 David Corbett 帶著混種柯利犬 Pickles 散步，Pickles 在樹籬下嗅到一個用報紙包著的包裹，裡面就是失竊的獎盃。英格蘭後來拿下冠軍，Pickles 也受邀參加了慶功宴。",
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Pickles_(dog)"
+    ],
+    [
+      "History UK",
+      "https://www.history.co.uk/articles/pickles-the-dog-world-cup"
+    ]
+  ],
+  "order": 14
+}

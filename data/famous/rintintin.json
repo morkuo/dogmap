@@ -1,0 +1,24 @@
+{
+  "id": "rintintin",
+  "name": "Rin Tin Tin",
+  "ja": "リンチンチン",
+  "en": "Rin Tin Tin",
+  "breed": "gsd",
+  "year": "1918–1932",
+  "place": "美國・好萊塢",
+  "lat": 34.1,
+  "lon": -118.33,
+  "text": "1918 年 9 月，一次大戰的美軍士兵 Lee Duncan 在法國弗利雷附近一座被炸毀的德軍犬舍裡救出幾隻德國牧羊犬幼犬，其中一隻就是 Rin Tin Tin。Duncan 把牠帶回加州訓練，牠後來在 1922 到 1931 年間主演了 27 部好萊塢電影，成為最早的狗明星之一，也讓德國牧羊犬在美國大受歡迎。",
+  "note": "那一窩幼犬有幾隻、牠的妹妹後來怎麼了，各資料說法不同；「牠救了華納兄弟免於破產」的說法則多半來自通俗報導。",
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Rin_Tin_Tin"
+    ],
+    [
+      "The Hollywood Reporter",
+      "https://www.hollywoodreporter.com/news/rin-tin-tin-saved-warner-bros-bankruptcy-1923-1174469"
+    ]
+  ],
+  "order": 13
+}

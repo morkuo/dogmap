@@ -1,0 +1,24 @@
+{
+  "id": "wonderdog",
+  "name": "奇蹟犬 Bobbie",
+  "ja": "ワンダー・ドッグ・ボビー",
+  "en": "Bobbie the Wonder Dog",
+  "breed": "",
+  "year": "1923–1924",
+  "place": "美國・奧勒岡州錫爾弗頓",
+  "lat": 45.0,
+  "lon": -122.78,
+  "text": "1923 年 8 月，Brazier 一家從奧勒岡州開車到印第安納州探親，帶著混種牧羊犬 Bobbie。牠在印第安納州的加油站被別的狗追跑、走失了，一家人找不到，只好先回家。半年後的 1924 年 2 月，Bobbie 竟然自己出現在家門口，瘦得皮包骨、腳爪都磨平了。奧勒岡人道協會向沿路的人打聽，證實牠真的一路走回了家。",
+  "note": "牠走了多遠，各資料從約 2,500 英里（約 4,000 公里）到 3,000 英里都有。",
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Bobbie_the_Wonder_Dog"
+    ],
+    [
+      "Oregon Encyclopedia",
+      "https://oregonencyclopedia.org/articles/bobbie_the_wonder_dog/"
+    ]
+  ],
+  "order": 15
+}
