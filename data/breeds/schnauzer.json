@@ -1,0 +1,42 @@
+{
+  "id": "schnauzer",
+  "zh": "迷你雪納瑞",
+  "aliases": [
+    "雪納瑞"
+  ],
+  "ja": "ミニチュア・シュナウザー",
+  "en": "Miniature Schnauzer",
+  "region": "eu",
+  "country": [
+    "276"
+  ],
+  "place": "德國",
+  "lat": 49.8,
+  "lon": 11.5,
+  "tags": [
+    "common"
+  ],
+  "work": [
+    "hunt",
+    "guard"
+  ],
+  "etym": "德文 Schnauze 是「口鼻」，形容牠留著鬍子的嘴巴。",
+  "job": "在農場抓老鼠、看家",
+  "story": "雪納瑞原本是德國農場上的中型工作犬（標準雪納瑞），負責趕牲畜、看家和抓老鼠。後來德國人把牠培育得更小，專門在農場和倉庫裡抓老鼠，就成了迷你雪納瑞。1888 年，一隻名叫 Findel 的黑色母狗被登記為第一隻迷你雪納瑞；1899 年，標準和迷你雪納瑞在德國被分成兩個犬種。",
+  "note": "培育迷你雪納瑞時混入了哪些小型犬（常被提到的有猴面㹴、迷你品犬、貴賓狗等），各資料說法不同。",
+  "milestone": {
+    "year": 1888,
+    "text": "第一隻迷你雪納瑞 Findel 在德國登記"
+  },
+  "sources": [
+    [
+      "AKC：迷你雪納瑞的歷史",
+      "https://www.akc.org/expert-advice/dog-breeds/miniature-schnauzer-history/"
+    ],
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Miniature_Schnauzer"
+    ]
+  ],
+  "order": 62
+}

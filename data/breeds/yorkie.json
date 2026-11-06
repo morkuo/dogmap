@@ -1,0 +1,42 @@
+{
+  "id": "yorkie",
+  "zh": "約克夏㹴",
+  "aliases": [
+    "約克夏"
+  ],
+  "ja": "ヨークシャー・テリア",
+  "en": "Yorkshire Terrier",
+  "region": "eu",
+  "country": [
+    "826"
+  ],
+  "place": "英國・英格蘭北部約克郡",
+  "lat": 53.65,
+  "lon": -1.78,
+  "tags": [
+    "common"
+  ],
+  "work": [
+    "hunt",
+    "companion"
+  ],
+  "etym": "取自英格蘭北部的約克郡（Yorkshire）。",
+  "job": "在紡織廠和礦坑裡抓老鼠，後來成為伴侶犬",
+  "story": "工業革命時期，從蘇格蘭南下到英格蘭約克郡工作的紡織工人帶來了自己的㹴犬，牠們和當地的狗混種，就成了約克夏㹴的祖先。牠最早的工作是在紡織廠和礦坑裡抓老鼠。1865 年出生的 Huddersfield Ben 在各地犬展和抓鼠比賽中屢屢得獎，被視為這個犬種的「始祖」。到了 19 世紀後半，牠成了維多利亞時代仕女們喜愛的小型伴侶犬。",
+  "note": "牠的祖先包含哪些㹴犬說法不一；改名為「約克夏㹴」的年份，資料有 1861 和 1870 年兩種。",
+  "milestone": {
+    "year": 1865,
+    "text": "約克夏㹴的「始祖」Huddersfield Ben 出生"
+  },
+  "sources": [
+    [
+      "AKC：約克夏㹴的歷史",
+      "https://www.akc.org/expert-advice/dog-breeds/yorkshire-terrier-history/"
+    ],
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Yorkshire_Terrier"
+    ]
+  ],
+  "order": 63
+}

@@ -41,6 +41,12 @@
     "license": "CC BY-SA 3.0",
     "page": "https://commons.wikimedia.org/wiki/File:Beagle_600.jpg"
   },
+  "bichon": {
+    "file": "images/bichon.jpg",
+    "artist": "Heike Andres",
+    "license": "CC BY-SA 3.0 de",
+    "page": "https://commons.wikimedia.org/wiki/File:Bichon_Fris%C3%A9_-_studdogbichon.jpg"
+  },
   "boerboel": {
     "file": "images/boerboel.jpg",
     "artist": "Canarian",
@@ -380,6 +386,18 @@
     "license": "CC BY-SA 3.0",
     "page": "https://commons.wikimedia.org/wiki/File:Samojed00.jpg"
   },
+  "schnauzer": {
+    "file": "images/schnauzer.jpg",
+    "artist": "Canarian",
+    "license": "CC BY-SA 3.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Miniature_Schnauzer_salt_%26_pepper_(cropped).jpg"
+  },
+  "sharpei": {
+    "file": "images/sharpei.jpg",
+    "artist": "Yan Mis/&Den Rakov",
+    "license": "CC BY-SA 4.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Adult_sharpei.jpg"
+  },
   "shiba": {
     "file": "images/shiba.jpg",
     "artist": "Takashiba at English Wikipedia",
@@ -433,5 +451,11 @@
     "artist": "Svenska Mässan from Sweden",
     "license": "CC BY 2.0",
     "page": "https://commons.wikimedia.org/wiki/File:BIR_Grupp_5-_MEXIKANSK_NAKENHUND,_Lokal_Hero%E2%80%99s_King_Og_Hart%E2%80%99s_Istas_(23607403303).jpg"
+  },
+  "yorkie": {
+    "file": "images/yorkie.jpg",
+    "artist": "Svenska Mässan from Sweden",
+    "license": "CC BY-SA 4.0",
+    "page": "https://commons.wikimedia.org/wiki/File:(2_version)_Grupp_3,_YORKSHIRETERRIER,_NO_UCH_SE_UCH_Oxzar_Amazing_Bel%E2%80%99s_Toffy_(24310212305).jpg"
   }
 }

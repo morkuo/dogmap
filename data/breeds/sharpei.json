@@ -1,0 +1,48 @@
+{
+  "id": "sharpei",
+  "zh": "沙皮狗",
+  "aliases": [
+    "沙皮",
+    "中國沙皮犬"
+  ],
+  "ja": "チャイニーズ・シャー・ペイ",
+  "en": "Chinese Shar-Pei",
+  "region": "ea",
+  "country": [
+    "156"
+  ],
+  "place": "中國廣東",
+  "lat": 23.1,
+  "lon": 113.1,
+  "tags": [
+    "common"
+  ],
+  "work": [
+    "guard",
+    "herd",
+    "hunt"
+  ],
+  "etym": "Shar-Pei 是粵語「沙皮」的音譯，形容牠粗糙、像砂紙一樣的毛。",
+  "job": "南方農家的多用途工作犬：看守、放牧、打獵，也曾被用來鬥狗",
+  "story": "沙皮狗一般認為來自中國廣東，是南方農家的多用途工作犬。20 世紀牠的數量一度少到快要消失，1970 年代曾被列為世界上最稀有的犬種之一。1973 年，香港的育犬者 Matgo Law 在一本狗雜誌上呼籲大家搶救這個犬種，收到兩百多封回信；1979 年《生活》雜誌也以沙皮狗當封面。1992 年，美國犬業俱樂部（AKC）正式承認沙皮狗。",
+  "note": "沙皮狗的歷史有多久，說法差很多；AKC 的檔案也提到，牠可能沒有以前認為的那麼古老。",
+  "milestone": {
+    "year": 1973,
+    "text": "香港育犬者 Matgo Law 登報呼籲搶救快要消失的沙皮狗"
+  },
+  "sources": [
+    [
+      "大英百科全書",
+      "https://www.britannica.com/animal/Chinese-shar-pei"
+    ],
+    [
+      "紐西蘭育犬協會：沙皮狗",
+      "https://nzkc.dogsnz.org.nz/breeds/info/shar-pei/794"
+    ],
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Shar_Pei"
+    ]
+  ],
+  "order": 64
+}

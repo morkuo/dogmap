@@ -1,0 +1,43 @@
+{
+  "id": "bichon",
+  "zh": "比熊犬",
+  "aliases": [
+    "比熊",
+    "捲毛比雄犬"
+  ],
+  "ja": "ビション・フリーゼ",
+  "en": "Bichon Frise",
+  "region": "eu",
+  "country": [
+    "724",
+    "250"
+  ],
+  "place": "西班牙加那利群島（一說）；在法國宮廷流行",
+  "lat": 28.29,
+  "lon": -16.63,
+  "tags": [
+    "common"
+  ],
+  "work": [
+    "companion"
+  ],
+  "etym": "一說 bichon 來自 barbichon，和捲毛水獵犬巴貝犬有關；frisé 是法文「捲曲的」。",
+  "job": "宮廷貴族的伴侶犬，也是水手的同伴",
+  "story": "比熊犬一般認為早期生活在大西洋上的特內里費島（今屬西班牙加那利群島）。14 世紀，義大利水手把這種白色小狗帶回歐洲，牠跟著船隻四處旅行，有時也被當成交易的物品。後來牠成了歐洲宮廷的寵兒，在法國國王法蘭索瓦一世和亨利三世的時代特別流行，西班牙畫家哥雅的畫裡也出現過牠。",
+  "note": "比熊犬的起源和名字由來都有不同說法；帶牠回歐洲的是義大利還是法國水手，資料也不一致。",
+  "sources": [
+    [
+      "大英百科全書",
+      "https://www.britannica.com/animal/bichon-frise"
+    ],
+    [
+      "AKC：比熊犬的歷史",
+      "https://www.akc.org/expert-advice/dog-breeds/bichon-frise-history/"
+    ],
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Bichon_Fris%C3%A9"
+    ]
+  ],
+  "order": 61
+}
