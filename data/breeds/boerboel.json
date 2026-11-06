@@ -1,0 +1,41 @@
+{
+  "id": "boerboel",
+  "zh": "南非獒犬",
+  "aliases": [
+    "波爾犬"
+  ],
+  "ja": "ボーアボール",
+  "en": "South African Boerboel",
+  "region": "af",
+  "country": [
+    "710"
+  ],
+  "place": "南非的農場",
+  "lat": -29.0,
+  "lon": 26.0,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "guard"
+  ],
+  "etym": "Boer 是南非荷蘭語（阿非利卡語）的「農夫」；後半的 boel 是什麼意思說法不一，一說是狗的俗稱，一說是「鬥牛犬」的縮寫。",
+  "job": "看守農場、保護牲畜，也協助打獵",
+  "story": "南非獒犬和 17 世紀起移居南非的荷蘭裔農民（布爾人）有關。在偏遠的農場上，牠負責看守家園、保護牲畜，也幫忙打獵。到了 1980 年代，南非的育犬者開始到各地農場尋找傳統的農場犬，成立了第一個南非獒犬協會，把牠整理成一個犬種。現在牠被南非政府列為本土的地方犬種，受到法律保護。",
+  "note": "一般認為牠的祖先是 1652 年由荷蘭人帶到南非的大型獒犬 Bullenbijter，但當時並沒有正式的紀錄可以證明。",
+  "sources": [
+    [
+      "AKC：南非獒犬的歷史",
+      "https://www.akc.org/expert-advice/dog-breeds/boerboel-history-south-african-farm-dog/"
+    ],
+    [
+      "UKC 品種標準",
+      "https://www.ukcdogs.com/docs/breeds/south-african-boerboel.pdf"
+    ],
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Boerboel"
+    ]
+  ],
+  "order": 58
+}

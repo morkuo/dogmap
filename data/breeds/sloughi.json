@@ -1,0 +1,36 @@
+{
+  "id": "sloughi",
+  "zh": "斯盧基犬",
+  "ja": "スルーギ",
+  "en": "Sloughi（Arabian Greyhound）",
+  "region": "af",
+  "country": [
+    "504",
+    "012",
+    "788"
+  ],
+  "place": "北非馬格里布（摩洛哥、阿爾及利亞、突尼西亞）",
+  "lat": 32.5,
+  "lon": -1.5,
+  "tags": [
+    "local"
+  ],
+  "work": [
+    "hunt"
+  ],
+  "etym": "sloughi 很可能是阿拉伯語 saluki（薩路基）的柏柏爾語發音。",
+  "job": "追獵野兔、胡狼、瞪羚和狐狸",
+  "story": "斯盧基犬是北非馬格里布地區的視覺獵犬，幾百年來生活在摩洛哥、阿爾及利亞、突尼西亞一帶，被用來追獵野兔、胡狼、瞪羚和狐狸。阿爾及利亞的塔西利岩畫裡，就有身形細長、耳朵垂下的獵犬。國際畜犬聯盟由摩洛哥負責牠的品種標準。和中東的薩路基獵犬相比，牠的毛色可以有虎斑，這是兩者的差別之一。",
+  "note": "斯盧基犬和薩路基獵犬是否同源，說法互相矛盾：有資料認為兩者可能有共同祖先，也有 DNA 檢測認為兩者的差異反而最大。",
+  "sources": [
+    [
+      "Wikipedia",
+      "https://en.wikipedia.org/wiki/Sloughi"
+    ],
+    [
+      "AKC：斯盧基犬冷知識",
+      "https://www.akc.org/expert-advice/lifestyle/fun-facts-sloughi/"
+    ]
+  ],
+  "order": 59
+}

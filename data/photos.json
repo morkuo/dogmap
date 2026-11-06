@@ -41,6 +41,12 @@
     "license": "CC BY-SA 3.0",
     "page": "https://commons.wikimedia.org/wiki/File:Beagle_600.jpg"
   },
+  "boerboel": {
+    "file": "images/boerboel.jpg",
+    "artist": "Canarian",
+    "license": "CC BY 4.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Boerboelmusta3.jpg"
+  },
   "bordercollie": {
     "file": "images/bordercollie.jpg",
     "artist": "Wikimedia Commons",
@@ -304,6 +310,12 @@
     "artist": "Canino21",
     "license": "Public domain",
     "page": "https://commons.wikimedia.org/wiki/File:Shihtzu_(cropped).jpg"
+  },
+  "sloughi": {
+    "file": "images/sloughi.jpg",
+    "artist": "Denhulde",
+    "license": "CC BY-SA 3.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Sloughi_male.jpg"
   },
   "stbernard": {
     "file": "images/stbernard.jpg",
