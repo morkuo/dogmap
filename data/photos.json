@@ -125,6 +125,81 @@
     "license": "CC BY 2.0",
     "page": "https://commons.wikimedia.org/wiki/File:Argentine_Dogo_(535032632)_(cropped).jpg"
   },
+  "f-barry": {
+    "file": "images/f-barry.jpg",
+    "artist": "James Watson（書中插圖）",
+    "license": "Public domain",
+    "page": "https://commons.wikimedia.org/wiki/File:Barry_dog.jpg"
+  },
+  "f-bluey": {
+    "file": "images/f-bluey.jpg",
+    "artist": "作者不詳",
+    "license": "Public domain",
+    "page": "https://commons.wikimedia.org/wiki/File:Dog_Bluey.jpg"
+  },
+  "f-bo": {
+    "file": "images/f-bo.jpg",
+    "artist": "Chuck Kennedy",
+    "license": "Public domain",
+    "page": "https://commons.wikimedia.org/wiki/File:Bo_official_portrait_(cropped_2).jpg"
+  },
+  "f-bobby": {
+    "file": "images/f-bobby.jpg",
+    "artist": "Michael Reeve",
+    "license": "CC BY-SA 3.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Greyfriars-bobby-edin.jpg"
+  },
+  "f-hachiko": {
+    "file": "images/f-hachiko.jpg",
+    "artist": "作者不詳",
+    "license": "Public domain",
+    "page": "https://commons.wikimedia.org/wiki/File:Hachiko.JPG"
+  },
+  "f-kabosu": {
+    "file": "images/f-kabosu.jpg",
+    "artist": "Asanagi",
+    "license": "CC0",
+    "page": "https://commons.wikimedia.org/wiki/File:Kabosu_and_Atsuko_Sato_2023-11-02_(1).jpg"
+  },
+  "f-laika": {
+    "file": "images/f-laika.jpg",
+    "artist": "Teknoraver",
+    "license": "CC BY-SA 4.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Belka_Dog.jpg"
+  },
+  "f-pickles": {
+    "file": "images/f-pickles.jpg",
+    "artist": "James Steakley",
+    "license": "CC BY-SA 4.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Pickles_--_collar_and_medals.jpg"
+  },
+  "f-rintintin": {
+    "file": "images/f-rintintin.jpg",
+    "artist": "Warner Brothers",
+    "license": "Public domain",
+    "page": "https://commons.wikimedia.org/wiki/File:Rin_Tin_Tin_1929.JPG"
+  },
+  "f-smoky": {
+    "file": null
+  },
+  "f-snuppy": {
+    "file": null
+  },
+  "f-stubby": {
+    "file": "images/f-stubby.jpg",
+    "artist": "Wikimedia Commons",
+    "license": "Public domain",
+    "page": "https://commons.wikimedia.org/wiki/File:Sergeant_Stubby.jpg"
+  },
+  "f-togo": {
+    "file": null
+  },
+  "f-wonderdog": {
+    "file": "images/f-wonderdog.jpg",
+    "artist": "作者不詳",
+    "license": "Public domain",
+    "page": "https://commons.wikimedia.org/wiki/File:Bobbie_the_Wonder_Dog_1.jpg"
+  },
   "fila": {
     "file": "images/fila.jpg",
     "artist": "Pleple2000",

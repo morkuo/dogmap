@@ -35,6 +35,9 @@ def clean_artist(a):
     a = a.split("\n")[0]
     a = re.sub(r"^[^:]+\.(jpg|JPG|jpeg|png):\s*", "", a)
     a = a.replace('"', "").strip(" ;,.")
+    a = re.sub(r"^(.+?)\1$", r"\1", a)  # "Unknown authorUnknown author" → "Unknown author"
+    if a.lower() in ("unknown author", "unknown"):
+        a = "作者不詳"
     return a or "Wikimedia Commons"
 
 
@@ -47,6 +50,11 @@ def main():
         if f.endswith(".json"):
             b = json.load(open(os.path.join(DATA, "breeds", f), encoding="utf-8"))
             breeds[b["id"]] = b
+    # 歷史名犬也抓照片，鍵名是 f-<id>；Commons 上沒有自由授權照片的，記為 file: null，之後不再重抓
+    for f in sorted(os.listdir(os.path.join(DATA, "famous"))):
+        if f.endswith(".json"):
+            m = json.load(open(os.path.join(DATA, "famous", f), encoding="utf-8"))
+            breeds["f-" + m["id"]] = m
     todo = list(overrides) if overrides else [i for i in breeds if i not in photos]
     if not todo:
         print("每個犬種都已經有照片了。")
@@ -69,12 +77,14 @@ def main():
             fname = page.get("pageimage")
             if not fname:
                 print(did, "：Wikipedia 條目沒有首圖，請用 id=檔名 指定照片")
+                if did.startswith("f-"): photos[did] = {"file": None}
                 continue
         q = "https://commons.wikimedia.org/w/api.php?" + urllib.parse.urlencode(
             {"action": "query", "titles": "File:" + fname, "prop": "imageinfo", "iiprop": "url|extmetadata", "iiurlwidth": 640, "format": "json"})
         page = next(iter(json.loads(get(q))["query"]["pages"].values()))
         if "imageinfo" not in page:
-            print(did, "：Commons 上找不到", fname)
+            print(did, "：Commons 上找不到", fname, "（可能不是自由授權的照片）")
+            if did.startswith("f-"): photos[did] = {"file": None}
             continue
         ii = page["imageinfo"][0]
         em = ii.get("extmetadata", {})

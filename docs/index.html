@@ -721,7 +721,12 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   const famOf = id => FAMOUS.filter(f => f.breed === id);
   function renderFamous(f) {
     const b = f.breed && byId[f.breed];
-    scroll.innerHTML = `<div class="body famcard" style="padding-top:22px">
+    const ph = PHOTOS["f-" + f.id];
+    const photo = ph && ph.file ? `<figure class="photo" style="--bg:url('${esc(ph.file)}')">
+        <img src="${esc(ph.file)}" alt="${esc(f.name)}的照片">
+        <figcaption>照片：${esc(ph.artist)}・<a href="${esc(ph.page)}" target="_blank" rel="noopener">${esc(ph.license || "Wikimedia Commons")}</a></figcaption>
+      </figure>` : "";
+    scroll.innerHTML = `${photo}<div class="body famcard" style="padding-top:${photo ? 14 : 22}px">
         <div class="eyebrow"><span>歷史上的名犬</span><span class="yr">${esc(f.year)}</span></div>
         <div class="names">
           <h2>${esc(f.name)}</h2>
