@@ -370,6 +370,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
 .qphoto { position: relative; height: 190px; border-radius: 10px; overflow: hidden; background: var(--rule); }
 .qphoto::before { content: ""; position: absolute; inset: -16px; background: var(--bg) center / cover no-repeat; filter: blur(14px) brightness(.75); }
 .qphoto img { position: relative; width: 100%; height: 100%; object-fit: contain; display: block; }
+.qclue { margin: 0; padding: 12px 14px; border-left: 4px solid var(--amber); background: var(--amber-soft); border-radius: 0 10px 10px 0; font-size: 15px; line-height: 1.8; }
 .qopts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .qopts button { font-family: var(--font-display); font-size: 16px; border: 1px solid var(--rule); background: var(--paper); border-radius: 10px; padding: 8px 10px; cursor: pointer; }
 .qopts button:hover:not(:disabled) { border-color: var(--ink-soft); }
@@ -1087,17 +1088,18 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
         <div class="qmodes">
           <button type="button" data-q="mode-map"><b>猜老家</b><span>看名字和照片，在地圖上點出牠來自哪裡</span></button>
           <button type="button" data-q="mode-photo"><b>看照片猜品種</b><span>看一張照片，從四個名字裡選出正確答案</span></button>
+          <button type="button" data-q="mode-etym"><b>猜名字由來</b><span>看一段名字的由來，猜猜是哪一種狗</span></button>
         </div>
         <div class="qbtns"><button type="button" data-q="quit">回到地圖</button></div>`;
       quizEl.hidden = false;
       return;
     }
-    const pool = shuffle(DOGS.filter(d => kind !== "photo" || PHOTOS[d.id]).slice());
+    const pool = shuffle(DOGS.filter(d => (kind !== "photo" || PHOTOS[d.id]) && (kind !== "etym" || d.etym)).slice());
     quiz = { kind, list: pool.slice(0, ROUNDS), i: 0, score: 0, results: [], hint: false, guessed: false };
     app.classList.add("quizmode");
     svg.call(zoom.transform, d3.zoomIdentity);
     layout();
-    kind === "photo" ? renderPhotoQuestion() : renderQuestion();
+    kind === "map" ? renderQuestion() : renderPhotoQuestion();
   }
   // Photo quiz: four choices, wrong ones from the same region when possible so it is not too easy.
   function renderPhotoQuestion() {
@@ -1108,9 +1110,15 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     const other = shuffle(DOGS.filter(x => x.id !== d.id && x.region !== d.region));
     const opts = shuffle([d, ...same.slice(0, 2), ...other].slice(0, 4));
     const ph = PHOTOS[d.id];
+    let clue = d.etym || "";
+    for (const n of [d.zh, d.zh.replace(/[（(].*$/, ""), d.zh.replace(/犬$|狗$/, ""), ...(d.aliases || [])].filter(n => n && n.length > 1))
+      clue = clue.split(n).join("＿＿");
+    const body = quiz.kind === "etym"
+      ? `<blockquote class="qclue">${esc(clue)}</blockquote>`
+      : `<div class="qphoto" style="--bg:url('${esc(ph.file)}')"><img src="${esc(ph.file)}" alt="猜猜這是哪一種狗"></div>`;
     quizEl.innerHTML = `${qHead()}
-      <div class="qphoto" style="--bg:url('${esc(ph.file)}')"><img src="${esc(ph.file)}" alt="猜猜這是哪一種狗"></div>
-      <p class="qask">這是哪一種狗？</p>
+      ${body}
+      <p class="qask">${quiz.kind === "etym" ? "這是哪一種狗的名字由來？" : "這是哪一種狗？"}</p>
       <div class="qopts">${opts.map(o => `<button type="button" data-pick="${o.id}">${esc(o.zh)}</button>`).join("")}</div>
       <div class="qbtns"><button type="button" data-q="quit">結束遊戲</button></div>`;
     quizEl.hidden = false;
@@ -1131,7 +1139,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
       .attr("transform", `translate(${projection([d.lon, d.lat])})`);
     sizeQuiz();
     const last = quiz.i === ROUNDS - 1;
-    const fact = d.myth || d.etym || ("原本的工作是" + d.job + "。");
+    const fact = quiz.kind === "etym" ? (d.myth || "原本的工作是" + d.job + "。") : (d.myth || d.etym || ("原本的工作是" + d.job + "。"));
     quizEl.querySelector(".qask").outerHTML = `<p class="qfact"><b>${ok ? "答對了！" : "答案是" + esc(d.zh) + "。"}</b>
       <span lang="ja">${esc(d.ja)}</span>・<span lang="en">${esc(d.en)}</span>，來自${esc(d.place)}。${esc(fact)}</p>`;
     quizEl.querySelector(".qbtns").innerHTML = `<button type="button" class="primary" data-q="next">${last ? "看總成績" : "下一題 →"}</button>
@@ -1191,7 +1199,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   }
   function renderSummary() {
     quizG.selectAll("*").remove();
-    const photo = quiz.kind === "photo";
+    const photo = quiz.kind !== "map";
     const rows = quiz.results.map(r => `<dt>${esc(r.d.zh)}</dt><dd>${photo ? (r.ok ? "答對" : "答錯") : km(r.dist) + " 公里"}・${r.pts} 分</dd>`).join("");
     quizEl.innerHTML = `<div class="qhead"><span>遊戲結束</span><span>滿分 ${ROUNDS * 100}</span></div>
       <p class="qbig">${quiz.score} 分<small>${rank(quiz.score)}</small></p>
@@ -1219,6 +1227,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     if (a === "again") return startQuiz(quiz.kind);
     if (a === "mode-map") return startQuiz("map");
     if (a === "mode-photo") return startQuiz("photo");
+    if (a === "mode-etym") return startQuiz("etym");
     if (a === "hint") {
       quiz.hint = true;
       t.outerHTML = `<span class="qsub">提示：在<b>${esc(regionName[quiz.list[quiz.i].region])}</b></span>`;
@@ -1226,7 +1235,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     }
     if (a === "next") {
       quiz.i++;
-      if (quiz.i >= ROUNDS) renderSummary(); else (quiz.kind === "photo" ? renderPhotoQuestion() : renderQuestion());
+      if (quiz.i >= ROUNDS) renderSummary(); else (quiz.kind === "map" ? renderQuestion() : renderPhotoQuestion());
     }
   });
   document.getElementById("quizbtn").addEventListener("click", () => startQuiz());
@@ -1357,14 +1366,15 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     document.getElementById("mode-myth").click(); check(DOGS.filter(visible).length === DOGS.length, "取消篩選後沒有回到全部");
     // Both games
     tryStep("關閉卡片", () => closePop());
-    for (const mode of ["photo", "map"]) tryStep(mode === "photo" ? "看照片猜品種" : "猜老家", () => {
+    const gameName = { photo: "看照片猜品種", etym: "猜名字由來", map: "猜老家" };
+    for (const mode of ["photo", "etym", "map"]) tryStep(gameName[mode], () => {
       startQuiz(mode);
       for (let i = 0; i < 10; i++) {
-        if (mode === "photo") { const b = quizEl.querySelector("[data-pick]"); if (!b) break; b.click(); }
+        if (mode !== "map") { const b = quizEl.querySelector("[data-pick]"); if (!b) break; b.click(); }
         else { const d = quiz.list[quiz.i]; guess([d.lon + 1, d.lat]); }
         const n = quizEl.querySelector('[data-q="next"]'); if (n) n.click();
       }
-      check(quizEl.textContent.includes("遊戲結束"), `「${mode === "photo" ? "看照片猜品種" : "猜老家"}」沒有跑到總成績`);
+      check(quizEl.textContent.includes("遊戲結束"), `「${gameName[mode]}」沒有跑到總成績`);
       endQuiz();
     });
     // Timeline
@@ -1384,7 +1394,7 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
       (problems.length ? "background:#b3261e;color:#fff" : "background:#1f7a3f;color:#fff");
     box.innerHTML = problems.length
       ? `<b>自我檢查發現 ${problems.length} 個問題</b><br>${problems.slice(0, 12).map(esc).join("<br>")}`
-      : `<b>自我檢查通過</b><br>${DOGS.length} 種狗、${FAMOUS.length} 隻名犬、兩種遊戲和年表都正常。`;
+      : `<b>自我檢查通過</b><br>${DOGS.length} 種狗、${FAMOUS.length} 隻名犬、三種遊戲和年表都正常。`;
     app.appendChild(box);
     console.log(problems.length ? "SELFTEST FAIL\n" + problems.join("\n") : "SELFTEST PASS");
   }
