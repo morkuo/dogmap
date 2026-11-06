@@ -714,7 +714,15 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
     const [x, y] = T.apply(projection([f.lon, f.lat]));
     tip.textContent = "★ " + f.name; tip.hidden = false; tip.style.left = x + "px"; tip.style.top = y + "px";
   }).on("mouseleave", () => { tip.hidden = true; })
-    .on("click", (e, f) => { e.stopPropagation(); selectFamous(f.id); })
+    .on("click", (e, f) => {
+      e.stopPropagation();
+      if (!quiz && !timeMode) {
+        const [x, y] = T.apply(projection([f.lon, f.lat]));
+        const near = FAMOUS.filter(o => o.id === f.id || Math.hypot(...T.apply(projection([o.lon, o.lat])).map((v, i) => v - [x, y][i])) < 12);
+        if (near.length > 1) return showPick(e, `這裡有 ${near.length} 隻名犬`, near.map(o => ({ fam: o.id, zh: "★ " + o.name })));
+      }
+      selectFamous(f.id);
+    })
     .on("keydown", (e, f) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selectFamous(f.id); } });
   document.getElementById("famtoggle").addEventListener("click", e => {
     const on = e.currentTarget.getAttribute("aria-pressed") !== "true";
@@ -1384,8 +1392,9 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   });
   function showPick(e, title, list) {
     const [x, y] = d3.pointer(e, app);
-    cpick.innerHTML = `<p>${esc(title)}</p><div class="chips">${list.map(d =>
-      `<button type="button" class="chip ${kind(d) === "local" ? "local" : ""}" data-go="${d.id}">${esc(d.zh)}</button>`).join("")}</div>`;
+    cpick.innerHTML = `<p>${esc(title)}</p><div class="chips">${list.map(d => d.fam
+      ? `<button type="button" class="chip" data-fam="${d.fam}">${esc(d.zh)}</button>`
+      : `<button type="button" class="chip ${kind(d) === "local" ? "local" : ""}" data-go="${d.id}">${esc(d.zh)}</button>`).join("")}</div>`;
     cpick.hidden = false;
     const w = cpick.offsetWidth, h = cpick.offsetHeight;
     cpick.style.left = Math.max(12, Math.min(x - w / 2, W - w - 12)) + "px";
@@ -1393,8 +1402,9 @@ h1 { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-h
   }
   cpick.addEventListener("click", e => {
     e.stopPropagation();
-    const t = e.target.closest("[data-go]"); if (!t) return;
-    cpick.hidden = true; select(t.dataset.go);
+    const t = e.target.closest("[data-go], [data-fam]"); if (!t) return;
+    cpick.hidden = true;
+    if (t.dataset.fam) selectFamous(t.dataset.fam); else select(t.dataset.go);
   });
   document.addEventListener("keydown", e => { if (e.key === "Escape") cpick.hidden = true; });
   zoom.on("zoom.cpick", () => { cpick.hidden = true; });
