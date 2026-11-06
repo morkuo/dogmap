@@ -1,6 +1,6 @@
 // 離線快取：讓網站可以安裝到手機主畫面，沒有網路時也能打開。
 // VERSION 會在 build-pages.sh 時換成這次建置的版本，舊快取會自動清掉。
-const VERSION = "5423cc8-20261106190241";
+const VERSION = "d8366ce-20261106190425";
 const CORE = `dogmap-core-${VERSION}`;
 const RUNTIME = `dogmap-runtime-${VERSION}`;
 const CORE_FILES = ["./", "index.html", "data.js", "world.js", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png"];
