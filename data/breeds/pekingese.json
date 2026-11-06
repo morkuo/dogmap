@@ -1,6 +1,9 @@
 {
   "id": "pekingese",
   "zh": "北京犬",
+  "aliases": [
+    "獅子狗"
+  ],
   "ja": "ペキニーズ",
   "en": "Pekingese",
   "region": "ea",

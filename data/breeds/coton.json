@@ -1,6 +1,9 @@
 {
   "id": "coton",
-  "zh": "棉花面紗犬",
+  "zh": "圖利亞爾棉花犬",
+  "aliases": [
+    "棉花面紗犬"
+  ],
   "ja": "コトン・ド・テュレアール",
   "en": "Coton de Tuléar",
   "region": "af",
@@ -22,7 +25,7 @@
   "note": "梅里納貴族是從 17 世紀還是 19 世紀開始養牠，資料說法不一；「平民養了會被處死」之類的故事也沒有可靠證據。",
   "sources": [
     [
-      "AKC：棉花面紗犬的歷史",
+      "AKC：圖利亞爾棉花犬的歷史",
       "https://www.akc.org/expert-advice/dog-breeds/coton-de-tulear-history/"
     ],
     [

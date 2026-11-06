@@ -1,6 +1,9 @@
 {
   "id": "pwd",
   "zh": "葡萄牙水犬",
+  "aliases": [
+    "葡萄牙水獵犬"
+  ],
   "ja": "ポーチュギーズ・ウォーター・ドッグ",
   "en": "Portuguese Water Dog",
   "region": "eu",
